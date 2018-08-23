@@ -8,25 +8,43 @@ public class Section extends EntityBase {
 	private static final long serialVersionUID = 8760156294505728346L;
 	
 	private int id;
-	private String section;
+	private String sectionTitle;
 
-	public Section() {
+	private Section() {
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getSection() {
-		return section;
+		return sectionTitle;
 	}
 
-	public void setSection(String section) {
-		this.section = section;
+
+	
+	public static Builder newBuilder(){
+		return new Section().new Builder();
+	}
+	
+	public class Builder{
+		
+		private Builder() {
+		}
+		
+		public Builder setId(int id) {
+			Section.this.id = id;
+			return this;
+		}
+
+		public Builder setSection(String sectionTitle) {
+			Section.this.sectionTitle = sectionTitle;
+			return this;
+		}
+		
+		public Section build() {
+			return Section.this;
+		}
 	}
 
 	
@@ -35,7 +53,7 @@ public class Section extends EntityBase {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((section == null) ? 0 : section.hashCode());
+		result = prime * result + ((sectionTitle == null) ? 0 : sectionTitle.hashCode());
 		return result;
 	}
 
@@ -50,17 +68,17 @@ public class Section extends EntityBase {
 		Section other = (Section) obj;
 		if (id != other.id)
 			return false;
-		if (section == null) {
-			if (other.section != null)
+		if (sectionTitle == null) {
+			if (other.sectionTitle != null)
 				return false;
-		} else if (!section.equals(other.section))
+		} else if (!sectionTitle.equals(other.sectionTitle))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Section {" + "id=" + id + ", section=" + section
+		return "Section {" + "id=" + id + ", sectionTitle=" + sectionTitle
 				+ '}';
 	}
 	

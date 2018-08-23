@@ -151,8 +151,6 @@ public class BasketDaoDBImpl implements BasketDao {
 		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_WHERE)){
 
 			ps.setString(1, where);
-			ps.executeUpdate();
-
 			resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -169,19 +167,23 @@ public class BasketDaoDBImpl implements BasketDao {
 	}
 
 	private Basket basketBuilder(ResultSet rs) {
-		Basket basket = new Basket();
+		Basket basket;
 		try {
-			basket.setBuyerId(rs.getInt("id"));
-			basket.setQuantity(rs.getInt("quantity"));
-			basket.setSum(rs.getBigDecimal("sum"));
-			basket.setDateOrders(rs.getDate("dateOrder"));
-			basket.setStatusOrders(rs.getString("statusOrder"));
-			basket.setBuyerId(rs.getInt("fk_buyers"));
-			basket.setGoodId(rs.getInt("fk_goods"));
+			basket=Basket.newBuilder()
+					.setId(rs.getInt("id"))
+					.setQuantity(rs.getInt("quantity"))
+					.setSum(rs.getBigDecimal("sum"))
+			        .setDateOrders(rs.getDate("dateOrder"))
+			        .setStatusOrders(rs.getString("statusOrder"))
+			        .setBuyerId(rs.getInt("fk_buyers"))
+			        .setGoodId(rs.getInt("fk_goods"))
+			        .build();
+			
+			return basket;
 		} catch (SQLException e) {
 			logger.error("SQLException in build method of BasketDaoDBImpl class", e);
 		}
-		return basket;
+		return null;
 	}
 
 	private void close(ResultSet rs) {

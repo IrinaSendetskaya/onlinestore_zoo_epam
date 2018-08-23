@@ -20,8 +20,7 @@ public class Basket extends EntityBase {
 
 
 
-	public Basket() {
-		super();
+	private Basket() {
 
 	}
 	
@@ -29,59 +28,81 @@ public class Basket extends EntityBase {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public int getQuantity() {
 		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	public BigDecimal getSum() {
 		return sum;
 	}
 
-	public void setSum(BigDecimal sum) {
-		this.sum = sum;
-	}
-
 	public Date getDateOrders() {
 		return dateOrders;
-	}
-
-	public void setDateOrders(Date dateOrders) {
-		this.dateOrders = dateOrders;
 	}
 
 	public String getStatusOrders() {
 		return statusOrders;
 	}
 
-	public void setStatusOrders(String statusOrders) {
-		this.statusOrders = statusOrders;
-	}
-
 	public int getBuyerId() {
 		return buyerId;
-	}
-
-	public void setBuyerId(int buyerId) {
-		this.buyerId = buyerId;
 	}
 
 	public int getGoodId() {
 		return goodId;
 	}
-
-	public void setGoodId(int goodId) {
-		this.goodId = goodId;
-	}
-
 	
+	
+	public static Builder newBuilder() {
+		return new Basket().new Builder();
+	}
+	
+	public class Builder {
+		
+		private Builder() {
+			
+		}
+		
+		public Builder setId(int id) {
+			Basket.this.id = id;
+			return this;
+		}
+
+		public Builder setQuantity(int quantity) {
+			Basket.this.quantity = quantity;
+			return this;
+		}
+
+		public Builder setSum(BigDecimal sum) {
+			Basket.this.sum = sum;
+			return this;
+		}
+
+		public Builder setDateOrders(Date dateOrders) {
+			Basket.this.dateOrders = dateOrders;
+			return this;
+		}
+
+		public Builder setStatusOrders(String statusOrders) {
+			Basket.this.statusOrders = statusOrders;
+			return this;
+		}
+
+		public Builder setBuyerId(int buyerId) {
+			Basket.this.buyerId = buyerId;
+			return this;
+		}
+
+		public Builder setGoodId(int goodId) {
+			Basket.this.goodId = goodId;
+			return this;
+		}
+		
+		public Basket build() {
+			return Basket.this;
+		}
+
+	}
 	
 
 

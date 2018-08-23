@@ -13,7 +13,7 @@ public class SpecificationGood extends EntityBase{
 	private int sectionId;
 	private int imageId;
 
-	public SpecificationGood() {
+	private SpecificationGood() {
 
 	}
 
@@ -21,42 +21,65 @@ public class SpecificationGood extends EntityBase{
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public int getSectionId() {
 		return sectionId;
-	}
-
-	public void setSectionId(int sectionId) {
-		this.sectionId = sectionId;
 	}
 
 	public int getImageId() {
 		return imageId;
 	}
 
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
-	}
 
+	
+	
+	public static Builder newBuilder() {
+		return new SpecificationGood().new Builder();
+	}
+	
+	public class Builder{
+		
+		private Builder() {
+		}
+		
+		public Builder setId(int id) {
+			SpecificationGood.this.id = id;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			SpecificationGood.this.name = name;
+			return this;
+		}
+
+		public Builder setDescription(String description) {
+			SpecificationGood.this.description = description;
+			return this;
+		}
+
+		public Builder setSectionId(int sectionId) {
+			SpecificationGood.this.sectionId = sectionId;
+			return this;
+		}
+
+		public Builder setImageId(int imageId) {
+			SpecificationGood.this.imageId = imageId;
+			return this;
+		}
+		
+		public SpecificationGood build() {
+			return SpecificationGood.this;
+		}
+
+	}
+		
 	
 	@Override
 	public int hashCode() {

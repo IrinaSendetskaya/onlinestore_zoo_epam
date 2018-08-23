@@ -45,7 +45,6 @@ class CommandIndex extends Action {
         if (req.getParameter("searchBtn")!= null ) {
 
             String nameSearch=FormUtil.getString(req,"searchInput", ValidationRegex.REGEX_ALL_SYMBOL);
-
             //выводит список товаро только по части слова Поиска
             goods=DAOFactory.getDAO().goodDAO.getAll(" WHERE Name LIKE '%"+nameSearch+"%'");
             for (Good good : goods) {

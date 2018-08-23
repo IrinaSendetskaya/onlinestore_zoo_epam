@@ -14,7 +14,7 @@ public class Good extends EntityBase {
 	private int specificationGoodId;
 	private int measureId;
 
-	public Good() {
+	private Good() {
 		
 	}
 
@@ -22,33 +22,56 @@ public class Good extends EntityBase {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
 	}
 
 	public int getSpecificationGoodId() {
 		return specificationGoodId;
 	}
 
-	public void setSpecificationGoodId(int specificationGoodId) {
-		this.specificationGoodId = specificationGoodId;
-	}
-
 	public int getMeasureId() {
 		return measureId;
 	}
 
-	public void setMeasureId(int measureId) {
-		this.measureId = measureId;
+	
+	
+	public static Builder newBuilder() {
+		return new Good().new Builder();
 	}
+	
+	public class Builder{
+		
+		private Builder() {	
+			
+		}
+		
+		public Builder setId(int id) {
+			Good.this.id = id;
+			return this;
+		}
+
+		public Builder setPrice(BigDecimal price) {
+			Good.this.price = price;
+			return this;
+		}
+
+		public Builder setSpecificationGoodId(int specificationGoodId) {
+			Good.this.specificationGoodId = specificationGoodId;
+			return this;
+		}
+
+		public Builder setMeasureId(int measureId) {
+			Good.this.measureId = measureId;
+			return this;
+		}
+
+		public Good build() {
+			return Good.this;
+		}
+		
+	}
+	
 
 	@Override
 	public int hashCode() {

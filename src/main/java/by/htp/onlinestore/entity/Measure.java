@@ -10,7 +10,7 @@ public class Measure extends EntityBase{
 	private int id;
 	private String size;
 	
-	public Measure() {
+	private Measure() {
 	
 	}
 
@@ -18,16 +18,34 @@ public class Measure extends EntityBase{
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
-		this.size = size;
+
+	
+	public static Builder newBuilder() {
+		return new Measure().new Builder();
+	}
+	
+	public class Builder{
+		
+		private Builder() {
+		}
+		
+		public Builder setId(int id) {
+			Measure.this.id = id;
+			return this;
+		}
+
+		public Builder setSize(String size) {
+			Measure.this.size = size;
+			return this;
+		}
+		
+		public Measure biuld() {
+			return Measure.this;
+		}
 	}
 
 	@Override

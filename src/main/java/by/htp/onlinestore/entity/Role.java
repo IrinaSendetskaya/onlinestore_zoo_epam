@@ -8,33 +8,51 @@ public class Role extends EntityBase {
 	private static final long serialVersionUID = -3054924966756985112L;
 
 	private int id;
-	private String role;
+	private String roleName;
 	
 	
 
-	public Role() {
+	private Role() {
 		
 	}
 
 	public int getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getRole() {
-		return role;
+		return roleName;
 	}
+	
+	
+	
+	public static Builder newBuilder() {
+		return new Role().new Builder();
+	}
+	
+	public class Builder{
+		
+		private Builder() {
+		}
+		
+		public Builder setId(int id) {
+			Role.this.id = id;
+			return this;
+		}
 
-	public void setRole(String role) {
-		this.role = role;
+		public Builder setRole(String roleName) {
+			Role.this.roleName = roleName;
+			return this;
+		}
+		
+		public Role build() {
+			return Role.this;
+		}
 	}
 
 	@Override
 	public String toString() {
-		return "Role {" + "id=" + id + ", role=" + role + '}';
+		return "Role {" + "id=" + id + ", roleName=" + roleName + '}';
 	}
 	
 	@Override
@@ -42,7 +60,7 @@ public class Role extends EntityBase {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
 		return result;
 	}
 
@@ -57,10 +75,10 @@ public class Role extends EntityBase {
 		Role other = (Role) obj;
 		if (id != other.id)
 			return false;
-		if (role == null) {
-			if (other.role != null)
+		if (roleName == null) {
+			if (other.roleName != null)
 				return false;
-		} else if (!role.equals(other.role))
+		} else if (!roleName.equals(other.roleName))
 			return false;
 		return true;
 	}

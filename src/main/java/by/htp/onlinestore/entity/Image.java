@@ -8,9 +8,9 @@ public class Image extends EntityBase {
 	private static final long serialVersionUID = 3583899817792581954L;
 
 	private int id;
-	private String image;
+	private String imageUrl;
 	
-	public Image() {
+	private Image() {
 
 	}
 
@@ -18,16 +18,34 @@ public class Image extends EntityBase {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getImage() {
-		return image;
+		return imageUrl;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	
+	
+	public static Builder newBuilder() {
+		return new Image().new Builder();
+	}
+	
+	public class Builder{
+		
+		private Builder() {
+		}
+		
+		public Builder setId(int id) {
+			Image.this.id = id;
+			return this;
+		}
+
+		public Builder setImage(String imageUrl) {
+			Image.this.imageUrl = imageUrl;
+			return this;
+		}
+		
+		public Image build() {
+			return Image.this;
+		}
 	}
 
 	@Override
@@ -35,7 +53,7 @@ public class Image extends EntityBase {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
 		return result;
 	}
 
@@ -50,17 +68,17 @@ public class Image extends EntityBase {
 		Image other = (Image) obj;
 		if (id != other.id)
 			return false;
-		if (image == null) {
-			if (other.image != null)
+		if (imageUrl == null) {
+			if (other.imageUrl != null)
 				return false;
-		} else if (!image.equals(other.image))
+		} else if (!imageUrl.equals(other.imageUrl))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Image {" + "id=" + id + ", linkImage=" + image
+		return "Image {" + "id=" + id + ", linkImage=" + imageUrl
 				+'}';
 	}
 }
