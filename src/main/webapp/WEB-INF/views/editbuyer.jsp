@@ -37,26 +37,26 @@
             <form class="update-user-${buyer.id}" action="do?command=EditBuyer" method=POST>
                 <div class="row">
                     <div class=col-md-1>
-                        <input id="id" class="form-control input-md" name="ID"
+                        <input id="id" class="form-control input-md" name="id"
                                value="${buyer.id}"/>
                     </div>
                     <div class=col-md-2>
-                        <input id="nickname" class="form-control input-md" name="Nickname"
+                        <input id="nickname" class="form-control input-md" name="nickname"
                                value="${buyer.nickname}"/>
                     </div>
                     <div class=col-md-2>
-                        <input id="password" class="form-control input-md" name="Password"
+                        <input id="password" class="form-control input-md" name="password"
                                value="${buyer.password}"/>
                     </div>
                     <div class=col-md-2>
-                        <input id="email" class="form-control input-md" name="Email"
+                        <input id="email" class="form-control input-md" name="email"
                                value="${buyer.email}"/>
                     </div>
 
                     <div class=col-md-2>
-                        <select id="role" name="FK_roles" class="form-control">
+                        <select id="role" name="fk_roles" class="form-control">
                             <c:forEach items="${roles}" var="role">
-                                <option value="${role.id}" role=${role.id} ${role.id==buyer.fk_roles?"selected":""}>
+                                <option value="${role.id}" role=${role.id} ${role.id==buyer.roleId?"selected":""}>
                                         ${role.role}
                                 </option>
                             </c:forEach>
@@ -64,13 +64,13 @@
                     </div>
 
                     <div class=col-md-1>
-                        <button id="Update" value="Update" name="Update" class="btn btn-success">
+                        <button id="btnUpdateBuyer" value="btnUpdateBuyer" name="btnUpdateBuyer" class="btn btn-success">
                             Обновить
                         </button>
                     </div>
 
                     <div class=col-md-1>
-                        <button id="Delete" value="Delete" name="Delete" class="btn btn-danger">
+                        <button id="btnDeleteBuyer" value="btnDeleteBuyer" name="btnDeleteBuyer" class="btn btn-danger">
                             Удалить
                         </button>
                     </div>

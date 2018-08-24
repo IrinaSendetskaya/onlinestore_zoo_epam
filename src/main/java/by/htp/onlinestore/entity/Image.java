@@ -18,7 +18,7 @@ public class Image extends EntityBase {
 		return id;
 	}
 
-	public String getImage() {
+	public String getImageUrl() {
 		return imageUrl;
 	}
 
@@ -38,7 +38,7 @@ public class Image extends EntityBase {
 			return this;
 		}
 
-		public Builder setImage(String imageUrl) {
+		public Builder setImageUrl(String imageUrl) {
 			Image.this.imageUrl = imageUrl;
 			return this;
 		}

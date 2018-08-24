@@ -11,7 +11,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="<c:url value="../resources/css/bootstrap.min.css"/>">
+<link rel="stylesheet"
+	href="<c:url value="resources/css/bootstrap.min.css"/>">
 
 <title>Интернет-магазин</title>
 </head>
@@ -64,25 +65,36 @@
 					<c:forEach items="${specificationsGoods}" var="specificationGoods">
 						<%-- <form class="update-good-${specificationGoods.id}" action="do?command=Index"
 							method=POST> --%>
-							<div class="row">
+						<div class="row">
 
-								<div class="col-md-2">
-									<input id="price" class="form-control input-md" name="price"
-										class="form-control" value="${specificationGoods.name}" />
-								</div>
-								<div class="col-md-1">${specificationGoods.sectionId}</div>
-								<div class="col-md-3">${specificationGoods.description}</div>
-								<div class="col-md-3">${specificationGoods.imageId}</div>
-
+							<div class="col-md-2">
+								<input id="price" class="form-control input-md" name="price"
+									class="form-control" value="${specificationGoods.name}" />
 							</div>
+							<div class="col-md-1">${specificationGoods.sectionId}</div>
+							<div class="col-md-3">${specificationGoods.description}</div>
+
+							<div class="col-md-1">
+								<input id="id" class="form-control input-md" name="id"
+									type="hidden" class="form-control"
+									value="${specificationGoods.imageId}" />
+							</div>
+
+							<c:forEach items="${images}" var="image">
+								<div class="row">
+									<div class="col-md-2">${image.imageUrl}</div>
+								</div>
+							</c:forEach>
+
+						</div>
 
 						<!-- </form> -->
 
 					</c:forEach>
 
-					<c:if test="${buyer.fk_roles!=3}">
+					<c:if test="${buyer.roleId!=3}">
 						<div class="col-md-1">
-							<button id="Update" value="Update" name="Update"
+							<button id="btnInBasket" value="btnInBasket" name="btnInBasket"
 								class="btn btn-success">В корзину</button>
 						</div>
 					</c:if>

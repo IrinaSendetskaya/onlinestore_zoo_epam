@@ -29,9 +29,9 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Nickname">Nickname</label>
+            <label class="col-md-4 control-label" for="nickname">Nickname</label>
             <div class="col-md-4">
-                <input id="Nickname" name="Nickname" type="text" placeholder="" class="form-control input-md" required=""
+                <input id="nickname" name="nickname" type="text" placeholder="" class="form-control input-md" required=""
                        value="${buyer.nickname}">
                 <span class="help-block">Nickname (hint)</span>
             </div>
@@ -39,9 +39,9 @@
 
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Password">Password Input</label>
+            <label class="col-md-4 control-label" for="password">Password Input</label>
             <div class="col-md-4">
-                <input id="Password" name="Password" type="text" placeholder="placeholder" class="form-control input-md" required=""
+                <input id="password" name="password" type="text" placeholder="placeholder" class="form-control input-md" required=""
                        value="${buyer.password}">
                 <span class="help-block">(min 6 symbols)</span>
             </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Изменить</button>
+                <button id="btnChangeProfile" name="btnChangeProfile" class="btn btn-primary">Изменить</button>
             </div>
         </div>
 

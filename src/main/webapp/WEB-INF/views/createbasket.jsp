@@ -111,12 +111,12 @@
 								</div>
 
 								<div class=col-md-1>
-									<button id="Update" value="Update" name="Update"
+									<button id="btnUpdateGoodInBasket" value="btnUpdateGoodInBasket" name="btnUpdateGoodInBasket"
 										class="btn btn-success">Изменить</button>
 								</div>
 
 								<div class=col-md-1>
-									<button id="Delete" value="Delete" name="Delete"
+									<button id="btnDeleteGoodInBasket" value="btnDeleteGoodInBasket" name="btnDeleteGoodInBasket"
 										class="btn btn-danger">Удалить</button>
 								</div>
 
@@ -131,7 +131,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="postbutton"></label>
 				<div class="col-md-4">
-					<button id="ready" value="ready" name="ready"
+					<button id="btnMakeOrder" value="btnMakeOrder" name="btnMakeOrder"
 						class="btn btn-primary">Оформить</button>
 				</div>
 			</div>

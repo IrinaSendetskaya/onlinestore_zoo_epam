@@ -3,7 +3,6 @@ package by.htp.onlinestore.util;
 import javax.servlet.http.HttpServletRequest;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 
 public class FormUtil {

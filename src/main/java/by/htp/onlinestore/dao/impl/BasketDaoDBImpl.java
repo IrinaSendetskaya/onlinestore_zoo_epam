@@ -15,6 +15,7 @@ import java.sql.Statement;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.BasketDao;
 import by.htp.onlinestore.entity.Basket;
+import by.htp.onlinestore.util.BasketFieldConstantDeclaration;
 
 public class BasketDaoDBImpl implements BasketDao {
 
@@ -170,13 +171,12 @@ public class BasketDaoDBImpl implements BasketDao {
 		Basket basket;
 		try {
 			basket=Basket.newBuilder()
-					.setId(rs.getInt("id"))
-					.setQuantity(rs.getInt("quantity"))
-					.setSum(rs.getBigDecimal("sum"))
-			        .setDateOrders(rs.getDate("dateOrder"))
-			        .setStatusOrders(rs.getString("statusOrder"))
-			        .setBuyerId(rs.getInt("fk_buyers"))
-			        .setGoodId(rs.getInt("fk_goods"))
+					.setId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID))
+					.setQuantity(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY))
+					.setSum(rs.getBigDecimal(BasketFieldConstantDeclaration.REQUEST_PARAM_SUM))
+			        .setDateOrders(rs.getDate(BasketFieldConstantDeclaration.REQUEST_PARAM_DATE_ORDER))
+			        .setBuyerId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID))
+			        .setGoodId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID))
 			        .build();
 			
 			return basket;

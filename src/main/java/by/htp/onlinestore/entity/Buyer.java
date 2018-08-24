@@ -13,7 +13,7 @@ public class Buyer extends EntityBase {
 	private String password;
 	private String mobile;
 	private String address;
-	private int fk_roles;
+	private int roleId;
 
 	private Buyer() {
 
@@ -44,7 +44,7 @@ public class Buyer extends EntityBase {
 	}
 
 	public int getRoleId() {
-		return fk_roles;
+		return roleId;
 	}
 
 
@@ -88,8 +88,8 @@ public class Buyer extends EntityBase {
 			return this;
 		}
 
-		public Builder setRoleId(int fk_roles) {
-			Buyer.this.fk_roles = fk_roles;
+		public Builder setRoleId(int roleId) {
+			Buyer.this.roleId = roleId;
 			return this;
 		}
 		
@@ -108,7 +108,7 @@ public class Buyer extends EntityBase {
 		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + fk_roles;
+		result = prime * result + roleId;
 		return result;
 	}
 
@@ -148,7 +148,7 @@ public class Buyer extends EntityBase {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (fk_roles != other.fk_roles)
+		if (roleId != other.roleId)
 			return false;
 		return true;
 	}
@@ -156,7 +156,7 @@ public class Buyer extends EntityBase {
 	@Override
 	public String toString() {
 		return "Buyer {" + "id=" + id + ", email=" + email + ", nickname=" + nickname + ", " + "password=" + password
-				+ ", mobile=" + mobile + ", address=" + address + ", roleId=" + fk_roles + '}';
+				+ ", mobile=" + mobile + ", address=" + address + ", roleId=" + roleId + '}';
 	}
 	
 	

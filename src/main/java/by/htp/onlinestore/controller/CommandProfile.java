@@ -44,7 +44,7 @@ class CommandProfile extends Action {
         }
 
         List<Basket> baskets = DAOFactory.getDAO().basketDAO.getAll(
-                "where fk_buyers='" + buyer.getId() + "'"
+                "where fk_buyers='+ buyer.getId() +'"
         );
         req.setAttribute("baskets", baskets);
         return null;

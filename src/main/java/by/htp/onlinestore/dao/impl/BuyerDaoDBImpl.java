@@ -72,6 +72,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			ps.setString(4, buyer.getMobile());
 			ps.setString(5, buyer.getAddress());
 			ps.setInt(6, buyer.getRoleId());
+			ps.setInt(7, buyer.getId());
 
 			ps.executeUpdate();
 
@@ -181,7 +182,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of BuyerDaoDBImpl class", e);
-		} finally {
+			} finally {
 			DBConnectionHelper.disconnect(connection);
 			close(resultSet);
 		}

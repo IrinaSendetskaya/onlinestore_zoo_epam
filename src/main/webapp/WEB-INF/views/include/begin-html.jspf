@@ -8,8 +8,8 @@
 
 
 <c:if test="${buyer!=null}">
-<c:out value="Добро пожаловать, "></c:out>
-<c:out value="${buyer.nickname}"></c:out>
+	<c:out value="Добро пожаловать, "></c:out>
+	<c:out value="${buyer.nickname}"></c:out>
 </c:if>
 
 
@@ -29,7 +29,7 @@
 					href="do?command=Index">Каталог товаров <span class="sr-only">(current)</span></a>
 				</li>
 
-				<c:if test="${buyer!=null && buyer.fk_roles==1}">
+				<c:if test="${buyer!=null && buyer.roleId==1}">
 
 					<li class="nav-item"><a class="nav-link"
 						href="do?command=ResetDB">Сброс БД</a></li>
@@ -45,7 +45,7 @@
 				class="form-control input-md" type="search" placeholder="Search"
 				aria-label="Search">
 
-			<button id="searchBtn" name="searchBtn"
+			<button id="btnSearch" name="btnSearch"
 				class="btn btn-outline-success my-1 my-sm-0" href="do?command=Index"
 				type="submit">Search</button>
 		</form>
@@ -65,7 +65,7 @@
 					</c:when>
 					<c:otherwise>
 
-						<c:if test="${buyer.fk_roles!=3}">
+						<c:if test="${buyer.roleId!=3}">
 							<li class="nav-item active"><a class="nav-link"
 								href="do?command=Profile">Личный кабинет <span
 									class="sr-only">(current)</span></a></li>
@@ -81,4 +81,3 @@
 			</ul>
 		</nav>
 	</nav>
-

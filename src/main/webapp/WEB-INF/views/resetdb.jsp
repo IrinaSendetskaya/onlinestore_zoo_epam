@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-primary">Reset (or create) DB</button>
+                <button id="btnResetDB" name="btnResetDB" class="btn btn-primary">Reset (or create) DB</button>
             </div>
         </div>
 
