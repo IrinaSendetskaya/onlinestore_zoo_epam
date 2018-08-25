@@ -1,8 +1,9 @@
 package by.htp.onlinestore.util;
 
-public class ValidationRegex {
+public final class ValidationRegex {
 
-	public ValidationRegex() {
+	
+	private ValidationRegex() {
 
 	}
 	
