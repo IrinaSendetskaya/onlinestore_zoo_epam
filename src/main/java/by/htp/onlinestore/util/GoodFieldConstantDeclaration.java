@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class GoodFieldConstantDeclaration {
+public final class GoodFieldConstantDeclaration {
 
-	public GoodFieldConstantDeclaration() {
+	private GoodFieldConstantDeclaration() {
 
 	}
 	

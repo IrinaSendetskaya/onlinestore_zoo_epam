@@ -1,6 +1,6 @@
 package by.htp.onlinestore.util;
 
-public class WebConstantDeclaration {
+public final class WebConstantDeclaration {
 
 	public static final String REQUEST_PARAM_ACTION="action";
 
@@ -8,7 +8,7 @@ public class WebConstantDeclaration {
 	public static final String PAGE_CREATE_ORDER="/createorder.jsp";
 	
 
-	public WebConstantDeclaration() {
+	private WebConstantDeclaration() {
 		
 	}
 

@@ -32,21 +32,19 @@
 				<c:if test="${buyer!=null && buyer.roleId==1}">
 
 					<li class="nav-item"><a class="nav-link"
-						href="do?command=ResetDB">Сброс БД</a></li>
-					<li class="nav-item"><a class="nav-link"
 						href="do?command=EditBuyer">Редактирование пользователей</a></li>
 				</c:if>
 			</ul>
 		</div>
 
-		<form class="form-inline my-1 my-lg-0">
+		<form class="form-inline my-1 my-lg-0" action="do?command=Index">
 
 			<input id="searchInput" name="searchInput"
 				class="form-control input-md" type="search" placeholder="Search"
 				aria-label="Search">
 
 			<button id="btnSearch" name="btnSearch"
-				class="btn btn-outline-success my-1 my-sm-0" href="do?command=Index"
+				class="btn btn-outline-success my-1 my-sm-0" 
 				type="submit">Search</button>
 		</form>
 

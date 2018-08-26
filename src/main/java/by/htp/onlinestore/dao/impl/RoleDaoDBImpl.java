@@ -27,7 +27,6 @@ public class RoleDaoDBImpl implements RoleDao {
 	private static final String SQL_DELETE="DELETE FROM `Roles` WHERE `id`=?";
 	private static final String SQL_READ_ID="SELECT `id`, `role` FROM `Roles` WHERE `id`=?";
 	private static final String SQL_READ_ALL="SELECT `id`, `role` FROM `Roles`";
-	private static final String SQL_READ_WHERE="SELECT `id`, `role` FROM `Roles` WHERE ? ";
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 	
@@ -130,29 +129,6 @@ public class RoleDaoDBImpl implements RoleDao {
 		return roleList;
 	}
 
-	@Override
-	public List<Role> getAll(String where) {
-		
-		List<Role> roleList = new ArrayList<>();
-		
-		try(Connection connection=DBConnectionHelper.connect();
-				PreparedStatement ps=connection.prepareStatement(SQL_READ_WHERE)
-						){
-			ps.setString(1, where);
-			resultSet=ps.executeQuery();
-			
-			while(resultSet.next()) {
-				roleList.add(roleBuilder(resultSet));
-			}
-		} catch (SQLException e) {
-			logger.error("SQLException in readwhere method of RoleDaoDBImpl class", e);
-		} finally {
-			DBConnectionHelper.disconnect(connection);
-			close(resultSet);
-		}
-		
-		return roleList;
-	}
 	
 	private Role roleBuilder(ResultSet rs) {
 		Role role;

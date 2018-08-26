@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class ExceptionMessageConstantDeclaration {
+public final class ExceptionMessageConstantDeclaration {
 
-	public ExceptionMessageConstantDeclaration() {
+	private ExceptionMessageConstantDeclaration() {
 
 	}
 

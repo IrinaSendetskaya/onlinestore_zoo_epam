@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="nickname">Nickname</label>
             <div class="col-md-4">
-                <input id="nickname" name="nickname" type="text" placeholder="" class="form-control input-md" required=""
+                <input id="nickname" name="nickname" type="text" placeholder="" class="form-control input-md"
                        value="${buyer.nickname}">
                 <span class="help-block">Nickname (hint)</span>
             </div>
@@ -41,9 +41,36 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">Password Input</label>
             <div class="col-md-4">
-                <input id="password" name="password" type="text" placeholder="placeholder" class="form-control input-md" required=""
+                <input id="password" name="password" type="text" placeholder="placeholder" class="form-control input-md"
                        value="${buyer.password}">
-                <span class="help-block">(min 6 symbols)</span>
+                <span class="help-block">(min 4 symbols)</span>
+            </div>
+        </div>
+        
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email">Email Input</label>
+            <div class="col-md-4">
+                <input id="email" name="email" type="text" placeholder="placeholder" class="form-control input-md"
+                       value="${buyer.email}">
+            </div>
+        </div>
+        
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="mobile">Mobile Input</label>
+            <div class="col-md-4">
+                <input id="mobile" name="mobile" type="text" placeholder="placeholder" class="form-control input-md"
+                       value="${buyer.mobile}">
+            </div>
+        </div>
+        
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="address">Address Input</label>
+            <div class="col-md-4">
+                <input id="address" name="address" type="text" placeholder="placeholder" class="form-control input-md"
+                       value="${buyer.address}">
             </div>
         </div>
 
@@ -65,8 +92,10 @@
 
 <div class="row">
    <div class="col-md-1">№</div>
-   <div class="col-md-2">Количество</div>
+   <div class="col-md-1">Количество</div>
    <div class="col-md-1">Сумма</div>
+   <div class="col-md-1">Дата заказа</div>
+   <div class="col-md-1">Статус заказа</div>
    <div class="col-md-2">№ покупателя</div>
    <div class="col-md-2">№ товара</div>
 
@@ -77,10 +106,12 @@
    <br>
    <div class="row">
       <div class="col-md-1">${basket.id}</div>
-      <div class="col-md-2">${basket.quantity}</div>
+      <div class="col-md-1">${basket.quantity}</div>
       <div class="col-md-1">${basket.sum}</div>
-      <div class="col-md-2">${basket.fk_buyers}</div>
-      <div class="col-md-2">${basket.fk_goods}</div>
+      <div class="col-md-1">${basket.dateOrders}</div>
+      <div class="col-md-1">${basket.statusOrders}</div>
+      <div class="col-md-2">${basket.buyerId}</div>
+      <div class="col-md-2">${basket.goodId}</div>
 
 
    </div>

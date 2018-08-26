@@ -15,6 +15,7 @@ public final class DBConnectionHelper {
 	private static final String DB_CONNECT_LOGIN="db.login";
 	private static final String DB_CONNECT_PASS="db.pass";
 	private static final String DB_CONNECT_DRIVER="db.driver";
+
 	
 	private static final Logger logger=LoggerFactory.getLogger(DBConnectionHelper.class);
 
@@ -40,9 +41,7 @@ public final class DBConnectionHelper {
 			}
 			
 		}  catch (SQLException | ClassNotFoundException e) {
-			System.out.println("Соединение не установлено!");
-			//log
-			logger.error("Error! Соединение не установлено! Error: "+e.getMessage());
+			logger.error("Error! Соединение не установлено! Error: ",e);
 		}
 		return connection;
 	}
@@ -54,9 +53,7 @@ public final class DBConnectionHelper {
 				connection.close();
 			}
 			catch (SQLException e) {
-				System.out.println("Соединение не закрыто!");
-				//log
-				logger.error("Error! Соединение не закрыто! Error: "+e.getMessage());
+				logger.error("Error! Соединение не закрыто! Error: ",e);
 			}
 		}
 	}

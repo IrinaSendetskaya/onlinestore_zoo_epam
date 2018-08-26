@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class MeasureFieldConstantDeclaration {
+public final class MeasureFieldConstantDeclaration {
 
-	public MeasureFieldConstantDeclaration() {
+	private MeasureFieldConstantDeclaration() {
 
 	}
 	

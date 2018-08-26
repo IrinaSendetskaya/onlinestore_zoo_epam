@@ -3,10 +3,11 @@ package by.htp.onlinestore.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CommandLogout extends Action {
+public class CommandLogout extends Command {
+	
     @Override
-    public Action execute(HttpServletRequest req, HttpServletResponse resp) {
+    public Command execute(HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().invalidate();
-        return Actions.LOGIN.command;
+        return NameCommands.LOGIN.command;
     }
 }

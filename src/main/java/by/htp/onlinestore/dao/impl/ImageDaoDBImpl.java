@@ -26,7 +26,6 @@ public class ImageDaoDBImpl implements ImageDao {
 	private static final String SQL_DELETE="DELETE FROM `Images` WHERE `id`=?";
 	private static final String SQL_READ_ID="SELECT `id`, `imageUrl` FROM `Images` WHERE `id`=?";
 	private static final String SQL_READ_ALL="SELECT `id`, `imageUrl` FROM `Images`";
-	private static final String SQL_READ_WHERE="SELECT `id`, `imageUrl` FROM `Images` WHERE ? ";
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 	
@@ -134,30 +133,6 @@ public class ImageDaoDBImpl implements ImageDao {
 		return imageList;
 	}
 
-	@Override
-	public List<Image> getAll(String where) {
-		
-		List<Image> imageList = new ArrayList<>();
-		
-		try(Connection connection=DBConnectionHelper.connect();
-				PreparedStatement ps=connection.prepareStatement(SQL_READ_WHERE)
-						){
-			
-			ps.setString(1, where);
-			resultSet=ps.executeQuery();
-			
-			while(resultSet.next()) {
-				imageList.add(imageBuilder(resultSet));
-			}
-			
-		} catch (SQLException e) {
-			logger.error("SQLException in readwhere method of ImageDaoDBImpl class", e);
-		} finally {
-			DBConnectionHelper.disconnect(connection);
-			close(resultSet);
-		}		
-		return imageList;
-	}
 	
 	private Image imageBuilder(ResultSet rs) {
 		

@@ -26,7 +26,6 @@ public class MeasureDaoDBImpl implements MeasureDao {
 	private static final String SQL_DELETE="DELETE FROM `Measures` WHERE `id`=?";
 	private static final String SQL_READ_ID="SELECT `id`, `size` FROM `Measures` WHERE `id`=?";
 	private static final String SQL_READ_ALL="SELECT `id`, `size` FROM `Measures`";
-	private static final String SQL_READ_WHERE="SELECT `id`, `size` FROM `Measures` WHERE ? ";
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 	
@@ -135,30 +134,6 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		return measureList;
 	}
 
-	@Override
-	public List<Measure> getAll(String where) {
-		
-		List<Measure> measureList = new ArrayList<>();
-		
-		try(Connection connection=DBConnectionHelper.connect();
-				PreparedStatement ps=connection.prepareStatement(SQL_READ_WHERE)
-						){
-			
-			ps.setString(1, where);
-			resultSet=ps.executeQuery();
-			
-			while(resultSet.next()) {
-				measureList.add(measureBuilder(resultSet));
-			}
-			
-		} catch (SQLException e) {
-			logger.error("SQLException in readwhere method of MeasureDaoDBImpl class", e);
-		} finally {
-			DBConnectionHelper.disconnect(connection);
-			close(resultSet);
-		}		
-		return measureList;
-	}
 	
 	private Measure measureBuilder(ResultSet rs) {
 		

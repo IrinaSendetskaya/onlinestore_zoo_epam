@@ -26,7 +26,6 @@ public class SectionDaoDBImpl implements SectionDao {
 	private static final String SQL_DELETE="DELETE FROM `Sections` WHERE `id`=?";
 	private static final String SQL_READ_ID="SELECT `id`, `section` FROM `Sections` WHERE `id`=?";
 	private static final String SQL_READ_ALL="SELECT `id`, `section` FROM `Sections`";
-	private static final String SQL_READ_WHERE="SELECT `id`, `section` FROM `Sections` WHERE ? ";
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
@@ -129,29 +128,6 @@ public class SectionDaoDBImpl implements SectionDao {
 		return sectionList;
 	}
 
-	@Override
-	public List<Section> getAll(String where) {
-		
-		List<Section> sectionList = new ArrayList<>();
-		
-		try(Connection connection=DBConnectionHelper.connect();
-				PreparedStatement ps=connection.prepareStatement(SQL_READ_WHERE)
-						){
-			ps.setString(1, where);
-			resultSet=ps.executeQuery();
-			
-			while(resultSet.next()) {
-				sectionList.add(sectionBuilder(resultSet));
-			}
-		} catch (SQLException e) {
-			logger.error("SQLException in readwhere method of SectionDaoDBImpl class", e);
-		} finally {
-			DBConnectionHelper.disconnect(connection);
-			close(resultSet);
-		}
-		
-		return sectionList;
-	}
 	
 	private Section sectionBuilder(ResultSet rs) {
 		Section section;

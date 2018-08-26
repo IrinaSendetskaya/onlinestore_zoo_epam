@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class MessageConstantDeclaration {
+public final class MessageConstantDeclaration {
 
-	public MessageConstantDeclaration() {
+	private MessageConstantDeclaration() {
 
 	}
 

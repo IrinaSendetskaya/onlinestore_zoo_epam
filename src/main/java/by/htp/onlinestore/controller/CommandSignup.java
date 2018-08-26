@@ -13,10 +13,10 @@ import by.htp.onlinestore.util.ValidationRegex;
 
 import java.text.ParseException;
 
-public class CommandSignup extends Action {
+public class CommandSignup extends Command {
 
     @Override
-    public Action execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException {
+    public Command execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException {
 
         if (!FormUtil.isPost(req))
             return null;
@@ -48,7 +48,7 @@ public class CommandSignup extends Action {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Пользователь зарегестрирован");
             HttpSession session = req.getSession();
             session.setAttribute("buyer", newBuyer);
-            return Actions.LOGIN.command;
+            return NameCommands.LOGIN.command;
         }
 
         else {

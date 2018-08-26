@@ -25,9 +25,11 @@
 <div class="container">
     <div class="row">
             <div class=col-md-1>ID</div>
-            <div class=col-md-2>Имя</div>
-            <div class=col-md-2>Пароль</div>
+            <div class=col-md-1>Имя</div>
+            <div class=col-md-1>Пароль</div>
             <div class=col-md-2>Email</div>
+            <div class=col-md-1>Mobile</div>
+            <div class=col-md-2>Address</div>
             <div class=col-md-2>Роль</div>
     </div>
 </div>
@@ -40,17 +42,25 @@
                         <input id="id" class="form-control input-md" name="id"
                                value="${buyer.id}"/>
                     </div>
-                    <div class=col-md-2>
+                    <div class=col-md-1>
                         <input id="nickname" class="form-control input-md" name="nickname"
                                value="${buyer.nickname}"/>
                     </div>
-                    <div class=col-md-2>
+                    <div class=col-md-1>
                         <input id="password" class="form-control input-md" name="password"
                                value="${buyer.password}"/>
                     </div>
                     <div class=col-md-2>
                         <input id="email" class="form-control input-md" name="email"
                                value="${buyer.email}"/>
+                    </div>
+                    <div class=col-md-1>
+                        <input id="mobile" class="form-control input-md" name="mobile"
+                               value="${buyer.mobile}"/>
+                    </div>
+                    <div class=col-md-2>
+                        <input id="address" class="form-control input-md" name="address"
+                               value="${buyer.address}"/>
                     </div>
 
                     <div class=col-md-2>

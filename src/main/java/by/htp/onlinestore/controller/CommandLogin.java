@@ -20,17 +20,17 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-public class CommandLogin extends Action{
+public class CommandLogin extends Command{
 	
     @Override
-    public Action execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException, SQLException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
+    public Command execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException, SQLException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
 
         if (!FormUtil.isPost(req))
             return null;
 
         if (req.getParameter(BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN).equals("")) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Введите имя пользователя и пароль");
-            return Actions.LOGIN.command;
+            return NameCommands.LOGIN.command;
         }
 
         String nickname= FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN, ValidationRegex.REGEX_LOGIN);
@@ -44,12 +44,12 @@ public class CommandLogin extends Action{
             HttpSession session = req.getSession();
             session.setAttribute("buyer",currentBuyer);
            // Cookies.setCookie(resp, list.get(0));
-            return Actions.INDEX.command;
+            return NameCommands.INDEX.command;
         }
         else {
             req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "пользователь " + nickname + " НЕ найден");
             req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "Неверный логин или пароль");
-            return Actions.LOGIN.command;
+            return NameCommands.LOGIN.command;
         }
     }
 }

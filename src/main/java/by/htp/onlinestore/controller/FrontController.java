@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.onlinestore.util.ExceptionMessageConstantDeclaration;
 import by.htp.onlinestore.util.MessageConstantDeclaration;
 
 import java.io.IOException;
@@ -34,9 +33,9 @@ public class FrontController extends HttpServlet {
     }
 
     private void process (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ActionFactory actionFactory=new ActionFactory();
-        Action command = actionFactory.defineCommand(req);
-        Action nextStep=null;
+    	CommandFactory actionFactory=new CommandFactory();
+        Command command = actionFactory.defineCommand(req);
+        Command nextStep=null;
         RequestDispatcher dispatcher=null;
         ServletContext servletContext=getServletContext();
 
@@ -44,15 +43,15 @@ public class FrontController extends HttpServlet {
             nextStep = command.execute(req,resp);
         } catch (Exception e) {
             req.setAttribute(MessageConstantDeclaration.MSG_ERROR,"Ошибка:"+e.getMessage());
-            String errorJsp=Actions.ERROR.command.getJsp();
+            String errorJsp=NameCommands.ERROR.command.getJsp();
             dispatcher=servletContext.getRequestDispatcher(errorJsp);
             logger.error("Exception in process method of FrontController class", e);
         }
-        if(nextStep==null||nextStep==command)
+        if(nextStep==null || nextStep.equals(command))
         {
             String viewJsp=command.getJsp();
             dispatcher=servletContext.getRequestDispatcher(viewJsp);
-            dispatcher.forward(req,resp);
+            dispatcher.forward(req,resp); 
         }
         else //redirect
         {

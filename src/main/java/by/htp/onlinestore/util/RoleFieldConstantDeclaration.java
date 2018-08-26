@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class RoleFieldConstantDeclaration {
+public final class RoleFieldConstantDeclaration {
 
-	public RoleFieldConstantDeclaration() {
+	private RoleFieldConstantDeclaration() {
 
 	}
 	

@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class BuyerFieldConstantDeclaration {
+public final class BuyerFieldConstantDeclaration {
 
-	public BuyerFieldConstantDeclaration() {
+	private BuyerFieldConstantDeclaration() {
 
 	}
 	

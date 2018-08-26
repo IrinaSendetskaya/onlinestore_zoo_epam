@@ -40,8 +40,8 @@
 					action="do?command=CreateBasket" method=POST>
 					<div class="row">
 						<div class="col-md-2">№ заказа</div>
-						<div class="col-md-2">Количество</div>
-						<div class="col-md-1">Сумма</div>
+						<div class="col-md-1">Количество</div>
+						<div class="col-md-2">Сумма</div>
 						<div class="col-md-2">№ покупателя</div>
 
 
@@ -66,7 +66,7 @@
 						</div>
 						<div class=col-md-2>
 							<input id="fk_buyers" class="form-control input-md"
-								name="FK_buyers" value="${basket.fk_buyers}" />
+								name="FK_buyers" value="${basket.buyerId}" />
 						</div>
 
 						<br>
@@ -86,20 +86,19 @@
 							<div class="row">
 								<div class=col-md-7>
 									<input id="fk_goods" class="form-control input-md"
-										name="FK_goods" value="${basket.fk_goods}" /> <select
+										name="FK_goods" value="${basket.goodId}" /> <select
 										id="good" name="FK_goods" class="form-control">
 										<c:forEach items="${goods}" var="good">
 											<form class="update-good-${good.id}">
 
 												<option value="${good.id}" good=${good.id
-													} ${good.id==basket.fk_goods?"selected":""}>
+													} ${good.id==basket.goodId?"selected":""}>
 
-                                           <div class="col-md-2">${good.name}</div>
+                                           <%-- <div class="col-md-2">${good.name}</div> --%>
                                            <div class="col-md-1">${good.price}</div>
-                                           <div class="col-md-1">${good.size}</div>
-                                           <div class="col-md-1">${good.colour}</div>
-                                           <div class="col-md-2">${good.structure}</div>
-                                           <div class="col-md-3">${good.description}</div>
+                                           <div class="col-md-1">${good.specificationGoodId}</div>
+                                           <div class="col-md-1">${good.measureId}</div>
+             
 
                                       </option>
 

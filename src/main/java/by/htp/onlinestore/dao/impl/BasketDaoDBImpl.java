@@ -23,16 +23,16 @@ public class BasketDaoDBImpl implements BasketDao {
 	private ResultSet resultSet = null;
 
 	private static final String SQL_INSERT = "INSERT INTO `Baskets`(`quantity`, "
-			+ "`sum`, `dateOrder`, `statusOrder`, `fk_buyers`, `fk_goods`) VALUES " + "(?,?,?,?,?,?)";
+			+ "`sum`, `dateOrder`, `status`, `fk_buyers`, `fk_goods`) VALUES " + "(?,?,?,?,?,?)";
 	private static final String SQL_UPDATE = "UPDATE `Baskets` SET `quantity`=?,"
-			+ "`sum`=?,`dateOrder`=?,`statusOrder`=?,`fk_buyers`=?,`fk_goods`=? WHERE `id`=?";
+			+ "`sum`=?,`dateOrder`=?,`status`=?,`fk_buyers`=?,`fk_goods`=? WHERE `id`=?";
 	private static final String SQL_DELETE = "DELETE FROM `Baskets` WHERE `id`=?";
 	private static final String SQL_READ_ID = "SELECT `id`, `quantity`, `sum`,"
-			+ " `dateOrder`, `statusOrder`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `id`=?";
+			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `id`=?";
 	private static final String SQL_READ_ALL = "SELECT `id`, `quantity`, `sum`, `dateOrder`, "
-			+ "`statusOrder`, `fk_buyers`, `fk_goods` FROM `Baskets` ";
-	private static final String SQL_READ_WHERE = "SELECT `id`, `quantity`, `sum`, `dateOrder`, "
-			+ "`statusOrder`, `fk_buyers`, `fk_goods` FROM `Baskets` ? ";
+			+ "`status`, `fk_buyers`, `fk_goods` FROM `Baskets` ";
+	private static final String SQL_READ_IDBUYER = "SELECT `id`, `quantity`, `sum`,"
+			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BasketDaoDBImpl.class);
 
@@ -143,15 +143,17 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	
 	@Override
-	public List<Basket> getAll(String where) {
-
+	public List<Basket> getAll(int buyerId) {
+		
 		List<Basket> basketList = new ArrayList<>();
 
 		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_WHERE)){
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)){
 
-			ps.setString(1, where);
+			ps.setInt(1, buyerId);
+			
 			resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -175,6 +177,7 @@ public class BasketDaoDBImpl implements BasketDao {
 					.setQuantity(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY))
 					.setSum(rs.getBigDecimal(BasketFieldConstantDeclaration.REQUEST_PARAM_SUM))
 			        .setDateOrders(rs.getDate(BasketFieldConstantDeclaration.REQUEST_PARAM_DATE_ORDER))
+			        .setStatusOrders(rs.getString(BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS))
 			        .setBuyerId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID))
 			        .setGoodId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID))
 			        .build();
@@ -195,5 +198,7 @@ public class BasketDaoDBImpl implements BasketDao {
 			}
 		}
 	}
+
+
 
 }

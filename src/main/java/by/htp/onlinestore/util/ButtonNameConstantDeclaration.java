@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class ButtonNameConstantDeclaration {
+public final class ButtonNameConstantDeclaration {
 
-	public ButtonNameConstantDeclaration() {
+	private ButtonNameConstantDeclaration() {
 
 	}
 	

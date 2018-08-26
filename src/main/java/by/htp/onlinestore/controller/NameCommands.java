@@ -1,6 +1,6 @@
 package by.htp.onlinestore.controller;
 
-public enum Actions {
+public enum NameCommands {
 	// в одном экземпляре сущ enum
 	CREATEBASKET {
 		{
@@ -10,11 +10,6 @@ public enum Actions {
 	EDITBUYER {
 		{
 			this.command = new CommandEditBuyer();
-		}
-	},
-	RESETDB {
-		{
-			this.command = new CommandResetDB();
 		}
 	},
 	LOGIN {
@@ -48,5 +43,5 @@ public enum Actions {
 		}
 	};
 
-	public Action command;
+	public Command command;
 }

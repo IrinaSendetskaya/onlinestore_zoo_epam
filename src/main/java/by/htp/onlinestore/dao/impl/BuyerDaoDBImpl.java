@@ -30,8 +30,6 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			+ "`mobile`, `address`, `fk_roles` FROM `Buyers` WHERE `id`=?";
 	private static final String SQL_READ_ALL="SELECT `id`, `nickname`, `password`, `email`, " 
 			+ "`mobile`, `address`, `fk_roles` FROM `Buyers` ";
-	private static final String SQL_READ_WHERE="SELECT `id`, `nickname`, `password`, `email`, "  
-			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` ? ";
 	private static final String SQL_READ_BY_LOGIN_AND_PASSWORD="SELECT `id`, `nickname`, `password`, `email`, "  
 			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` WHERE `nickname`=? AND `password`=?";
 	
@@ -141,30 +139,6 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			close(resultSet);
 		}
 
-		return buyerList;
-	}
-
-	@Override
-	public List<Buyer> getAll(final String where) {
-
-		List<Buyer> buyerList = new ArrayList<>();
-
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_WHERE)){
-
-			ps.setString(1, where);
-			resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				buyerList.add(buyerBuilder(resultSet));
-
-			}
-		} catch (SQLException e) {
-			logger.error("SQLException in getallWhere method of BuyerDaoDBImpl class", e);
-		} finally {
-			DBConnectionHelper.disconnect(connection);
-			close(resultSet);
-		}
 		return buyerList;
 	}
 	

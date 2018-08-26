@@ -8,20 +8,24 @@ import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Good;
+import by.htp.onlinestore.util.BasketFieldConstantDeclaration;
+import by.htp.onlinestore.util.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
+import by.htp.onlinestore.util.GoodFieldConstantDeclaration;
 import by.htp.onlinestore.util.MessageConstantDeclaration;
+import by.htp.onlinestore.util.ValidationRegex;
 
+import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
-class CommandCreateBasket extends Action {
+class CommandCreateBasket extends Command {
+	
 	@Override
-	Action execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		double sumReady = 0;
+	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		BigDecimal sumReady=BigDecimal.ZERO;
 
 		HttpSession session = req.getSession();
 		Object o = session.getAttribute("buyer");
@@ -29,32 +33,39 @@ class CommandCreateBasket extends Action {
 		if (o != null) {
 			buyer = (Buyer) o;
 		} else
-			return Actions.LOGIN.command;
+			return NameCommands.LOGIN.command;
 
 		if (FormUtil.isPost(req)) {
-			int idGood = FormUtil.getInt(req, "FK_goods");
-			Good good = DAOFactory.getDAO().goodDAO.getAll("where ID='" + idGood + "'").get(0);
-
-			int id = FormUtil.getInt(req, "ID");
-			int quantity = FormUtil.getInt(req, "Quantity");
-			double sum = FormUtil.getDouble(req, "Sum");
-			//sum = quantity * good.getPrice();
+			int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
+			BigDecimal price=FormUtil.getBigDecimal(req, GoodFieldConstantDeclaration.REQUEST_PARAM_PRICE);
+			
+			int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
+			int quantity = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY);
+			BigDecimal sum = price.multiply(new BigDecimal(quantity));
 			Date dateOrder = returnCurrentDate();
+			String status=FormUtil.getString(req, BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS, ValidationRegex.REGEX_ALL_SYMBOL);
+			
 
-			int fk_buyers = buyer.getId();
-			int fk_goods = idGood;
+			Basket basket = Basket.newBuilder()
+					.setId(id)
+					.setQuantity(quantity)
+					.setSum(sum)
+					.setDateOrders(dateOrder)
+					.setStatusOrders(status)
+					.setBuyerId(buyer.getId())
+					.setGoodId(idGood)
+					.build();
 
-			//Basket basket = new Basket(id,quantity,sum,dateOrder,fk_buyers,fk_goods);
+			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_GOOD_IN_BASKET) != null) {
 
-			if (req.getParameter("Update") != null) {
-		//		DAOFactory.getDAO().basketDAO.update(basket);
-			} else if (req.getParameter("Delete") != null) {
-		//		DAOFactory.getDAO().basketDAO.delete(basket);
+				DAOFactory.getDAO().basketDAO.update(basket);
+			} else if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_GOOD_IN_BASKET) != null) {
+				DAOFactory.getDAO().basketDAO.delete(basket);
 			}
 
 		}
 
-		List<Basket> baskets = DAOFactory.getDAO().basketDAO.getAll("where fk_buyers='" + buyer.getId() + "'");
+		List<Basket> baskets = DAOFactory.getDAO().basketDAO.getAll(buyer.getId());
 		List<Good> goods = DAOFactory.getDAO().goodDAO.readAll();
 
 		req.setAttribute("baskets", baskets);
@@ -65,10 +76,10 @@ class CommandCreateBasket extends Action {
 
 		Iterator<Basket> iterator = baskets.iterator();
 		while (iterator.hasNext()) {
-		//	sumReady += iterator.next().getSum();
+			sumReady.add(iterator.next().getSum());
 		}
 
-		if (req.getParameter("ready") != null) {
+		if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
 			String sum = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей", sumReady);
 			req.setAttribute(MessageConstantDeclaration.MSG_ERROR, sum);
 		}
@@ -80,7 +91,6 @@ class CommandCreateBasket extends Action {
 
 		Calendar calendar = Calendar.getInstance();
 		Date curDate = new Date(calendar.getTime().getTime());
-		// LocalDate dateTime=curDate.toLocalDate();
 		return curDate;
 	}
 }

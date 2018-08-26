@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class BasketFieldConstantDeclaration {
+public final class BasketFieldConstantDeclaration {
 
-	public BasketFieldConstantDeclaration() {
+	private BasketFieldConstantDeclaration() {
 
 	}
 	

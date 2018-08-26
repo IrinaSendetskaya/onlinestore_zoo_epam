@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class SectionFieldConstantDeclaration {
+public final class SectionFieldConstantDeclaration {
 
-	public SectionFieldConstantDeclaration() {
+	private SectionFieldConstantDeclaration() {
 
 	}
 	

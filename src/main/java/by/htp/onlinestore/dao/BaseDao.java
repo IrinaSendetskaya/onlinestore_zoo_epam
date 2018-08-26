@@ -11,6 +11,5 @@ public interface BaseDao <T extends EntityBase>{
 	void delete(T entity);
 	T read (int id);
 	List <T> readAll();               //все прочитать
-	List<T> getAll(String where);   //по какому либо условию
 
 }

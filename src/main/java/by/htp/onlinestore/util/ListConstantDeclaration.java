@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class ListConstantDeclaration {
+public final class ListConstantDeclaration {
 
-	public ListConstantDeclaration() {
+	private ListConstantDeclaration() {
 
 	}
 	

@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class EntityNameConstantDeclaration {
+public final class EntityNameConstantDeclaration {
 
-	public EntityNameConstantDeclaration() {
+	private EntityNameConstantDeclaration() {
 
 	}
 	

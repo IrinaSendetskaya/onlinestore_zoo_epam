@@ -6,15 +6,19 @@ import javax.servlet.http.HttpServletResponse;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Role;
+import by.htp.onlinestore.util.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.BuyerFieldConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
+import by.htp.onlinestore.util.ListConstantDeclaration;
 import by.htp.onlinestore.util.ValidationRegex;
 
 import java.util.List;
 
-class CommandEditBuyer extends Action {
+class CommandEditBuyer extends Command {
+	
     @Override
-    Action execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    	
         if (FormUtil.isPost(req)){
             int id = FormUtil.getInt(req, BuyerFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID);
             String nickname = FormUtil.getString(req, BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN, ValidationRegex.REGEX_LOGIN);
@@ -32,17 +36,17 @@ class CommandEditBuyer extends Action {
             		.setAddress(address)
             		.setRoleId(roleId)
             		.build(); 
-            if (req.getParameter("Update")!=null){
+            if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_BUYER_FROM_ADMIN)!=null){
                 DAOFactory.getDAO().buyerDAO.update(buyer);
             }
-            else if (req.getParameter("Delete")!=null){
+            else if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_BUYER_FROM_ADMIN)!=null){
                 DAOFactory.getDAO().buyerDAO.delete(buyer);
             }
         }
         List<Buyer> buyers = DAOFactory.getDAO().buyerDAO.readAll();
         List<Role> roles = DAOFactory.getDAO().roleDAO.readAll();
-        req.setAttribute("buyers",buyers);
-        req.setAttribute("roles",roles);
+        req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
+        req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_ROLES_LIST,roles);
         return null;
     }
 }

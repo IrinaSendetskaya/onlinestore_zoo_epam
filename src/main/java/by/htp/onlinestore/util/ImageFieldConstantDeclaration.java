@@ -1,8 +1,8 @@
 package by.htp.onlinestore.util;
 
-public class ImageFieldConstantDeclaration {
+public final class ImageFieldConstantDeclaration {
 
-	public ImageFieldConstantDeclaration() {
+	private ImageFieldConstantDeclaration() {
 
 	}
 	
