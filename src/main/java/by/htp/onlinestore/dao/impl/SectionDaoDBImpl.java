@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.SectionDao;
 import by.htp.onlinestore.entity.Section;
-import by.htp.onlinestore.util.SectionFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.SectionFieldConstantDeclaration;
 
 public class SectionDaoDBImpl implements SectionDao {
 	

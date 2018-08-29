@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.ImageDao;
 import by.htp.onlinestore.entity.Image;
-import by.htp.onlinestore.util.ImageFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
 
 public class ImageDaoDBImpl implements ImageDao {
 

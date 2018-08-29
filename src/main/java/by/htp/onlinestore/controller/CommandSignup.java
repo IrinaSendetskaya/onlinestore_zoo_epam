@@ -6,9 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
-import by.htp.onlinestore.util.BuyerFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
-import by.htp.onlinestore.util.MessageConstantDeclaration;
+import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 import by.htp.onlinestore.util.ValidationRegex;
 
 import java.text.ParseException;
@@ -47,7 +48,7 @@ public class CommandSignup extends Command {
         if (newBuyer.getNickname() !=null){
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Пользователь зарегестрирован");
             HttpSession session = req.getSession();
-            session.setAttribute("buyer", newBuyer);
+            session.setAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER, newBuyer);
             return NameCommands.LOGIN.command;
         }
 

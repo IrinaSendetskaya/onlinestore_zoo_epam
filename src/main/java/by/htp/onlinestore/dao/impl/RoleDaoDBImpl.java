@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.RoleDao;
 import by.htp.onlinestore.entity.Role;
-import by.htp.onlinestore.util.RoleFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.RoleFieldConstantDeclaration;
 
 public class RoleDaoDBImpl implements RoleDao {
 

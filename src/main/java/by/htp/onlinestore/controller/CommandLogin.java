@@ -9,9 +9,10 @@ import javax.servlet.http.HttpSession;
 
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
-import by.htp.onlinestore.util.BuyerFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
-import by.htp.onlinestore.util.MessageConstantDeclaration;
+import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 import by.htp.onlinestore.util.ValidationRegex;
 
 import java.io.UnsupportedEncodingException;
@@ -36,13 +37,13 @@ public class CommandLogin extends Command{
         String nickname= FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN, ValidationRegex.REGEX_LOGIN);
         String password=FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_PASS,ValidationRegex.REGEX_PASS);
 
-        Buyer currentBuyer=DAOFactory.getDAO().buyerDAO.read(nickname, password);  //(" WHERE nickname='"+nickname+"' and password='"+password+"'")
+        Buyer currentBuyer=DAOFactory.getDAO().buyerDAO.read(nickname, password); 
 
         if (currentBuyer.getId() > 0) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "пользователь " + nickname + " найден");
             req.setAttribute(BuyerFieldConstantDeclaration.REQUEST_PARAM_ROLE_ID, currentBuyer.getRoleId());
             HttpSession session = req.getSession();
-            session.setAttribute("buyer",currentBuyer);
+            session.setAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER,currentBuyer);
            // Cookies.setCookie(resp, list.get(0));
             return NameCommands.INDEX.command;
         }

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.MeasureDao;
 import by.htp.onlinestore.entity.Measure;
-import by.htp.onlinestore.util.MeasureFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.MeasureFieldConstantDeclaration;
 
 public class MeasureDaoDBImpl implements MeasureDao {
 	

@@ -20,6 +20,7 @@ public class FormUtil {
             //logger.error("IllegalArgumentException in ParseException method of FormUtil class");
         }
     }
+ 
    public static int getInt(HttpServletRequest req, String field) throws ParseException {
         String value=req.getParameter(field);
         return Integer.parseInt(value);
@@ -30,10 +31,23 @@ public class FormUtil {
     }
    public static BigDecimal getBigDecimal(HttpServletRequest req, String field) throws ParseException {
         String value=req.getParameter(field);
-        return BigDecimal.valueOf(Double.parseDouble(value));
+        Double doubleValue=Double.parseDouble(value);
+        return BigDecimal.valueOf(doubleValue);
     }
 
    public static boolean isPost(HttpServletRequest reg){
         return reg.getMethod().equalsIgnoreCase("POST");
     }
+   
+   public static String fixGoogleDriveUrl(String url) {
+		if (url.contains("open?id="))
+			url = url.replace("open?id=", "uc?id=");
+		if (url.contains("file/d/"))
+			url = url.replace("file/d/", "uc?id=");
+		if (url.contains("/edit?usp=sharing"))
+			url = url.replace("/edit?usp=sharing", "");
+		if (url.contains("/view?usp=sharing"))
+			url = url.replace("/view?usp=sharing", "");
+		return url;
+	}
 }

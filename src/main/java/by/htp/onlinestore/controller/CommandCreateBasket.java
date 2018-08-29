@@ -8,11 +8,11 @@ import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Good;
-import by.htp.onlinestore.util.BasketFieldConstantDeclaration;
-import by.htp.onlinestore.util.ButtonNameConstantDeclaration;
+import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
-import by.htp.onlinestore.util.GoodFieldConstantDeclaration;
-import by.htp.onlinestore.util.MessageConstantDeclaration;
+import by.htp.onlinestore.util.constants.GoodFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 import by.htp.onlinestore.util.ValidationRegex;
 
 import java.math.BigDecimal;

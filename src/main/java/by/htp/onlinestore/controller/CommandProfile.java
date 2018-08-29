@@ -7,10 +7,10 @@ import javax.servlet.http.HttpSession;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
-import by.htp.onlinestore.util.ButtonNameConstantDeclaration;
-import by.htp.onlinestore.util.BuyerFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
+import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
-import by.htp.onlinestore.util.ListConstantDeclaration;
+import by.htp.onlinestore.util.constants.ListConstantDeclaration;
 import by.htp.onlinestore.util.ValidationRegex;
 
 import java.util.List;

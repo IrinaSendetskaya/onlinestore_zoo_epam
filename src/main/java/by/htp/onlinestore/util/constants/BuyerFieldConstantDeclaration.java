@@ -1,4 +1,4 @@
-package by.htp.onlinestore.util;
+package by.htp.onlinestore.util.constants;
 
 public final class BuyerFieldConstantDeclaration {
 

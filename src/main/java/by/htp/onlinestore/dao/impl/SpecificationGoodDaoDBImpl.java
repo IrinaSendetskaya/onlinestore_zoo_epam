@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.SpecificationGoodDao;
 import by.htp.onlinestore.entity.SpecificationGood;
-import by.htp.onlinestore.util.SpecificationGoodFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
 public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 

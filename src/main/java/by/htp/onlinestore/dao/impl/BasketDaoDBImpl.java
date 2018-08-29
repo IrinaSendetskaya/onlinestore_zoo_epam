@@ -15,7 +15,7 @@ import java.sql.Statement;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.BasketDao;
 import by.htp.onlinestore.entity.Basket;
-import by.htp.onlinestore.util.BasketFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
 
 public class BasketDaoDBImpl implements BasketDao {
 
