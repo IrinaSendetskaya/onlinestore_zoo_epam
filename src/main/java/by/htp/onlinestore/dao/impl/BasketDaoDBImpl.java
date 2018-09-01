@@ -33,6 +33,8 @@ public class BasketDaoDBImpl implements BasketDao {
 			+ "`status`, `fk_buyers`, `fk_goods` FROM `Baskets` ";
 	private static final String SQL_READ_IDBUYER = "SELECT `id`, `quantity`, `sum`,"
 			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=?";
+	private static final String SQL_READ_PAGES = "SELECT `id`, `quantity`, `sum`,"
+			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=? LIMIT ?, ?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BasketDaoDBImpl.class);
 
@@ -168,6 +170,31 @@ public class BasketDaoDBImpl implements BasketDao {
 		}
 		return basketList;
 	}
+	
+	@Override
+	public List<Basket> findAllBasketsWithPages(int buyerId, int beginGood, int endGood) {
+		List<Basket> basketList = new ArrayList<>();
+
+		connection = DBConnectionHelper.connect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)){
+
+			ps.setInt(1, buyerId);
+			ps.setInt(2, beginGood);
+			ps.setInt(3, endGood);
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				basketList.add(basketBuilder(resultSet));
+
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
+		} finally {
+			DBConnectionHelper.disconnect(connection);
+			close(resultSet);
+		}
+		return basketList;
+	}
 
 	private Basket basketBuilder(ResultSet rs) {
 		Basket basket;
@@ -198,7 +225,5 @@ public class BasketDaoDBImpl implements BasketDao {
 			}
 		}
 	}
-
-
 
 }

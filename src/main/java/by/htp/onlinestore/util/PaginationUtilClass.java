@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import by.htp.onlinestore.entity.Good;
-import by.htp.onlinestore.util.constants.ListConstantDeclaration;
 
 public class PaginationUtilClass implements Pageable {
 
@@ -43,7 +41,7 @@ public class PaginationUtilClass implements Pageable {
         return result;
     }
 	
-	public static int makePagination(HttpServletRequest req, List<Good> listPages) {
+	public static <T> int makePagination(HttpServletRequest req, List<T> listPages) {
 		
 		req.setAttribute("goodsSize", listPages.size());
 		String strStart = req.getParameter("start");

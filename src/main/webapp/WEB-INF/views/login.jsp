@@ -56,8 +56,8 @@
 				<div class="col-md-8">
 					<button id="btnLoginOkID" name="btnLoginOkID"
 						class="btn btn-success">Войти</button>
-					<button id="btnLoginCancelID" name="btnLoginCancelID"
-						class="btn btn-danger">Отмена</button>
+					<!-- <button id="btnLoginCancelID" name="btnLoginCancelID"
+						class="btn btn-danger">Отмена</button> -->
 				</div>
 			</div>
 

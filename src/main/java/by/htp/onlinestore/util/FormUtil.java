@@ -16,7 +16,7 @@ public class FormUtil {
             return value;
         else
         {
-            throw new ParseException("Неверные данные",1);
+            throw new ParseException("Неверные данные. Вводите только корректные символы!",1);
             //logger.error("IllegalArgumentException in ParseException method of FormUtil class");
         }
     }

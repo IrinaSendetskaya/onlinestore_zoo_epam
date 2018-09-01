@@ -202,9 +202,9 @@ public class GoodDaoDBImpl implements GoodDao {
 	}
 
 	@Override
-	public List<Good> findAllGoodsJoinTables() {
+	public List<GoodListForJsp> findAllGoodsJoinTables() {
 		
-		List<Good> goodList = new ArrayList<>();
+		List<GoodListForJsp> goodList = new ArrayList<>();
 
 		try (Connection connection = DAOFactory.getDAO().connectionPool.getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX)) {
@@ -212,7 +212,7 @@ public class GoodDaoDBImpl implements GoodDao {
 			resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				goodList.add(goodBuilder(resultSet));
+				goodList.add(goodListBuilder(resultSet));
 			}
 
 		} catch (SQLException e) {

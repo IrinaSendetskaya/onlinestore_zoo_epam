@@ -9,6 +9,6 @@ public interface GoodDao extends BaseDao<Good> {
 
 	List<Good> searchGoods(String searchInput);
 	List<GoodListForJsp> searchGoodsWithPages(String searchInput,int beginGood,int endGood);
-	List<Good> findAllGoodsJoinTables();
+	List<GoodListForJsp> findAllGoodsJoinTables();
 	List<GoodListForJsp> findAllGoodsJoinTablesWithPages(int beginGood,int endGood);
 }

@@ -87,16 +87,16 @@
 </form>
 
 <div class="page-header">
-  <h1> Корзина</h1>
+  <h1> Заказы</h1>
   <p class="lead"></p>
 </div>
 
 <div class="row">
    <div class="col-md-1">№</div>
-   <div class="col-md-1">Количество</div>
+   <div class="col-md-2">Количество</div>
    <div class="col-md-1">Сумма</div>
-   <div class="col-md-1">Дата заказа</div>
-   <div class="col-md-1">Статус заказа</div>
+   <div class="col-md-2">Дата заказа</div>
+   <div class="col-md-2">Статус заказа</div>
    <div class="col-md-2">№ покупателя</div>
    <div class="col-md-2">№ товара</div>
 
@@ -107,10 +107,10 @@
    <br>
    <div class="row">
       <div class="col-md-1">${basket.id}</div>
-      <div class="col-md-1">${basket.quantity}</div>
+      <div class="col-md-2">${basket.quantity}</div>
       <div class="col-md-1">${basket.sum}</div>
-      <div class="col-md-1">${basket.dateOrders}</div>
-      <div class="col-md-1">${basket.statusOrders}</div>
+      <div class="col-md-2">${basket.dateOrders}</div>
+      <div class="col-md-2">${basket.statusOrders}</div>
       <div class="col-md-2">${basket.buyerId}</div>
       <div class="col-md-2">${basket.goodId}</div>
 
@@ -121,7 +121,7 @@
 <hr>
 
 <div class="row">
-    <mytag:paginator count="${adsSize}" step="5" urlprefix="do?command=Profile&start="/>
+    <mytag:paginator count="${goodsSize}" step="5" urlprefix="do?command=Profile&start="/>
 </div>
 
 <hr>

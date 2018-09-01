@@ -39,7 +39,7 @@ public class CommandLogin extends Command{
 
         Buyer currentBuyer=DAOFactory.getDAO().buyerDAO.read(nickname, password); 
 
-        if (currentBuyer.getId() > 0) {
+        if (currentBuyer!=null) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "пользователь " + nickname + " найден");
             req.setAttribute(BuyerFieldConstantDeclaration.REQUEST_PARAM_ROLE_ID, currentBuyer.getRoleId());
             HttpSession session = req.getSession();
