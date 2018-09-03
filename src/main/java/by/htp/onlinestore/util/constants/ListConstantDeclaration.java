@@ -15,5 +15,6 @@ public final class ListConstantDeclaration {
 	public static final String REQUEST_PARAM_SECTIONS_LIST="sections";
 	public static final String REQUEST_PARAM_SPECIFICATION_GOODS_LIST="specificationsGoods";
 	public static final String REQUEST_PARAM_GOODS_LIST_FOR_JSP="goodsListForJsp";
+	public static final String REQUEST_PARAM_BASKETS_LIST_FOR_JSP="basketsListForJsp";
 
 }

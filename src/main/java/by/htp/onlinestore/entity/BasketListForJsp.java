@@ -1,47 +1,43 @@
 package by.htp.onlinestore.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class Basket extends EntityBase {
+public class BasketListForJsp implements Serializable {
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8162664389157484912L;
-	
-	private int id;
+	* 
+	*/
+	private static final long serialVersionUID = 726070217588791265L; // `Baskets`.`id`, `Images`.`imageUrl`,"
+			                                                     //" `SpecificationGoods`.`name`, `quantity`, `sum`, `dateOrder`, 
+	                                                             //`status`, `fk_buyers`, `fk_goods`
+	private int id;	 
+	private String imageUrl; 
+	private String name;
 	private int quantity;
-	private BigDecimal sum;          
+	private BigDecimal sum;
 	private Date dateOrders;
 	private String statusOrders;
 	private int buyerId;
 	private int goodId;
 
-
-
-	private Basket() {
+	private BasketListForJsp() {
 
 	}
-	
-	
-	private Basket(int id, int quantity, BigDecimal sum, Date dateOrders, String statusOrders, int buyerId,
-			int goodId) {
-		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.sum = sum;
-		this.dateOrders = dateOrders;
-		this.statusOrders = statusOrders;
-		this.buyerId = buyerId;
-		this.goodId = goodId;
-	}
-
 
 	public int getId() {
 		return id;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -49,7 +45,7 @@ public class Basket extends EntityBase {
 	public BigDecimal getSum() {
 		return sum;
 	}
-
+	
 	public Date getDateOrders() {
 		return dateOrders;
 	}
@@ -65,61 +61,71 @@ public class Basket extends EntityBase {
 	public int getGoodId() {
 		return goodId;
 	}
-	
-	
+
 	public static Builder newBuilder() {
-		return new Basket().new Builder();
+		return new BasketListForJsp().new Builder();
 	}
-	
+
 	public class Builder {
-		
+
 		private Builder() {
-			
+
 		}
-		
+
 		public Builder setId(int id) {
-			Basket.this.id = id;
+			BasketListForJsp.this.id = id;
 			return this;
 		}
+
+		public Builder setName(String name) {
+			BasketListForJsp.this.name = name;
+			return this;
+		}
+
+		public Builder setImageUrl(String imageUrl) {
+			BasketListForJsp.this.imageUrl = imageUrl;
+			return this;
+		}
+
 
 		public Builder setQuantity(int quantity) {
-			Basket.this.quantity = quantity;
+			BasketListForJsp.this.quantity = quantity;
 			return this;
 		}
 
+
 		public Builder setSum(BigDecimal sum) {
-			Basket.this.sum = sum;
+			BasketListForJsp.this.sum = sum;
 			return this;
 		}
 
 		public Builder setDateOrders(Date dateOrders) {
-			Basket.this.dateOrders = dateOrders;
+			BasketListForJsp.this.dateOrders = dateOrders;
 			return this;
 		}
 
 		public Builder setStatusOrders(String statusOrders) {
-			Basket.this.statusOrders = statusOrders;
+			BasketListForJsp.this.statusOrders = statusOrders;
 			return this;
 		}
 
 		public Builder setBuyerId(int buyerId) {
-			Basket.this.buyerId = buyerId;
+			BasketListForJsp.this.buyerId = buyerId;
 			return this;
 		}
 
 		public Builder setGoodId(int goodId) {
-			Basket.this.goodId = goodId;
+			BasketListForJsp.this.goodId = goodId;
 			return this;
 		}
-		
-		public Basket build() {
-			return Basket.this;
+
+		public BasketListForJsp build() {
+			return BasketListForJsp.this;
 		}
-
 	}
+
 	
-
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,14 +134,13 @@ public class Basket extends EntityBase {
 		result = prime * result + ((dateOrders == null) ? 0 : dateOrders.hashCode());
 		result = prime * result + goodId;
 		result = prime * result + id;
+		result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + quantity;
 		result = prime * result + ((statusOrders == null) ? 0 : statusOrders.hashCode());
 		result = prime * result + ((sum == null) ? 0 : sum.hashCode());
 		return result;
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -145,7 +150,7 @@ public class Basket extends EntityBase {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Basket other = (Basket) obj;
+		BasketListForJsp other = (BasketListForJsp) obj;
 		if (buyerId != other.buyerId)
 			return false;
 		if (dateOrders == null) {
@@ -156,6 +161,16 @@ public class Basket extends EntityBase {
 		if (goodId != other.goodId)
 			return false;
 		if (id != other.id)
+			return false;
+		if (imageUrl == null) {
+			if (other.imageUrl != null)
+				return false;
+		} else if (!imageUrl.equals(other.imageUrl))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		if (quantity != other.quantity)
 			return false;
@@ -172,38 +187,10 @@ public class Basket extends EntityBase {
 		return true;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return "Basket {" + "id=" + id + ", quantity=" + quantity + ", summa=" + sum + ", "
-				+ "date=" + dateOrders + ", statusOrders=" + statusOrders +  
-				", buyerId=" + buyerId + ", goodId=" + goodId + '}';
+		return "GoodListForJsp {" + "id=" + id + "name=" + name +"imageUrl=" 
+	+ imageUrl +", quantity=" + quantity + "sum=" + sum +", dateOrders=" + dateOrders + ", "
+				+ "statusOrdersd=" + statusOrders + ", buyerId=" + buyerId +", goodId=" + goodId +'}';
 	}
-	
-	
-	public enum StatusOrder {
-		IN_PROGRESS("в обработке"), COMPLETE("выполнен");
-		
-		String status;
-
-		private StatusOrder(String status) {
-			this.status = status;
-		}
-
-
-
-		public String getStatus() {
-			return status;
-		}
-
-		public void setStatus(String status) {
-			this.status = status;
-		}
-		
-	}
-
 }
-
-

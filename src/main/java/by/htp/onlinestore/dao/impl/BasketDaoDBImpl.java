@@ -15,7 +15,11 @@ import java.sql.Statement;
 import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.BasketDao;
 import by.htp.onlinestore.entity.Basket;
+import by.htp.onlinestore.entity.BasketListForJsp;
+import by.htp.onlinestore.util.FormUtil;
 import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
+import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
 public class BasketDaoDBImpl implements BasketDao {
 
@@ -35,6 +39,11 @@ public class BasketDaoDBImpl implements BasketDao {
 			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=?";
 	private static final String SQL_READ_PAGES = "SELECT `id`, `quantity`, `sum`,"
 			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=? LIMIT ?, ?";
+	private static final String SQL_READ_FOR_BASKET_JSP_PAGES = "SELECT `Baskets`.`id`, `Images`.`imageUrl`,"
+			+ " `SpecificationGoods`.`name`, `quantity`, `sum`, `dateOrder`, `status`, `fk_buyers`, `fk_goods` "
+			+ "FROM `Baskets` JOIN `Goods` ON `fk_goods` = `Goods`.`id` JOIN `SpecificationGoods` ON "
+			+ "`Goods`.`fk_specificationGoods` = `SpecificationGoods`.`id` JOIN `Images` ON "
+			+ "`SpecificationGoods`.`fk_images` = `Images`.`id`WHERE `fk_buyers`=? LIMIT ?, ?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BasketDaoDBImpl.class);
 
@@ -104,13 +113,13 @@ public class BasketDaoDBImpl implements BasketDao {
 
 	@Override
 	public Basket read(int id) {
-		
+
 		connection = DBConnectionHelper.connect();
 		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
-			resultSet=ps.executeQuery();
-			if(resultSet.next()) {
+			resultSet = ps.executeQuery();
+			if (resultSet.next()) {
 				return basketBuilder(resultSet);
 			}
 
@@ -128,8 +137,7 @@ public class BasketDaoDBImpl implements BasketDao {
 
 		List<Basket> basketList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect(); 
-				Statement statement = connection.createStatement()) {
+		try (Connection connection = DBConnectionHelper.connect(); Statement statement = connection.createStatement()) {
 			resultSet = statement.executeQuery(SQL_READ_ALL);
 
 			while (resultSet.next()) {
@@ -145,17 +153,16 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
-	
 	@Override
 	public List<Basket> getAll(int buyerId) {
-		
+
 		List<Basket> basketList = new ArrayList<>();
 
 		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)){
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)) {
 
 			ps.setInt(1, buyerId);
-			
+
 			resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -170,13 +177,14 @@ public class BasketDaoDBImpl implements BasketDao {
 		}
 		return basketList;
 	}
-	
+
 	@Override
 	public List<Basket> findAllBasketsWithPages(int buyerId, int beginGood, int endGood) {
+
 		List<Basket> basketList = new ArrayList<>();
 
 		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)){
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)) {
 
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);
@@ -196,22 +204,71 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	@Override
+	public List<BasketListForJsp> findAllBasketsJoinTablesWithPages(int buyerId, int beginGood, int endGood) {
+
+		List<BasketListForJsp> basketList = new ArrayList<>();
+
+		connection = DBConnectionHelper.connect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES)) {
+
+			ps.setInt(1, buyerId);
+			ps.setInt(2, beginGood);
+			ps.setInt(3, endGood);
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				basketList.add(goodListBuilder(resultSet));
+
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
+		} finally {
+			DBConnectionHelper.disconnect(connection);
+			close(resultSet);
+		}
+		return basketList;
+	}
+
 	private Basket basketBuilder(ResultSet rs) {
 		Basket basket;
 		try {
-			basket=Basket.newBuilder()
-					.setId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID))
+			basket = Basket.newBuilder().setId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID))
 					.setQuantity(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY))
 					.setSum(rs.getBigDecimal(BasketFieldConstantDeclaration.REQUEST_PARAM_SUM))
-			        .setDateOrders(rs.getDate(BasketFieldConstantDeclaration.REQUEST_PARAM_DATE_ORDER))
-			        .setStatusOrders(rs.getString(BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS))
-			        .setBuyerId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID))
-			        .setGoodId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID))
-			        .build();
-			
+					.setDateOrders(rs.getDate(BasketFieldConstantDeclaration.REQUEST_PARAM_DATE_ORDER))
+					.setStatusOrders(rs.getString(BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS))
+					.setBuyerId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID))
+					.setGoodId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID)).build();
+
 			return basket;
 		} catch (SQLException e) {
 			logger.error("SQLException in build method of BasketDaoDBImpl class", e);
+		}
+		return null;
+	}
+
+	private BasketListForJsp goodListBuilder(ResultSet rs) {
+
+		BasketListForJsp basketListForJsp;
+		try {
+			String temp = FormUtil
+					.fixGoogleDriveUrl(rs.getString(ImageFieldConstantDeclaration.REQUEST_PARAM_IMAGE_URL));
+			basketListForJsp = BasketListForJsp.newBuilder()
+					.setId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID))
+					.setImageUrl(temp)
+					.setName(rs.getString(SpecificationGoodFieldConstantDeclaration.REQUEST_PARAM_NAME))
+					.setQuantity(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY))
+					.setSum(rs.getBigDecimal(BasketFieldConstantDeclaration.REQUEST_PARAM_SUM))
+					.setDateOrders(rs.getDate(BasketFieldConstantDeclaration.REQUEST_PARAM_DATE_ORDER))
+					.setStatusOrders(rs.getString(BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS))
+					.setBuyerId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_BUYER_ID))
+					.setGoodId(rs.getInt(BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID))
+					.build();
+			return basketListForJsp;
+
+		} catch (SQLException e) {
+			logger.error("SQLException in imagebuild method of GoodDaoDBImpl class", e);
 		}
 		return null;
 	}

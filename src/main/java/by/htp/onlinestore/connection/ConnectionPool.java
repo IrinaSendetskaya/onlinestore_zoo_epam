@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,9 @@ public class ConnectionPool implements IConnectionPool{
 
 	public ConnectionPool() {
 
-		availableConnections = new ConcurrentLinkedQueue<>();
-		usedConnections = new ConcurrentLinkedQueue<>();
-
+		availableConnections = new LinkedBlockingQueue<>(DB_CONNECT_POOL_SIZE);
+		usedConnections = new LinkedBlockingQueue<>(DB_CONNECT_POOL_SIZE);
+		
 		for (int count = 0; count < DB_CONNECT_POOL_SIZE; count++) {
 			availableConnections.offer(this.createConnection());  //or add??
 		}

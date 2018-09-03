@@ -34,7 +34,7 @@
 				<div class="col-md-4">
 					<input id="nickname" name="nickname" type="text"
 						placeholder="input login" class="form-control input-md"
-						required="" value="TestLogin"> <span class="help-block">your
+						value="TestLogin"> <span class="help-block">your
 						login</span>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 				<div class="col-md-4">
 					<input id="password" name="password" type="password"
 						placeholder="input password" class="form-control input-md"
-						required="" value="TestPassword"> <span class="help-block">(min
+						value="TestPassword"> <span class="help-block">(min
 						4 symbols)</span>
 				</div>
 			</div>

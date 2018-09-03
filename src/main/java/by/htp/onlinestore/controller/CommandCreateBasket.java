@@ -6,17 +6,16 @@ import javax.servlet.http.HttpSession;
 
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
+import by.htp.onlinestore.entity.BasketListForJsp;
 import by.htp.onlinestore.entity.Buyer;
-import by.htp.onlinestore.entity.GoodListForJsp;
 import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.CurrentDateUtilClass;
 import by.htp.onlinestore.util.FormUtil;
-import by.htp.onlinestore.util.constants.GoodFieldConstantDeclaration;
+import by.htp.onlinestore.util.PaginationUtilClass;
 import by.htp.onlinestore.util.constants.ListConstantDeclaration;
 import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
-import by.htp.onlinestore.util.ValidationRegex;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -25,13 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 
 class CommandCreateBasket extends Command {
-	
+
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		
-		BigDecimal sumReady=BigDecimal.ONE;
+
+		BigDecimal sumReady = BigDecimal.ONE;
 		List<Basket> baskets = new ArrayList<>();
-		String name="";
+		List<BasketListForJsp> basketListForJsp = new ArrayList<>();
+		BigDecimal sumNew = BigDecimal.ONE;
 
 		HttpSession session = req.getSession();
 		Object o = session.getAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER);
@@ -42,71 +42,67 @@ class CommandCreateBasket extends Command {
 			return NameCommands.LOGIN.command;
 
 		if (FormUtil.isPost(req)) {
-			int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
-			BigDecimal price=FormUtil.getBigDecimal(req, GoodFieldConstantDeclaration.REQUEST_PARAM_PRICE);			
 			int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
 			int quantity = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY);
-			BigDecimal sum = price.multiply(new BigDecimal(quantity));
+			int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
+			BigDecimal price = DAOFactory.getDAO().goodDAO.read(idGood).getPrice();
+			sumNew = price.multiply(new BigDecimal(quantity));
 			Date dateOrder = CurrentDateUtilClass.returnCurrentDate();
-			String status=FormUtil.getString(req, BasketFieldConstantDeclaration.REQUEST_PARAM_STATUS, ValidationRegex.REGEX_ALL_SYMBOL);			
+			String status = "товар изменен";
 
-			Basket basket = Basket.newBuilder()
-					.setId(id)
-					.setQuantity(quantity)
-					.setSum(sum)
-					.setDateOrders(dateOrder)
-					.setStatusOrders(status)
-					.setBuyerId(buyer.getId())
-					.setGoodId(idGood)
-					.build();	
-			
-			
-			Iterator<Basket> iterator = baskets.iterator();
-			while (iterator.hasNext()) {
-				sumReady.add(iterator.next().getSum());
-				name=DAOFactory.getDAO().specificationGoodDAO.read(DAOFactory.getDAO().goodDAO.read(idGood).getSpecificationGoodId()).getName();
-			}
-			req.setAttribute("nameGood", name);	
+			Basket basket = Basket.newBuilder().setId(id).setQuantity(quantity).setSum(sumNew).setDateOrders(dateOrder)
+					.setStatusOrders(status).setBuyerId(buyer.getId()).setGoodId(idGood).build();
 
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_GOOD_IN_BASKET) != null) {
 				DAOFactory.getDAO().basketDAO.update(basket);
-			} else if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_GOOD_IN_BASKET) != null) {
+			} else if (req
+					.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_GOOD_IN_BASKET) != null) {
 				DAOFactory.getDAO().basketDAO.delete(basket);
 			}
-			
-			
-			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
-				if(sumReady!=null) {
-				String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей", sumReady);
+		}
+
+		baskets = DAOFactory.getDAO().basketDAO.getAll(buyer.getId());
+		int startGood = PaginationUtilClass.makePagination(req, baskets);
+		basketListForJsp = DAOFactory.getDAO().basketDAO.findAllBasketsJoinTablesWithPages(buyer.getId(), startGood, startGood + 5);
+
+		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
+		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST_FOR_JSP, basketListForJsp);
+		req.setAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER, buyer);
+
+		if (baskets.isEmpty()) {
+			req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "Ваша корзина пуста!");
+		}
+		Iterator<Basket> iterator = baskets.iterator();
+		while (iterator.hasNext()) {
+			Basket newBasket = iterator.next();
+			sumReady=sumReady.add(newBasket.getSum());
+		}
+		req.setAttribute("sumReady", sumReady);
+
+		if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER)!= null) {
+			if(sumReady!=BigDecimal.ONE) {
+
+				String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей",
+						sumReady.doubleValue());
 				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, sumReadyAll);
 				req.setAttribute("sumReady", sumReadyAll);
-				status="Доставлен";
-				basket = Basket.newBuilder()
-						.setStatusOrders(status)
-						.build();
-			}
-			DAOFactory.getDAO().basketDAO.update(basket);
+				
+				int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
+				int quantity = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY);
+				int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
+				BigDecimal price = DAOFactory.getDAO().goodDAO.read(idGood).getPrice();
+				sumNew = price.multiply(new BigDecimal(quantity));
+				Date dateOrder = CurrentDateUtilClass.returnCurrentDate();
+				String status = "Завершен";
+
+				Basket basket = Basket.newBuilder().setId(id).setQuantity(quantity).setSum(sumNew).setDateOrders(dateOrder)
+						.setStatusOrders(status).setBuyerId(buyer.getId()).setGoodId(idGood).build();
+
+			
+			 DAOFactory.getDAO().basketDAO.update(basket);
+				return null;
 			}
 		}
-		
-
-		baskets= DAOFactory.getDAO().basketDAO.getAll(buyer.getId());	
-		
-		
-//		int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
-//		name=DAOFactory.getDAO().specificationGoodDAO.read(DAOFactory.getDAO().goodDAO.read(idGood).getSpecificationGoodId()).getName();
-		req.setAttribute("nameGood", name);	
-		baskets= DAOFactory.getDAO().basketDAO.getAll(buyer.getId());		
-		List<GoodListForJsp> goods = DAOFactory.getDAO().goodDAO.findAllGoodsJoinTables();
-		
-		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);	
-		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST_FOR_JSP, goods);
-		req.setAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER, buyer);
-		
-		if (baskets.size() < 1)
-			req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "Ваша корзина пуста!");
-	
-
 
 		return null;
 	}

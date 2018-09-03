@@ -35,6 +35,7 @@ class CommandIndex extends Command {
 			buyer = (Buyer) o;
 		} else {
 			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Вам необходимо войти либо зарегистрироваться!");
+			//return null;
 			return NameCommands.LOGIN.command;
 		}
 
@@ -83,7 +84,7 @@ class CommandIndex extends Command {
 				int quantity = 1;
 				BigDecimal sum = price.multiply(new BigDecimal(quantity));
 				Date dateOrder = CurrentDateUtilClass.returnCurrentDate();
-				String status = "в обработке";
+				String status = "товар в корзине";
 
 				Basket basket = Basket.newBuilder().setId(id).setQuantity(quantity).setSum(sum).setDateOrders(dateOrder)
 						.setStatusOrders(status).setBuyerId(buyer.getId()).setGoodId(idGood).build();
