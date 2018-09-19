@@ -19,54 +19,80 @@ public class Basket extends EntityBase {
 	private int goodId;
 
 
-
 	private Basket() {
 
 	}
 	
-	
-	private Basket(int id, int quantity, BigDecimal sum, Date dateOrders, String statusOrders, int buyerId,
-			int goodId) {
-		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.sum = sum;
-		this.dateOrders = dateOrders;
-		this.statusOrders = statusOrders;
-		this.buyerId = buyerId;
-		this.goodId = goodId;
-	}
-
-
 	public int getId() {
 		return id;
 	}
-	
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public int getQuantity() {
 		return quantity;
 	}
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 
 	public BigDecimal getSum() {
 		return sum;
 	}
 
+
+	public void setSum(BigDecimal sum) {
+		this.sum = sum;
+	}
+
+
 	public Date getDateOrders() {
 		return dateOrders;
 	}
+
+
+	public void setDateOrders(Date dateOrders) {
+		this.dateOrders = dateOrders;
+	}
+
 
 	public String getStatusOrders() {
 		return statusOrders;
 	}
 
+
+	public void setStatusOrders(String statusOrders) {
+		this.statusOrders = statusOrders;
+	}
+
+
 	public int getBuyerId() {
 		return buyerId;
 	}
 
+
+	public void setBuyerId(int buyerId) {
+		this.buyerId = buyerId;
+	}
+
+
 	public int getGoodId() {
 		return goodId;
 	}
-	
-	
+
+
+	public void setGoodId(int goodId) {
+		this.goodId = goodId;
+	}
+
+
 	public static Builder newBuilder() {
 		return new Basket().new Builder();
 	}
@@ -184,14 +210,13 @@ public class Basket extends EntityBase {
 	
 	
 	public enum StatusOrder {
-		IN_PROGRESS("в обработке"), COMPLETE("выполнен");
+		IN_PROGRESS("в корзине"), COMPLETE("выполнен");
 		
 		String status;
 
 		private StatusOrder(String status) {
 			this.status = status;
 		}
-
 
 
 		public String getStatus() {

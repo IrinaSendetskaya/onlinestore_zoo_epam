@@ -53,17 +53,17 @@ class CommandProfile extends Command {
 					.build();
 			
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CHANGE_PROFILE)!=null){
-                DAOFactory.getDAO().buyerDAO.update(buyer);
+                DAOFactory.getDao().getBuyerDAO().update(buyer);
                
                 session.setAttribute(EntityNameConstantDeclaration.REQUEST_PARAM_BUYER, buyer);
             }
 		}
 
-		List<Basket> baskets = DAOFactory.getDAO().basketDAO.getAll(buyer.getId());
+		List<Basket> baskets = DAOFactory.getDao().getBasketDAO().getAll(buyer.getId());
 		int startGood = PaginationUtilClass.makePagination(req, baskets);
-		baskets=DAOFactory.getDAO().basketDAO.findAllBasketsWithPages(buyer.getId(),startGood, startGood+5);
+		baskets=DAOFactory.getDao().getBasketDAO().findAllBasketsWithPages(buyer.getId(),startGood, startGood+5);
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
-		List<Buyer> buyers = DAOFactory.getDAO().buyerDAO.readAll();
+		List<Buyer> buyers = DAOFactory.getDao().getBuyerDAO().readAll();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
 		
 		return null;

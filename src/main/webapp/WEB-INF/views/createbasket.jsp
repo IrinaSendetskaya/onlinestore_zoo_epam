@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-2">Товар</div>
-			<div class="col-md-1">Количество</div>
+			<div class="col-md-2">Количество</div>
 			<hr>
 			<div class="col-md-1">Сумма</div>
 			<div class="col-md-1">Дата заказа</div>
@@ -52,10 +52,10 @@
 		<br>
 
 		<div class="container">
-			<c:forEach items="${basketsListForJsp}" var="basket">
+		
+				<c:forEach items="${basketsListForJsp}" var="basket">
 				<form class="update-basket-${basket.id}"
-					action="do?command=CreateBasket" method=POST>
-
+				action="do?command=CreateBasket" method=POST>
 					<div class="row">
 						<div class="col-md-1">
 							<input id="id" class="form-control input-md" name="id"
@@ -63,7 +63,7 @@
 						</div>
 
 						<div class="col-md-2">${basket.name}</div>
-						<div class=col-md-1>
+						<div class=col-md-2>
 							<input id="quantity" class="form-control input-md"
 								name="quantity" value="${basket.quantity}" />
 						</div>
@@ -87,11 +87,20 @@
 						</div>
 						<br>
 					</div>
-				</form>
-				<br>
 
-			</c:forEach>
-			<br>
+</form>
+				</c:forEach>
+				
+				<hr>
+				<form action="do?command=ConfirmOrder" method=GET>
+				<label class="col-md-4 control-label" for="postbutton"></label>
+				<div class="col-md-4">
+					<button id="btnMakeOrder" value="btnMakeOrder" name="btnMakeOrder"
+						class="btn btn-primary">Оформить заказ</button>
+				</div>
+				</form>
+			
+			<br> <br>
 
 			<hr>
 
@@ -112,25 +121,21 @@
 					<div class="col-md-2" align="right" style="float: right;">рублей</div>
 				</div>
 			</div>
+			<hr>
 			<br> <br>
 
 			<div class="col-md-4">Адрес доставки:</div>
 			<br>
 			<div class="col-md-4">${buyer.address}</div>
+			<hr>
 			<br>
+
 			<div class="col-md-3">Телефон для связи:</div>
 			<br>
 			<div class="col-md-3">${buyer.mobile}</div>
-
+			<hr>
 			<br> <br>
 			<!-- Button -->
-			<form class="form-group">
-				<label class="col-md-4 control-label" for="postbutton"></label>
-				<div class="col-md-4">
-					<button id="btnMakeOrder" value="btnMakeOrder" name="btnMakeOrder"
-						class="btn btn-primary">Оформить</button>
-				</div>
-			</form>
 
 		</div>
 

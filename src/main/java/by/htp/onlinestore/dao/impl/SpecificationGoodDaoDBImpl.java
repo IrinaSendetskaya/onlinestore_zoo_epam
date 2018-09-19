@@ -11,7 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.onlinestore.connection.DBConnectionHelper;
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.SpecificationGoodDao;
 import by.htp.onlinestore.entity.SpecificationGood;
 import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
@@ -37,7 +37,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	@Override
 	public void create(SpecificationGood entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setString(1, entity.getName());
@@ -49,14 +49,14 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public void update(SpecificationGood entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, entity.getName());
@@ -69,14 +69,14 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public void delete(SpecificationGood entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, entity.getId());
@@ -85,14 +85,14 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public SpecificationGood read(int id) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
@@ -105,7 +105,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return null;
@@ -116,7 +116,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 
 		List<SpecificationGood> specificationGoodList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect(); Statement st = connection.createStatement()) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect(); Statement st = connection.createStatement()) {
 
 			resultSet = st.executeQuery(SQL_READ_ALL);
 
@@ -127,7 +127,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readall method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return specificationGoodList;
@@ -138,7 +138,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		
 		List<SpecificationGood> specificationGoodList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
 
 			ps.setString(1, searchInput);
@@ -152,7 +152,7 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readwhere method of SpecificationGoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return specificationGoodList;

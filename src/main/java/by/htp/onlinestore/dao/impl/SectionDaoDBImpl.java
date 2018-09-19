@@ -11,7 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.onlinestore.connection.DBConnectionHelper;
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.SectionDao;
 import by.htp.onlinestore.entity.Section;
 import by.htp.onlinestore.util.constants.SectionFieldConstantDeclaration;
@@ -36,7 +36,7 @@ public class SectionDaoDBImpl implements SectionDao {
 	@Override
 	public void create(Section entity) {
 
-		try(Connection connection=DBConnectionHelper.connect();
+		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_INSERT)
 						){
 			ps.setString(1, entity.getSection());
@@ -45,7 +45,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of SectionDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class SectionDaoDBImpl implements SectionDao {
 	@Override
 	public void update(Section entity) {
 
-		try(Connection connection=DBConnectionHelper.connect();
+		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_UPDATE)
 						){
 			ps.setString(1, entity.getSection());
@@ -63,7 +63,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of SectionDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -71,7 +71,7 @@ public class SectionDaoDBImpl implements SectionDao {
 	@Override
 	public void delete(Section entity) {
 
-		try(Connection connection=DBConnectionHelper.connect();
+		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_DELETE)
 						){
 			
@@ -81,14 +81,14 @@ public class SectionDaoDBImpl implements SectionDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of SectionDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public Section read(int id) {
 		
-		try(Connection connection=DBConnectionHelper.connect();
+		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_READ_ID)
 						){
 			ps.setInt(1, id);
@@ -99,7 +99,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of SectionDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		
@@ -111,7 +111,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		
 		List<Section> sectionList = new ArrayList<>();
 
-		try(Connection connection=DBConnectionHelper.connect();
+		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				Statement st=connection.createStatement()
 						){
 			resultSet=st.executeQuery(SQL_READ_ALL);
@@ -121,7 +121,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readall method of SectionDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		

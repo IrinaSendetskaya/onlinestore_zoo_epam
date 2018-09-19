@@ -29,7 +29,7 @@ public class CommandSignup extends Command {
         String mobile = FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_MOBILE, ValidationRegex.REGEX_MOBILE);
         String address = FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_ADDRESS, ValidationRegex.REGEX_ALL_SYMBOL);
         
-        Buyer newBuyer=DAOFactory.getDAO().buyerDAO.read(nickname, password);
+        Buyer newBuyer=DAOFactory.getDao().getBuyerDAO().read(nickname, password);
         
         if(newBuyer==null)
         {
@@ -42,8 +42,7 @@ public class CommandSignup extends Command {
         		.setRoleId(2)
         		.build();      		
 
-        DAOFactory dao = DAOFactory.getDAO();
-        dao.buyerDAO.create(newBuyer);
+        DAOFactory.getDao().getBuyerDAO().create(newBuyer);
 
         if (newBuyer.getNickname() !=null){
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Пользователь зарегестрирован");

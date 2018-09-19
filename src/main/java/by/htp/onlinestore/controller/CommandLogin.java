@@ -37,7 +37,7 @@ public class CommandLogin extends Command{
         String nickname= FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN, ValidationRegex.REGEX_LOGIN);
         String password=FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_PASS,ValidationRegex.REGEX_PASS);
 
-        Buyer currentBuyer=DAOFactory.getDAO().buyerDAO.read(nickname, password); 
+        Buyer currentBuyer=DAOFactory.getDao().getBuyerDAO().read(nickname, password); 
 
         if (currentBuyer!=null) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "пользователь " + nickname + " найден");

@@ -13,20 +13,72 @@ import by.htp.onlinestore.dao.impl.SpecificationGoodDaoDBImpl;
 
 public class DAOFactory {
 
-	private static DAOFactory dao; // singleton
+	private static final DAOFactory dao=new DAOFactory(); 
 
-	public IConnectionPool connectionPool;
-	public final BuyerDao buyerDAO;
-	public final RoleDao roleDAO;
-	public final GoodDao goodDAO;
-	public final BasketDao basketDAO;
-	public final ImageDao imageDAO;
-	public final MeasureDao measureDAO;
-	public final SectionDao sectionDAO;
-	public final SpecificationGoodDao specificationGoodDAO;
+	private final IConnectionPool connectionPool;
+	private final BuyerDao buyerDAO;
+	private final RoleDao roleDAO;
+	private final GoodDao goodDAO;
+	private final BasketDao basketDAO;
+	private final ImageDao imageDAO;
+	private final MeasureDao measureDAO;
+	private final SectionDao sectionDAO;
+	private final SpecificationGoodDao specificationGoodDAO;
 
-	public DAOFactory() {
-		connectionPool = new ConnectionPool();
+	
+	
+	public static DAOFactory getDao() {
+		return dao;
+	}
+
+
+	public IConnectionPool getConnectionPool() {
+		return connectionPool;
+	}
+	
+
+	public BuyerDao getBuyerDAO() {
+		return buyerDAO;
+	}
+
+
+	public RoleDao getRoleDAO() {
+		return roleDAO;
+	}
+
+
+	public GoodDao getGoodDAO() {
+		return goodDAO;
+	}
+
+
+	public BasketDao getBasketDAO() {
+		return basketDAO;
+	}
+
+
+	public ImageDao getImageDAO() {
+		return imageDAO;
+	}
+
+
+	public MeasureDao getMeasureDAO() {
+		return measureDAO;
+	}
+
+
+	public SectionDao getSectionDAO() {
+		return sectionDAO;
+	}
+
+
+	public SpecificationGoodDao getSpecificationGoodDAO() {
+		return specificationGoodDAO;
+	}
+
+
+	private DAOFactory() {
+		this.connectionPool=ConnectionPool.getInstance();
 		this.buyerDAO = new BuyerDaoDBImpl();
 		this.roleDAO = new RoleDaoDBImpl();
 		this.goodDAO = new GoodDaoDBImpl();
@@ -37,14 +89,4 @@ public class DAOFactory {
 		this.specificationGoodDAO = new SpecificationGoodDaoDBImpl();
 	}
 
-	public static DAOFactory getDAO() {
-		if (dao == null) {
-			synchronized (DAOFactory.class) {
-				if (dao == null) {
-					dao = new DAOFactory();
-				}
-			}
-		}
-		return dao;
-	}
 }

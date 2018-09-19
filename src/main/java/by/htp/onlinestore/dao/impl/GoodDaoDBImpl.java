@@ -11,7 +11,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.GoodDao;
 import by.htp.onlinestore.entity.Good;
@@ -58,7 +57,7 @@ public class GoodDaoDBImpl implements GoodDao {
 	@Override
 	public void create(Good entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setBigDecimal(1, entity.getPrice());
@@ -69,14 +68,14 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public void update(Good entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setBigDecimal(1, entity.getPrice());
@@ -88,14 +87,14 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public void delete(Good entity) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, entity.getId());
@@ -104,14 +103,14 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
 
 	@Override
 	public Good read(int id) {
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
@@ -124,7 +123,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return null;
@@ -135,7 +134,8 @@ public class GoodDaoDBImpl implements GoodDao {
 
 		List<Good> goodList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect(); Statement st = connection.createStatement()) {
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				Statement st = connection.createStatement()) {
 
 			resultSet = st.executeQuery(SQL_READ_ALL);
 
@@ -146,7 +146,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readall method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return goodList;
@@ -157,7 +157,7 @@ public class GoodDaoDBImpl implements GoodDao {
 
 		List<Good> goodList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
 
 			ps.setString(1, searchInput);
@@ -170,7 +170,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in searchGoods method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return goodList;
@@ -180,7 +180,7 @@ public class GoodDaoDBImpl implements GoodDao {
 
 		List<GoodListForJsp> goodListForJsp = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH_PAGES)) {
 
 			ps.setString(1, searchInput);
@@ -195,7 +195,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in searchGoodsWithPages method of GoodDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return goodListForJsp;
@@ -206,7 +206,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		
 		List<GoodListForJsp> goodList = new ArrayList<>();
 
-		try (Connection connection = DAOFactory.getDAO().connectionPool.getConnect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX)) {
 
 			resultSet = ps.executeQuery();
@@ -218,7 +218,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in findAllGoodsJoinTables method of GoodDaoDBImpl class", e);
 		} finally {
-			DAOFactory.getDAO().connectionPool.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return goodList;
@@ -229,7 +229,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		
 		List<GoodListForJsp> goodListForJsp = new ArrayList<>();
 
-		try (Connection connection = DAOFactory.getDAO().connectionPool.getConnect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX_PAGINATION)) {
 
 			ps.setInt(1, beginGood);
@@ -243,7 +243,7 @@ public class GoodDaoDBImpl implements GoodDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in findAllGoodsJoinTablesWithPages method of GoodDaoDBImpl class", e);
 		} finally {
-			DAOFactory.getDAO().connectionPool.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return goodListForJsp;

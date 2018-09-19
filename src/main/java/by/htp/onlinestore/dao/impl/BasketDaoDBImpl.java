@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Statement;
 
-import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.BasketDao;
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.BasketListForJsp;
 import by.htp.onlinestore.util.FormUtil;
@@ -50,8 +50,9 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public void create(Basket basket) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
+		
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setInt(1, basket.getQuantity());
 			ps.setBigDecimal(2, basket.getSum());
@@ -65,16 +66,16 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
 
 	@Override
 	public void update(Basket basket) {
-
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setInt(1, basket.getQuantity());
 			ps.setBigDecimal(2, basket.getSum());
@@ -89,7 +90,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -97,8 +98,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public void delete(Basket basket) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, basket.getId());
 			ps.executeUpdate();
@@ -106,7 +107,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -114,8 +115,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public Basket read(int id) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -126,7 +127,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return null;
@@ -137,7 +138,8 @@ public class BasketDaoDBImpl implements BasketDao {
 
 		List<Basket> basketList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect(); Statement statement = connection.createStatement()) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				Statement statement = connection.createStatement()) {
 			resultSet = statement.executeQuery(SQL_READ_ALL);
 
 			while (resultSet.next()) {
@@ -146,7 +148,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readall method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 
@@ -158,8 +160,8 @@ public class BasketDaoDBImpl implements BasketDao {
 
 		List<Basket> basketList = new ArrayList<>();
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)) {
 
 			ps.setInt(1, buyerId);
 
@@ -172,7 +174,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in getallWhere method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return basketList;
@@ -183,8 +185,8 @@ public class BasketDaoDBImpl implements BasketDao {
 
 		List<Basket> basketList = new ArrayList<>();
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)) {
 
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);
@@ -198,7 +200,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return basketList;
@@ -209,8 +211,8 @@ public class BasketDaoDBImpl implements BasketDao {
 
 		List<BasketListForJsp> basketList = new ArrayList<>();
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES)) {
+		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES)) {
 
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);
@@ -224,7 +226,7 @@ public class BasketDaoDBImpl implements BasketDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return basketList;

@@ -41,6 +41,11 @@ public enum NameCommands {
 		{
 			this.command = new CommandProfile();
 		}
+	},
+	CONFIRMORDER {
+		{
+			this.command = new CommandConfirmOrder();
+		}
 	};
 
 	public Command command;

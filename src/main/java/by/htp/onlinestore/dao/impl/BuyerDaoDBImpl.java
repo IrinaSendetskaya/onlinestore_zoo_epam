@@ -11,7 +11,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import by.htp.onlinestore.connection.DBConnectionHelper;
 import by.htp.onlinestore.dao.BuyerDao;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
@@ -19,7 +18,6 @@ import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 
 public class BuyerDaoDBImpl implements BuyerDao {
 
-	//private ConnectionPool connectionPool = new ConnectionPool();
 	private Connection connection;
 	private ResultSet resultSet = null;
 
@@ -42,9 +40,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 //		ResultSet keys;
 //		buyer.newBuilder().setId(0);
 
-		// connection = DBConnectionHelper.connect();
-
-		try (Connection connection = DAOFactory.getDAO().connectionPool.getConnect();
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
 			ps.setString(1, buyer.getNickname());
@@ -66,7 +62,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of BuyerDaoDBImpl class", e);
 		} finally {
-			DAOFactory.getDAO().connectionPool.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -74,8 +70,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public void update(Buyer buyer) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, buyer.getNickname());
 			ps.setString(2, buyer.getPassword());
@@ -90,7 +86,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in update method of BuyerDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -98,8 +94,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public void delete(Buyer buyer) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, buyer.getId());
 			ps.executeUpdate();
@@ -107,7 +103,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in delete method of BuyerDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 
 	}
@@ -115,8 +111,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public Buyer read(int id) {
 
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -127,7 +123,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of BuyerDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return null;
@@ -138,7 +134,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 		List<Buyer> buyerList = new ArrayList<>();
 
-		try (Connection connection = DBConnectionHelper.connect(); Statement statement = connection.createStatement()) {
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				Statement statement = connection.createStatement()) {
 			resultSet = statement.executeQuery(SQL_READ_ALL);
 
 			while (resultSet.next()) {
@@ -147,7 +144,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in readall method of BuyerDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 
@@ -156,8 +153,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 	@Override
 	public Buyer read(final String login, final String password) {
-		connection = DBConnectionHelper.connect();
-		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN_AND_PASSWORD)) {
+		
+		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
+				PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN_AND_PASSWORD)) {
 
 			ps.setString(1, login);
 			ps.setString(2, password);
@@ -169,7 +167,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		} catch (SQLException e) {
 			logger.error("SQLException in read method of BuyerDaoDBImpl class", e);
 		} finally {
-			DBConnectionHelper.disconnect(connection);
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 			close(resultSet);
 		}
 		return null;

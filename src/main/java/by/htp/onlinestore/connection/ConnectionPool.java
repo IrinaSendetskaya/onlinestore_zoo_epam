@@ -3,9 +3,9 @@ package by.htp.onlinestore.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,35 +22,58 @@ public class ConnectionPool implements IConnectionPool{
 
 	private static final Logger logger = LoggerFactory.getLogger(DBConnectionHelper.class);
 
-	private final Queue<Connection> availableConnections;
-	private final Queue<Connection> usedConnections;
+	private static BlockingQueue<Connection> availableConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);
+	private static BlockingQueue<Connection> usedConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);
+	
+	private static ConnectionPool instance;
+	
+	private static final ResourceBundle rb = ResourceBundle.getBundle(DB_CONNECT_PROPERTY);
+	private static final String url = rb.getString(DB_CONNECT_URL);
+	private static final String login = rb.getString(DB_CONNECT_LOGIN);
+	private static final String pass = rb.getString(DB_CONNECT_PASS);
+	private static final String driver = rb.getString(DB_CONNECT_DRIVER);
+	
+	private ConnectionPool() {
 
-	public ConnectionPool() {
+		try {
+			Class.forName(driver);
 
-		availableConnections = new LinkedBlockingQueue<>(DB_CONNECT_POOL_SIZE);
-		usedConnections = new LinkedBlockingQueue<>(DB_CONNECT_POOL_SIZE);
-		
+		} catch (ClassNotFoundException e) {
+			logger.error("Error! Соединение не установлено! Error: ", e);
+			System.exit(1);
+		}
+		addConnection();
+	}
+	
+	public static IConnectionPool getInstance() {
+		if (instance == null) {
+			synchronized (ConnectionPool.class) {
+				if (instance == null) {
+					instance = new ConnectionPool();
+				}
+			}
+		}
+		return instance;
+	}
+	
+	
+	private void addConnection() {
+
 		for (int count = 0; count < DB_CONNECT_POOL_SIZE; count++) {
-			availableConnections.offer(this.createConnection());  //or add??
+			availableConnections.add(this.createConnection());  
 		}
 	}
+
 
 	private Connection createConnection() {
 
 		Connection connection = null;
 
 		try {
-			ResourceBundle rb = ResourceBundle.getBundle(DB_CONNECT_PROPERTY);
-
-			String url = rb.getString(DB_CONNECT_URL);
-			String login = rb.getString(DB_CONNECT_LOGIN);
-			String pass = rb.getString(DB_CONNECT_PASS);
-			Class.forName(rb.getString(DB_CONNECT_DRIVER));
-
 			connection = DriverManager.getConnection(url, login, pass);
-
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			logger.error("Error! Соединение не установлено! Error: ", e);
+			System.exit(1);
 		}
 		return connection;
 	}
@@ -59,11 +82,14 @@ public class ConnectionPool implements IConnectionPool{
 	public Connection getConnect() {
 
 		Connection connection = null;
-
+		
 		if (!availableConnections.isEmpty()) {
-			connection = availableConnections.peek();
-			availableConnections.poll();
-			usedConnections.offer(connection);
+			try {
+				connection=availableConnections.take();
+				usedConnections.add(connection);
+			} catch (InterruptedException e) {
+				logger.error(e.getMessage() + " in getConnect method of ConnectionPool class", e);
+			}
 			return connection;
 		} else {
 			logger.error(MessageConstantDeclaration.MSG_ERROR, "All connection used!");
@@ -74,14 +100,19 @@ public class ConnectionPool implements IConnectionPool{
 	@Override
 	public boolean disconnect(Connection connection) {
 
-		if (connection != null && usedConnections.poll() != null) {
-			availableConnections.offer(connection);
+		if (connection != null) {
+			
+			try {
+				connection=usedConnections.remove();
+				availableConnections.add(connection);		
+				connection.close();
+			} catch (SQLException e) {
+				logger.error(e.getMessage() + " in disconnect method of ConnectionPool class", e);
+				return false;
+			}
 			return true;
 		}
 		return false;
 	}
 
-	public int getFreeConnectionCount() {
-		return availableConnections.size();
-	}
 }

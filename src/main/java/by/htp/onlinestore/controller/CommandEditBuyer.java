@@ -37,14 +37,14 @@ class CommandEditBuyer extends Command {
             		.setRoleId(roleId)
             		.build(); 
             if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_BUYER_FROM_ADMIN)!=null){
-                DAOFactory.getDAO().buyerDAO.update(buyer);
+                DAOFactory.getDao().getBuyerDAO().update(buyer);
             }
             else if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_BUYER_FROM_ADMIN)!=null){
-                DAOFactory.getDAO().buyerDAO.delete(buyer);
+                DAOFactory.getDao().getBuyerDAO().delete(buyer);
             }
         }
-        List<Buyer> buyers = DAOFactory.getDAO().buyerDAO.readAll();
-        List<Role> roles = DAOFactory.getDAO().roleDAO.readAll();
+        List<Buyer> buyers = DAOFactory.getDao().getBuyerDAO().readAll();
+        List<Role> roles = DAOFactory.getDao().getRoleDAO().readAll();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_ROLES_LIST,roles);
         return null;
