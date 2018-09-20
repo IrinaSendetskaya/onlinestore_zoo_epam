@@ -52,10 +52,11 @@
 		<br>
 
 		<div class="container">
-		
-				<c:forEach items="${basketsListForJsp}" var="basket">
+
+
+			<c:forEach items="${basketsListForJsp}" var="basket">
 				<form class="update-basket-${basket.id}"
-				action="do?command=CreateBasket" method=POST>
+					action="do?command=CreateBasket" method=POST>
 					<div class="row">
 						<div class="col-md-1">
 							<input id="id" class="form-control input-md" name="id"
@@ -88,26 +89,32 @@
 						<br>
 					</div>
 
-</form>
-				</c:forEach>
-				
-				<hr>
-				<form action="do?command=ConfirmOrder" method=GET>
+				</form>
+			</c:forEach>
+
+			<hr>
+			
+			<c:if test="${basketsListForJsp!=null}">
+			<form action="do?command=ConfirmOrder" method=POST>
 				<label class="col-md-4 control-label" for="postbutton"></label>
+				
+				<div class="col-md-4" hidden="">${sumReady}</div>
 				<div class="col-md-4">
 					<button id="btnMakeOrder" value="btnMakeOrder" name="btnMakeOrder"
 						class="btn btn-primary">Оформить заказ</button>
 				</div>
-				</form>
-			
+			</form>
+
 			<br> <br>
 
 			<hr>
 
+			
 			<div class="row">
 				<mytag:paginator count="${goodsSize}" step="5"
 					urlprefix="do?command=CreateBasket&start=" />
 			</div>
+			</c:if>
 
 			<hr>
 

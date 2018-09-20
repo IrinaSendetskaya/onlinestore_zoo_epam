@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
+import by.htp.onlinestore.util.FormUtil;
 import by.htp.onlinestore.util.SessionUtilClass;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
@@ -20,7 +21,7 @@ public class CommandConfirmOrder extends Command {
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-		Basket currentBasket=null;
+		Basket currentBasket = null;
 		Buyer buyer = SessionUtilClass.findInSession(req, EntityNameConstantDeclaration.REQUEST_PARAM_BUYER);
 		if (buyer == null) {
 			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Вам необходимо войти либо зарегистрироваться!");
@@ -28,31 +29,33 @@ public class CommandConfirmOrder extends Command {
 		}
 
 		BigDecimal sumReady = BigDecimal.ZERO;
-		if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
-			sumReady = (BigDecimal) req.getAttribute("sumReady");
-			if (sumReady != BigDecimal.ZERO) {
-				String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей",
-						sumReady.doubleValue());
-				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, sumReadyAll);
-				//req.setAttribute("sumReady", sumReadyAll);
 
-				String status = "Завершен";
+		if (FormUtil.isPost(req)) {
+			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
+				String status = "завершен";
 
 				List<Basket> baskets = DAOFactory.getDao().getBasketDAO().getAll(buyer.getId());
 
 				Iterator<Basket> iterator = baskets.iterator();
 				while (iterator.hasNext()) {
-					currentBasket=iterator.next();
+					currentBasket = iterator.next();
+					if(!"завершен".equalsIgnoreCase(currentBasket.getStatusOrders())) {
+					sumReady = sumReady.add(currentBasket.getSum());
+					}
 					currentBasket.setStatusOrders(status);
-					DAOFactory.getDao().getBasketDAO().update(currentBasket);
+					DAOFactory.getDao().getBasketDAO().update(currentBasket);			
 				}
-				return null;
+				if (sumReady != BigDecimal.ZERO) {
+					String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей",
+							sumReady);
+					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, sumReadyAll);
+					
+					return null;
+				}
+			} else {
+				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ваша корзина пуста, добавьте товары!");
 			}
-		}
-		else {
-			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ваша корзина пуста, добавьте товары!");
 		}
 		return null;
 	}
-
 }

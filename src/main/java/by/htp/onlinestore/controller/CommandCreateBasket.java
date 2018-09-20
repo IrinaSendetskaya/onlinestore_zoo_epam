@@ -32,12 +32,14 @@ class CommandCreateBasket extends Command {
 		List<Basket> baskets = new ArrayList<>();
 		List<BasketListForJsp> basketListForJsp = new ArrayList<>();
 		BigDecimal sumNew = BigDecimal.ONE;
+		Boolean flag=false;
 
 		Buyer buyer=SessionUtilClass.findInSession(req, EntityNameConstantDeclaration.REQUEST_PARAM_BUYER);
 		if (buyer == null) {
 			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Вам необходимо войти либо зарегистрироваться!");
 			return NameCommands.LOGIN.command;
 		}
+		
 		
 		if (FormUtil.isPost(req)) {
 			int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
@@ -60,9 +62,24 @@ class CommandCreateBasket extends Command {
 		}
 		
 		baskets = DAOFactory.getDao().getBasketDAO().getAll(buyer.getId());
+		
+		Iterator<Basket> iteratorBasket = baskets.iterator();
+		while (iteratorBasket.hasNext()) {
+			String status = iteratorBasket.next().getStatusOrders();
+			if("товар в корзине".equalsIgnoreCase(status)) {
+				flag=true;
+			}
+		}
+		
+		if (baskets.isEmpty()||!flag) {
+			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ваша корзина пуста!");
+		}
+		else
+		{
+		
 		int startGood = PaginationUtilClass.makePagination(req, baskets);
 		basketListForJsp = DAOFactory.getDao().getBasketDAO().findAllBasketsJoinTablesWithPages(buyer.getId(), startGood,
-				startGood + 5);
+				10);
 
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST_FOR_JSP, basketListForJsp);
@@ -75,12 +92,8 @@ class CommandCreateBasket extends Command {
 		}
 		req.setAttribute("sumReady", sumReady);
 		
-		if (baskets.isEmpty()) {
-			req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "Ваша корзина пуста!");
+		
 		}
-		
-
-		
 		return null;
 	}
 

@@ -60,7 +60,7 @@ class CommandIndex extends Command {
 			// выводит весь список товаров
 			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTables();
 			int startGood = PaginationUtilClass.makePagination(req, goodsListForJsp);
-			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTablesWithPages(startGood, startGood + 5);
+			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTablesWithPages(startGood, 10);
 
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST, goods);
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST_FOR_JSP, goodsListForJsp);
