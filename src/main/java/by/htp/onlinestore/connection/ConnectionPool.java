@@ -20,7 +20,7 @@ public class ConnectionPool implements IConnectionPool{
 	private static final String DB_CONNECT_DRIVER = "db.driver";
 	private static final int DB_CONNECT_POOL_SIZE = 32;
 
-	private static final Logger logger = LoggerFactory.getLogger(DBConnectionHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
 	private static BlockingQueue<Connection> availableConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);
 	private static BlockingQueue<Connection> usedConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);

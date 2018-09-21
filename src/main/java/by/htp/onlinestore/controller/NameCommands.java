@@ -46,6 +46,11 @@ public enum NameCommands {
 		{
 			this.command = new CommandConfirmOrder();
 		}
+	},
+	CHANGELOCALE {
+		{
+			this.command = new CommandChangeLocale();
+		}
 	};
 
 	public Command command;

@@ -2,6 +2,18 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${sessionScope.locale}"/>	
+<fmt:bundle basename="localization.local" prefix = "login.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="main_header" var="main_header"/>
+	<fmt:message key="placeholder_login" var="placeholder_login"/>
+	<fmt:message key="placeholder_password" var="placeholder_password"/>
+	<fmt:message key="button_login" var="button_login"/>
+	<fmt:message key="link_register" var="link_register"/>
+	<fmt:message key="msg_login_failed" var="msg_login_failed"/>
+</fmt:bundle>
 
 <!DOCTYPE html>
 <html>

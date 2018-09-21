@@ -13,5 +13,6 @@ public final class ValidationRegex {
 	public static final String REGEX_ALL_SYMBOL = "[\\w\\s\\/А-Яа-яЁё&.,!\"№%:;()+=?—-]+";
 	public static final String REGEX_MOBILE="[\\+]+[\\d]{12}";
 	public static final String REGEX_SYMBOL_DIGITAL_AND_ = "[\\w]+";
+	public static final String REGEX_LOCALE_PARAM = "[a-zA-Z]{2}_[a-zA-Z]{2}";
 
 }

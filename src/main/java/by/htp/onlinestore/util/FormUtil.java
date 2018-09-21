@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.regex.Pattern;
 
 public class FormUtil {
 	
@@ -50,4 +51,11 @@ public class FormUtil {
 			url = url.replace("/view?usp=sharing", "");
 		return url;
 	}
+   
+   public static void validateRequestParamLocale(String locale) {
+		if (locale == null || !Pattern.matches(ValidationRegex.REGEX_LOCALE_PARAM, locale))
+			throw new ValidateParamException("Undefined locale!");
+	}
+
+  
 }

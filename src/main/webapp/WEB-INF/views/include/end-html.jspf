@@ -4,7 +4,7 @@ Error:
 
 <footer>
     <div class="select-language">
-		<span> <a href="?lang=en">en</a> | <a href="?lang=ru">ru</a>
+		<span> <a href="do?command=ChangeLocale&locale=en_US">en</a> | <a href="do?command=ChangeLocale&locale=ru_BY">ru</a>
 		</span>
     </div>
 </footer>
