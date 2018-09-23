@@ -3,6 +3,26 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="mytag" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}"/>	
+<fmt:bundle basename="localization.local" prefix = "basket.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="main_header" var="main_header"/>
+	<fmt:message key="page_header" var="page_header"/>
+	<fmt:message key="label_good" var="label_good"/>
+	<fmt:message key="label_quantity" var="label_quantity"/>
+	<fmt:message key="label_sum" var="label_sum"/>
+	<fmt:message key="label_data" var="label_data"/>
+	<fmt:message key="label_status" var="label_status"/>
+	<fmt:message key="btn_update" var="btn_update"/>
+	<fmt:message key="btn_delete" var="btn_delete"/>
+	<fmt:message key="btn_confirm" var="btn_confirm"/>
+	<fmt:message key="total" var="total"/>
+	<fmt:message key="currency" var="currency"/>
+	<fmt:message key="address" var="address"/>
+	<fmt:message key="mobile" var="mobile"/>
+</fmt:bundle>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +34,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 
-<title>Интернет-магазин</title>
+<title>${title}</title>
 </head>
 
 <body>
@@ -25,11 +45,11 @@
 	<fieldset>
 
 		<!-- Form Name -->
-		<legend>Формирование заказа</legend>
+		<legend>${main_header}</legend>
 
 		<div class="container">
 			<div class="page-header">
-				<h3>Ваша корзина</h3>
+				<h3>${page_header}</h3>
 				<p class="lead"></p>
 			</div>
 
@@ -37,12 +57,12 @@
 
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-2">Товар</div>
-			<div class="col-md-2">Количество</div>
+			<div class="col-md-2">${label_good}</div>
+			<div class="col-md-2">${label_quantity}</div>
 			<hr>
-			<div class="col-md-1">Сумма</div>
-			<div class="col-md-1">Дата заказа</div>
-			<div class="col-md-1">Статус заказа</div>
+			<div class="col-md-1">${label_sum}</div>
+			<div class="col-md-1">${label_data}</div>
+			<div class="col-md-1">${label_status}</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 			<hr>
@@ -79,12 +99,12 @@
 						</div>
 						<div class=col-md-1>
 							<button id="btnUpdateGoodInBasket" value="btnUpdateGoodInBasket"
-								name="btnUpdateGoodInBasket" class="btn btn-success">Изменить</button>
+								name="btnUpdateGoodInBasket" class="btn btn-success">${btn_update}</button>
 						</div>
 						<hr>
 						<div class=col-md-1>
 							<button id="btnDeleteGoodInBasket" value="btnDeleteGoodInBasket"
-								name="btnDeleteGoodInBasket" class="btn btn-danger">Удалить</button>
+								name="btnDeleteGoodInBasket" class="btn btn-danger">${btn_delete}</button>
 						</div>
 						<br>
 					</div>
@@ -101,7 +121,7 @@
 				<div class="col-md-4" hidden="">${sumReady}</div>
 				<div class="col-md-4">
 					<button id="btnMakeOrder" value="btnMakeOrder" name="btnMakeOrder"
-						class="btn btn-primary">Оформить заказ</button>
+						class="btn btn-primary">${btn_confirm}</button>
 				</div>
 			</form>
 
@@ -122,27 +142,26 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-1"
-						style="border-left-color: aqua; font-size: large;">Итого:</div>
+						style="border-left-color: aqua; font-size: large;">${total}</div>
 
 					<div class="col-md-8" align="right" style="float: right;">${sumReady}</div>
-					<div class="col-md-2" align="right" style="float: right;">рублей</div>
+					<div class="col-md-2" align="right" style="float: right;">${currency}</div>
 				</div>
 			</div>
 			<hr>
 			<br> <br>
 
-			<div class="col-md-4">Адрес доставки:</div>
+			<div class="col-md-4">${address}</div>
 			<br>
 			<div class="col-md-4">${buyer.address}</div>
 			<hr>
 			<br>
 
-			<div class="col-md-3">Телефон для связи:</div>
+			<div class="col-md-3">${mobile}</div>
 			<br>
 			<div class="col-md-3">${buyer.mobile}</div>
 			<hr>
 			<br> <br>
-			<!-- Button -->
 
 		</div>
 

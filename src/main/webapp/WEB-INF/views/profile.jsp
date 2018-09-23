@@ -3,6 +3,27 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="mytag" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}"/>	
+<fmt:bundle basename="localization.local" prefix = "profile.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="page_header" var="page_header"/>
+	<fmt:message key="label_name" var="label_name"/>
+	<fmt:message key="label_password" var="label_password"/>
+	<fmt:message key="placeholder_password" var="placeholder_password"/>
+	<fmt:message key="label_email" var="label_email"/>
+	<fmt:message key="label_mobile" var="label_mobile"/>
+	<fmt:message key="label_address" var="label_address"/>
+	<fmt:message key="btn_update" var="btn_update"/>
+	<fmt:message key="order_header" var="order_header"/>
+	<fmt:message key="label_quantity" var="label_quantity"/>
+	<fmt:message key="label_amount" var="label_amount"/>
+	<fmt:message key="label_date" var="label_date"/>
+	<fmt:message key="label_status" var="label_status"/>
+	<fmt:message key="label_buyer" var="label_buyer"/>
+	<fmt:message key="label_good" var="label_good"/>
+</fmt:bundle>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +35,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 
-<title>Интернет-магазин</title>
+<title>${title}</title>
 </head>
 
 <body>
@@ -26,31 +47,31 @@
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Form Login</legend>
+        <legend>${page_header}</legend>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="nickname">Nickname</label>
+            <label class="col-md-4 control-label" for="nickname">${label_name}</label>
             <div class="col-md-4">
                 <input id="nickname" name="nickname" type="text" placeholder="" class="form-control input-md"
                        value="${buyer.nickname}">
-                <span class="help-block">Nickname (hint)</span>
+                <span class="help-block">${label_name} (hint)</span>
             </div>
         </div>
 
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="password">Password Input</label>
+            <label class="col-md-4 control-label" for="password">${label_password}</label>
             <div class="col-md-4">
                 <input id="password" name="password" type="text" placeholder="placeholder" class="form-control input-md"
                        value="${buyer.password}">
-                <span class="help-block">(min 4 symbols)</span>
+                <span class="help-block">${placeholder_password}</span>
             </div>
         </div>
         
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="email">Email Input</label>
+            <label class="col-md-4 control-label" for="email">${label_email}</label>
             <div class="col-md-4">
                 <input id="email" name="email" type="text" placeholder="placeholder" class="form-control input-md"
                        value="${buyer.email}">
@@ -59,7 +80,7 @@
         
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="mobile">Mobile Input</label>
+            <label class="col-md-4 control-label" for="mobile">${label_mobile}</label>
             <div class="col-md-4">
                 <input id="mobile" name="mobile" type="text" placeholder="placeholder" class="form-control input-md"
                        value="${buyer.mobile}">
@@ -68,7 +89,7 @@
         
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="address">Address Input</label>
+            <label class="col-md-4 control-label" for="address">${label_address}</label>
             <div class="col-md-4">
                 <input id="address" name="address" type="text" placeholder="placeholder" class="form-control input-md"
                        value="${buyer.address}">
@@ -79,7 +100,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton"></label>
             <div class="col-md-4">
-                <button id="btnChangeProfile" name="btnChangeProfile" class="btn btn-primary">Изменить</button>
+                <button id="btnChangeProfile" name="btnChangeProfile" class="btn btn-primary">${btn_update}</button>
             </div>
         </div>
 
@@ -87,18 +108,18 @@
 </form>
 
 <div class="page-header">
-  <h1> Заказы</h1>
+  <h1> ${order_header}</h1>
   <p class="lead"></p>
 </div>
 
 <div class="row">
    <div class="col-md-1">№</div>
-   <div class="col-md-2">Количество</div>
-   <div class="col-md-1">Сумма</div>
-   <div class="col-md-2">Дата заказа</div>
-   <div class="col-md-2">Статус заказа</div>
-   <div class="col-md-2">№ покупателя</div>
-   <div class="col-md-2">№ товара</div>
+   <div class="col-md-2">${label_quantity}</div>
+   <div class="col-md-1">${label_amount}</div>
+   <div class="col-md-2">${label_date}</div>
+   <div class="col-md-2">${label_status}</div>
+   <div class="col-md-2">№ ${label_buyer}</div>
+   <div class="col-md-2">№ ${label_good}</div>
 
 
 </div>

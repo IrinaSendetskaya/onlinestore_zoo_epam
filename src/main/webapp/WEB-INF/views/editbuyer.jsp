@@ -3,6 +3,19 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="mytag" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}"/>	
+<fmt:bundle basename="localization.local" prefix = "edit_buyer.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="label_name" var="label_name"/>
+	<fmt:message key="label_email" var="label_email"/>
+	<fmt:message key="label_mobile" var="label_mobile"/>
+	<fmt:message key="label_address" var="label_address"/>
+	<fmt:message key="label_role" var="label_role"/>
+	<fmt:message key="btn_update" var="btn_update"/>
+	<fmt:message key="btn_delete" var="btn_delete"/>
+</fmt:bundle>
 
 <!DOCTYPE html>
 <html>
@@ -13,40 +26,23 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
-<title>Интернет-магазин</title>
+<title>${title}</title>
 </head>
 
 <body>
 
 	<%@ include file="include/begin-html.jspf"%>
 
-	<script type="text/javascript">
-		function doAjaxSignup() {
-			$.ajax({
-				url : 'signup',
-				data : ({
-					password : $('#pass').val(),
-					nickname : $('#name').val()
-				}),
-				success : function(data) {
-					$('#resultValue').html(data);
-				}
-			})
-		}
-	</script>
-
 	<div class="container">
 		<div class="row">
 			<div class=col-md-1></div>
-			<div class=col-md-1>Имя</div>
-			<div class=col-md-1>Пароль</div>
-			<div class=col-md-2>Email</div>
-			<div class=col-md-1>Mobile</div>
-			<div class=col-md-2>Address</div>
-			<div class=col-md-2>Роль</div>
+			<div class=col-md-1>${label_name}</div>
+			<div class=col-md-1></div>
+			<div class=col-md-2>${label_email}</div>
+			<div class=col-md-1>${label_mobile}</div>
+			<div class=col-md-2>${label_address}</div>
+			<div class=col-md-2>${label_role}</div>
 		</div>
 	</div>
 
@@ -92,13 +88,13 @@
 
 					<div class=col-md-1>
 						<button id="btnUpdateBuyer" value="btnUpdateBuyer"
-							name="btnUpdateBuyer" class="btn btn-success">Обновить</button>
+							name="btnUpdateBuyer" class="btn btn-success">${btn_update}</button>
 					</div>
 
 					<div class=col-md-1>
 						<button id="btnDeleteBuyer" value="btnDeleteBuyer"
-							name="btnDeleteBuyer" class="btn btn-danger" onclick="doAjax()">
-							Удалить</button>
+							name="btnDeleteBuyer" class="btn btn-danger">
+							${btn_delete}</button>
 					</div>
 				</div>
 			</form>

@@ -2,6 +2,26 @@
 	pageEncoding="UTF8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}"/>	
+<fmt:bundle basename="localization.local" prefix = "signup.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="main_header" var="main_header"/>
+	<fmt:message key="label_login" var="label_login"/>
+	<fmt:message key="placeholder_login" var="placeholder_login"/>
+	<fmt:message key="label_email" var="label_email"/>
+	<fmt:message key="placeholder_email" var="placeholder_email"/>
+	<fmt:message key="label_password" var="label_password"/>
+	<fmt:message key="placeholder_password" var="placeholder_password"/>
+	<fmt:message key="mobile" var="mobile"/>
+	<fmt:message key="placeholder_mobile" var="placeholder_mobile"/>
+	<fmt:message key="address" var="address"/>
+	<fmt:message key="placeholder_address" var="placeholder_address"/>
+	<fmt:message key="button_register" var="button_register"/>
+	<fmt:message key="link_login" var="link_login"/>
+	<fmt:message key="msg" var="msg"/>
+</fmt:bundle>
 
 <!DOCTYPE html>
 <html>
@@ -12,29 +32,45 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
-<title>Интернет-магазин</title>
+<title>${title}</title>
 </head>
 
 <body>
 
 	<%@ include file="include/begin-html.jspf"%>
 
+	<script type="text/javascript">
+		function doAjaxSignup() {
+			$.ajax({
+				url : 'signup',
+				data : ({
+					password : $('#pass').val(),
+					nickname : $('#name').val()
+				}),
+				success : function(data) {
+					$('#resultValue').html(data);
+				}
+			})
+		}
+	</script>
 
 	<form class="form-horizontal" action="do?command=Signup" method="post">
 		<fieldset>
 
 			<!-- Form Name -->
-			<legend>Регистрация нового пользователя</legend>
+			<legend>${main_header}</legend>
 
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="nickname">Логин</label>
+				<label class="col-md-4 control-label" for="nickname">${label_login}</label>
 				<div class="col-md-4">
 					<input id="nickname" name="nickname" type="text" placeholder=""
-						class="form-control input-md" required="" value="TestLogin">
-					<span class="help-block">Введите Ваш логин</span>
+						class="form-control input-md" required value="TestLogin">
+					<span class="help-block">${placeholder_login}</span>
 				</div>
 			</div>
 
@@ -42,52 +78,50 @@
 
 			<!-- Text input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">E-mail</label>
+				<label class="col-md-4 control-label" for="email">${label_email}</label>
 				<div class="col-md-4">
 					<input id="email" name="email" type="text" placeholder=""
-						class="form-control input-md" required=""
-						value="TestEmail@google.com"> <span class="help-block">Укажите
-						e-mail</span>
+						class="form-control input-md" required
+						value="TestEmail@google.com"> <span class="help-block">${placeholder_email}</span>
 				</div>
 			</div>
 
 			<!-- Password input-->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="password">Пароль</label>
+				<label class="col-md-4 control-label" for="password">${label_password}</label>
 				<div class="col-md-4">
 					<input id="password" name="password" type="password"
-						placeholder="********" class="form-control input-md" required=""
-						value="TestPassword"> <span class="help-block">Введите
-						пароль минимум 4 символов</span>
+						placeholder="********" class="form-control input-md" required
+						value="TestPassword"> <span class="help-block">${placeholder_password}</span>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="mobile">Телефон для связи</label>
+				<label class="col-md-4 control-label" for="mobile">${mobile}</label>
 				<div class="col-md-4">
 					<input id="mobile" name="mobile" type="text" placeholder=""
-						class="form-control input-md" required=""
-						value="+375295821155"> <span class="help-block">Укажите
-						телефон для связи</span>
+						class="form-control input-md" required value="+375295821155">
+					<span class="help-block">${placeholder_mobile}</span>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="address">Адрес доставки</label>
+				<label class="col-md-4 control-label" for="address">${address}</label>
 				<div class="col-md-4">
 					<input id="address" name="address" type="text" placeholder=""
-						class="form-control input-md" required=""
-						> <span class="help-block">Укажите
-						адрес доставки</span>
+						class="form-control input-md" required> <span
+						class="help-block">${placeholder_address}</span>
 				</div>
 			</div>
-			
+<!-- onclick="doAjax()" -->
 
 			<!-- Button -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="btnSignup"></label>
 				<div class="col-md-4">
-					<button id="btnSignup" name="btnSignup" class="btn btn-success">Зарегистрироваться</button>
+					<button id="btnSignup" name="btnSignup" class="btn btn-success">${button_register}</button>
+				<a href="do?command=Login">${link_login} <span
+								class="sr-only">(current)</span></a>
 				</div>
 			</div>
 
@@ -95,7 +129,7 @@
 	</form>
 
 	<p>
-		SIGN-UP MESSAGE: <b>${message}</b>
+		${msg} <b>${message}</b>
 	</p>
 
 

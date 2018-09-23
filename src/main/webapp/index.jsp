@@ -3,6 +3,19 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="mytag" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${currentLocale}"/>	
+<fmt:bundle basename="localization.local" prefix = "index.">
+	<fmt:message key="title" var="title"/>
+	<fmt:message key="page_header" var="page_header"/>
+	<fmt:message key="label_good" var="label_good"/>
+	<fmt:message key="label_image" var="label_image"/>
+	<fmt:message key="label_price" var="label_price"/>
+	<fmt:message key="label_measure" var="label_measure"/>
+	<fmt:message key="btn_in_basket" var="btn_in_basket"/>
+</fmt:bundle>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +27,7 @@
 <link rel="stylesheet"
 	href="<c:url value="resources/css/bootstrap.min.css"/>">
 
-<title>Интернет-магазин</title>
+<title>${title}</title>
 </head>
 
 <body>
@@ -22,17 +35,17 @@
 	<%@ include file="WEB-INF/views/include/begin-html.jspf"%>
 
 	<div class="page-header">
-		<h1>Tовары</h1>
+		<h1>${page_header}</h1>
 		<p class="lead"></p>
 	</div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-3">Товар</div>
-			<div class="col-md-4">Изображение</div>
-			<div class="col-md-1">Цена</div>
-			<div class="col-md-1">ед.изм.</div>
+			<div class="col-md-3">${label_good}</div>
+			<div class="col-md-4">${label_image}</div>
+			<div class="col-md-1">${label_price}</div>
+			<div class="col-md-1">${label_measure}</div>
 			<div class="col-md-1"></div>
 		</div>
 		<br>
@@ -56,7 +69,7 @@
 					<c:if test="${buyer.roleId!=3}">
 						<div class="col-md-1">
 							<button id="btnInBasket" value="btnInBasket" name="btnInBasket"
-								class="btn btn-success">В корзину</button>
+								class="btn btn-success">${btn_in_basket}</button>
 						</div>
 					</c:if>
 				</div>

@@ -19,7 +19,7 @@
 	<fmt:message key="logout" var="logout"/>
 </fmt:bundle>
 
-<h2>${message}</h2>
+
 
 
 <c:if test="${buyer!=null}">
@@ -55,7 +55,7 @@
 		<form class="form-inline my-1 my-lg-0" action="do?command=Index">
 
 			<input id="searchInput" name="searchInput"
-				class="form-control input-md" type="search" placeholder="{search_placeholder}"
+				class="form-control input-md" type="search" placeholder="${search_placeholder}"
 				aria-label="Search">
 
 			<button id="btnSearch" name="btnSearch"
@@ -94,3 +94,5 @@
 			</ul>
 		</nav>
 	</nav>
+	
+	<h2>${message}</h2>
