@@ -1,22 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<fmt:setLocale value="${currentLocale}"/>	
-<fmt:bundle basename="localization.local" prefix = "navbar.">
-	<fmt:message key="welcome" var="welcome"/>
-	<fmt:message key="home" var="home"/>
-	<fmt:message key="index" var="index"/>
-	<fmt:message key="edit_buyer" var="edit_buyer"/>
-	<fmt:message key="search_placeholder" var="search_placeholder"/>
-	<fmt:message key="search_button" var="search_button"/>
-	<fmt:message key="register" var="register"/>
-	<fmt:message key="login" var="login"/>
-	<fmt:message key="profile" var="profile"/>
-	<fmt:message key="basket" var="basket"/>
-	<fmt:message key="logout" var="logout"/>
+<fmt:setLocale value="${currentLocale}" />
+<fmt:bundle basename="localization.local" prefix="navbar.">
+	<fmt:message key="welcome" var="welcome" />
+	<fmt:message key="home" var="home" />
+	<fmt:message key="index" var="index" />
+	<fmt:message key="edit_buyer" var="edit_buyer" />
+	<fmt:message key="create_good" var="create_good" />
+	<fmt:message key="search_placeholder" var="search_placeholder" />
+	<fmt:message key="search_button" var="search_button" />
+	<fmt:message key="register" var="register" />
+	<fmt:message key="login" var="login" />
+	<fmt:message key="profile" var="profile" />
+	<fmt:message key="basket" var="basket" />
+	<fmt:message key="logout" var="logout" />
 </fmt:bundle>
 
 
@@ -30,7 +30,7 @@
 
 <div class="container">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href=".">${home}</a>
+		<a class="navbar-brand" href="do?command=Home">${home}</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNavDropdown"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -48,6 +48,9 @@
 
 					<li class="nav-item"><a class="nav-link"
 						href="do?command=EditBuyer">${edit_buyer}</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="do?command=CreateGood">${create_good}</a></li>
+
 				</c:if>
 			</ul>
 		</div>
@@ -55,12 +58,11 @@
 		<form class="form-inline my-1 my-lg-0" action="do?command=Index">
 
 			<input id="searchInput" name="searchInput"
-				class="form-control input-md" type="search" placeholder="${search_placeholder}"
-				aria-label="Search">
+				class="form-control input-md" type="search"
+				placeholder="${search_placeholder}" aria-label="Search">
 
 			<button id="btnSearch" name="btnSearch"
-				class="btn btn-outline-success my-1 my-sm-0" 
-				type="submit">${search_button}</button>
+				class="btn btn-outline-success my-1 my-sm-0" type="submit">${search_button}</button>
 		</form>
 
 
@@ -70,8 +72,7 @@
 				<c:choose>
 					<c:when test="${buyer==null}">
 						<li class="nav-item"><a class="nav-link"
-							href="do?command=SignUp">${register} <span
-								class="sr-only">(current)</span></a></li>
+							href="do?command=SignUp">${register} <span class="sr-only">(current)</span></a></li>
 						<li class="nav-item active"><a class="nav-link"
 							href="do?command=Login">${login} <span class="sr-only">(current)</span></a>
 						</li>
@@ -80,11 +81,10 @@
 
 						<c:if test="${buyer.roleId!=3}">
 							<li class="nav-item active"><a class="nav-link"
-								href="do?command=Profile">${profile} <span
-									class="sr-only">(current)</span></a></li>
+								href="do?command=Profile">${profile} <span class="sr-only">(current)</span></a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="do?command=CreateBasket">${basket}<span class="sr-only">(current)</span></a>
-							</li>
+								href="do?command=CreateBasket">${basket}<span
+									class="sr-only">(current)</span></a></li>
 						</c:if>
 						<li class="nav-item"><a class="nav-link"
 							href="do?command=Logout">${logout} <span class="sr-only">(current)</span></a>
@@ -94,5 +94,5 @@
 			</ul>
 		</nav>
 	</nav>
-	
+
 	<h2>${message}</h2>

@@ -18,5 +18,8 @@ public final class ButtonNameConstantDeclaration {
 	public static final String REQUEST_PARAM_BTN_DELETE_GOOD_IN_BASKET="btnDeleteGoodInBasket";
 	public static final String REQUEST_PARAM_BTN_CONFIRM_ORDER="btnMakeOrder";
 	public static final String REQUEST_PARAM_BTN_SEARCH_GOOD="btnSearch";
+	public static final String REQUEST_PARAM_BTN_UPDATE_GOOD="btnUpdateGood";
+	public static final String REQUEST_PARAM_BTN_DELETE_GOOD="btnDeleteGood";
+	public static final String REQUEST_PARAM_BTN_CREATE_GOOD="btnCreateGood";
 
 }

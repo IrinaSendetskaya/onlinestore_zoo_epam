@@ -15,6 +15,8 @@ import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.GoodDao;
 import by.htp.onlinestore.entity.Good;
 import by.htp.onlinestore.entity.GoodListForJsp;
+import by.htp.onlinestore.entity.Image;
+import by.htp.onlinestore.entity.SpecificationGood;
 import by.htp.onlinestore.util.FormUtil;
 import by.htp.onlinestore.util.constants.GoodFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
@@ -47,6 +49,9 @@ public class GoodDaoDBImpl implements GoodDao {
 			+ "FROM `Goods` JOIN `Measures` ON `Goods`.`fk_measures` = `Measures`.`id` JOIN `SpecificationGoods` "
 			+ "ON `fk_specificationGoods` = `SpecificationGoods`.`id` JOIN `Images` ON `SpecificationGoods`.`fk_images` = `Images`.`id`"
 			+ " LIMIT ?, ?";
+	private static final String SQL_INSERT_IMAGE="INSERT INTO `Images`(`imageUrl`) VALUES (?)";
+	private static final String SQL_INSERT_SPEC_GOOD = "INSERT INTO `SpecificationGoods`(`name`, `description`, `fk_sections`, `fk_images`) VALUES (?,?,?,?)";
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
@@ -71,6 +76,64 @@ public class GoodDaoDBImpl implements GoodDao {
 			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
+	
+	@Override
+	public void createNewGood(Good good, SpecificationGood specificationGood, Image image, int measureId,int sectionId) {
+
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		PreparedStatement createImage = null;
+		PreparedStatement createSpecGood = null;
+		PreparedStatement createGood = null;
+		try {
+			connection.setAutoCommit(false);
+			createImage = connection.prepareStatement(SQL_INSERT_IMAGE);
+			createSpecGood = connection.prepareStatement(SQL_INSERT_SPEC_GOOD);
+			createGood = connection.prepareStatement(SQL_INSERT);
+
+			createImage.setString(1, image.getImageUrl());
+			createImage.executeUpdate();
+			
+			createSpecGood.setString(1, specificationGood.getName());
+			createSpecGood.setString(2, specificationGood.getDescription());
+			createSpecGood.setInt(3, sectionId);
+			createSpecGood.setInt(4, image.getId());
+			createSpecGood.executeUpdate();
+			
+			createGood.setBigDecimal(1, good.getPrice());
+			createGood.setInt(2, measureId);
+			createGood.setInt(3, specificationGood.getId());
+			createGood.executeUpdate();
+			
+			connection.commit();
+		} catch (SQLException e) {
+			logger.error("SQLException in createNewGood method of GoodDaoImpl class", e);
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (SQLException ex) {
+					logger.error("Transaction can't be rolled back", ex);
+				}
+			}
+		} finally {	
+			try {
+				if (createImage != null) {
+					createImage.close();
+				}
+				if (createSpecGood != null) {
+					createSpecGood.close();
+				}
+				if (createGood != null) {
+					createGood.close();
+				}
+				connection.setAutoCommit(true);
+			} catch (SQLException e) {
+				logger.error("Connection can't be autocommit", e);
+			}
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+		}
+		
+	}
+
 
 	@Override
 	public void update(Good entity) {

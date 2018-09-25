@@ -2,9 +2,12 @@ package by.htp.onlinestore.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import by.htp.onlinestore.exception.ValidateParamException;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class FormUtil {
@@ -21,6 +24,21 @@ public class FormUtil {
             //logger.error("IllegalArgumentException in ParseException method of FormUtil class");
         }
     }
+   
+   public static List<String> getStringToArray(HttpServletRequest req, String field, String regxp) throws ParseException {
+       List<String> valueList=new ArrayList<>();
+	   String [] value=req.getParameterValues(field);
+       for (String string : value) {
+    	   if(string.matches(regxp)) {
+    		   valueList.add(string);
+    	   }  
+           else
+           {
+               throw new ParseException("Неверные данные. Вводите только корректные символы!",1);
+           }
+	}
+       return valueList;  
+   }
  
    public static int getInt(HttpServletRequest req, String field) throws ParseException {
         String value=req.getParameter(field);

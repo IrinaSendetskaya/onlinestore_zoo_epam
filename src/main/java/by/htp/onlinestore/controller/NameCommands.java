@@ -2,7 +2,11 @@ package by.htp.onlinestore.controller;
 
 public enum NameCommands {
 	// в одном экземпляре сущ enum
-	CREATEBASKET {
+	HOME {
+		{
+			this.command = new CommandHome();
+		}
+	},CREATEBASKET {
 		{
 			this.command = new CommandCreateBasket();
 		}
@@ -10,6 +14,11 @@ public enum NameCommands {
 	EDITBUYER {
 		{
 			this.command = new CommandEditBuyer();
+		}
+	},
+	CREATEGOOD {
+		{
+			this.command = new CommandCreateGood();
 		}
 	},
 	LOGIN {

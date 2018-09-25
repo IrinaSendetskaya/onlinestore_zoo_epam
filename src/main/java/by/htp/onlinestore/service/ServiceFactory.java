@@ -11,18 +11,64 @@ import by.htp.onlinestore.service.impl.SpecificationGoodServiceImpl;
 
 public class ServiceFactory {
 
-    private static ServiceFactory service;        //singleton
+    private static final ServiceFactory service=new ServiceFactory();        
+    
+    private final BuyerService buyerDAO;
+    private final RoleService roleDAO;
+    private final GoodService goodDAO;
+    private final BasketService basketDAO;
+    private final ImageService imageDAO;
+    private final MeasureService measureDAO;
+    private final SectionService sectionDAO;
+    private final SpecificationGoodService specificationGoodDAO;
 
-    public final BuyerService buyerDAO;
-    public final RoleService roleDAO;
-    public final GoodService goodDAO;
-    public final BasketService basketDAO;
-    public final ImageService imageDAO;
-    public final MeasureService measureDAO;
-    public final SectionService sectionDAO;
-    public final SpecificationGoodService specificationGoodDAO;
+    
+    public static ServiceFactory getService() {
+		return service;
+	}
 
-    public ServiceFactory() {
+
+	public BuyerService getBuyerDAO() {
+		return buyerDAO;
+	}
+
+
+	public RoleService getRoleDAO() {
+		return roleDAO;
+	}
+
+
+	public GoodService getGoodDAO() {
+		return goodDAO;
+	}
+
+
+	public BasketService getBasketDAO() {
+		return basketDAO;
+	}
+
+
+	public ImageService getImageDAO() {
+		return imageDAO;
+	}
+
+
+	public MeasureService getMeasureDAO() {
+		return measureDAO;
+	}
+
+
+	public SectionService getSectionDAO() {
+		return sectionDAO;
+	}
+
+
+	public SpecificationGoodService getSpecificationGoodDAO() {
+		return specificationGoodDAO;
+	}
+
+
+	private ServiceFactory() {
         this.buyerDAO = new BuyerServiceImpl();
         this.roleDAO = new RoleServiceImpl();
         this.goodDAO = new GoodServiceImpl();
@@ -31,18 +77,5 @@ public class ServiceFactory {
         this.measureDAO=new MeasureServiceImpl();
         this.sectionDAO=new SectionServiceImpl();
         this.specificationGoodDAO=new SpecificationGoodServiceImpl();
-    }
-
-    public static ServiceFactory getService()
-    {
-        if (service==null)
-        {
-            synchronized (ServiceFactory.class){
-                if(service==null){
-                    service=new ServiceFactory();
-                }
-            }
-        }
-        return service;
     }
 }

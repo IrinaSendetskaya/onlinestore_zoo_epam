@@ -46,6 +46,7 @@ public class FrontController extends HttpServlet {
             String errorJsp=NameCommands.ERROR.command.getJsp();
             dispatcher=servletContext.getRequestDispatcher(errorJsp);
             logger.error("Exception in process method of FrontController class", e);
+           // dispatcher.forward(req,resp);
         }
         if(nextStep==null || nextStep.equals(command))
         {
