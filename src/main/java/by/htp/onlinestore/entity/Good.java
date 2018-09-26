@@ -14,28 +14,69 @@ public class Good extends EntityBase {
 	private int specificationGoodId;
 	private int measureId;
 
-	private Good() {
+	public Good() {
 		
 	}
 
+	
+	
+	
 	public int getId() {
 		return id;
 	}
-	
+
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+
 	public BigDecimal getPrice() {
 		return price;
 	}
+
+
+
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+
+
 
 	public int getSpecificationGoodId() {
 		return specificationGoodId;
 	}
 
+
+
+
+	public void setSpecificationGoodId(int specificationGoodId) {
+		this.specificationGoodId = specificationGoodId;
+	}
+
+
+
+
 	public int getMeasureId() {
 		return measureId;
 	}
 
-	
-	
+
+
+
+	public void setMeasureId(int measureId) {
+		this.measureId = measureId;
+	}
+
+
+
+
 	public static Builder newBuilder() {
 		return new Good().new Builder();
 	}

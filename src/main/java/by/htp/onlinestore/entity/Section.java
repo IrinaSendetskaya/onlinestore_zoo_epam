@@ -13,16 +13,32 @@ public class Section extends EntityBase {
 	private Section() {
 	}
 
+	
+	
 	public int getId() {
 		return id;
 	}
 
-	public String getSection() {
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getSectionTitle() {
 		return sectionTitle;
 	}
 
 
-	
+
+	public void setSectionTitle(String sectionTitle) {
+		this.sectionTitle = sectionTitle;
+	}
+
+
+
 	public static Builder newBuilder(){
 		return new Section().new Builder();
 	}
@@ -37,7 +53,7 @@ public class Section extends EntityBase {
 			return this;
 		}
 
-		public Builder setSection(String sectionTitle) {
+		public Builder setSectionTitle(String sectionTitle) {
 			Section.this.sectionTitle = sectionTitle;
 			return this;
 		}
@@ -47,6 +63,7 @@ public class Section extends EntityBase {
 		}
 	}
 
+	
 	
 	@Override
 	public int hashCode() {

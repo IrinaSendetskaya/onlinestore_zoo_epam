@@ -50,8 +50,8 @@ public class FormUtil {
     }
    public static BigDecimal getBigDecimal(HttpServletRequest req, String field) throws ParseException {
         String value=req.getParameter(field);
-        Double doubleValue=Double.parseDouble(value);
-        return BigDecimal.valueOf(doubleValue);
+        BigDecimal bigValue=new BigDecimal(value);
+        return bigValue;
     }
 
    public static boolean isPost(HttpServletRequest reg){

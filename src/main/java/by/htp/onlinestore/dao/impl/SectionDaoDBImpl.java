@@ -21,7 +21,7 @@ public class SectionDaoDBImpl implements SectionDao {
 	private Connection connection;
 	private ResultSet resultSet = null;
 
-	private static final String SQL_INSERT="INSERT INTO `Sections`(`section`) VALUES VALUES (?)";
+	private static final String SQL_INSERT="INSERT INTO `Sections`(`section`) VALUES (?)";
 	private static final String SQL_UPDATE="UPDATE `Sections` SET `section`=? WHERE `id`=?";
 	private static final String SQL_DELETE="DELETE FROM `Sections` WHERE `id`=?";
 	private static final String SQL_READ_ID="SELECT `id`, `section` FROM `Sections` WHERE `id`=?";
@@ -39,7 +39,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_INSERT)
 						){
-			ps.setString(1, entity.getSection());
+			ps.setString(1, entity.getSectionTitle());
 			
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -56,7 +56,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps=connection.prepareStatement(SQL_UPDATE)
 						){
-			ps.setString(1, entity.getSection());
+			ps.setString(1, entity.getSectionTitle());
 			ps.setInt(2, entity.getId());
 			
 			ps.executeUpdate();
@@ -134,7 +134,7 @@ public class SectionDaoDBImpl implements SectionDao {
 		try {
 			section = Section.newBuilder()
 					.setId(rs.getInt(SectionFieldConstantDeclaration.REQUEST_PARAM_SECTION_ID))
-					.setSection(rs.getString(SectionFieldConstantDeclaration.REQUEST_PARAM_SECTION_NAME))
+					.setSectionTitle(rs.getString(SectionFieldConstantDeclaration.REQUEST_PARAM_SECTION_NAME))
 					.build();
 			
 			return section;

@@ -39,17 +39,17 @@
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img class="d-block w-100"
-					src="https://drive.google.com/uc?id=1fZxK_BIQjc9c6-gBXcT0XZRkTLroqLHr"
+					src="https://drive.google.com/uc?id=1W-LsztdOL0TciExywGMKwge9UDo_UlW7"
 					alt="First slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block w-20"
-					src="https://drive.google.com/uc?id=1OVUD1mKUpr7NdSBAv6ZtDWtZnBaWQRCN"
+				<img class="d-block w-100"
+					src="https://drive.google.com/uc?id=17dh5b2fqhTZMkVdkGP_5qNTK3e520UpJ"
 					alt="Second slide">
 			</div>
 			<div class="carousel-item">
-				<img class="d-block w-40"
-					src="https://drive.google.com/uc?id=1BrrjOEDnmj8AofTgm8jWQ0EFdEAicu1y"
+				<img class="d-block w-100"
+					src="https://drive.google.com/uc?id=1CyCleEzk8m7pLGThhUDk8GXtoK8jwPJp"
 					alt="Third slide">
 			</div>
 		</div>

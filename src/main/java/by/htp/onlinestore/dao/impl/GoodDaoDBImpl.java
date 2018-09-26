@@ -86,18 +86,30 @@ public class GoodDaoDBImpl implements GoodDao {
 		PreparedStatement createGood = null;
 		try {
 			connection.setAutoCommit(false);
-			createImage = connection.prepareStatement(SQL_INSERT_IMAGE);
-			createSpecGood = connection.prepareStatement(SQL_INSERT_SPEC_GOOD);
+			createImage = connection.prepareStatement(SQL_INSERT_IMAGE, Statement.RETURN_GENERATED_KEYS);
+			createSpecGood = connection.prepareStatement(SQL_INSERT_SPEC_GOOD, Statement.RETURN_GENERATED_KEYS);
 			createGood = connection.prepareStatement(SQL_INSERT);
 
 			createImage.setString(1, image.getImageUrl());
-			createImage.executeUpdate();
+
+			if (createImage.executeUpdate() > 0) {
+				ResultSet rs = createImage.getGeneratedKeys();
+				if (rs.next())
+					image.setId(rs.getInt(1));
+			} else
+				throw new SQLException();
 			
 			createSpecGood.setString(1, specificationGood.getName());
 			createSpecGood.setString(2, specificationGood.getDescription());
 			createSpecGood.setInt(3, sectionId);
 			createSpecGood.setInt(4, image.getId());
-			createSpecGood.executeUpdate();
+
+			if (createSpecGood.executeUpdate() > 0) {
+				ResultSet rs = createSpecGood.getGeneratedKeys();
+				if (rs.next())
+					specificationGood.setId(rs.getInt(1));
+			} else
+				throw new SQLException();
 			
 			createGood.setBigDecimal(1, good.getPrice());
 			createGood.setInt(2, measureId);

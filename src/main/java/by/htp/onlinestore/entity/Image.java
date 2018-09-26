@@ -10,20 +10,46 @@ public class Image extends EntityBase {
 	private int id;
 	private String imageUrl;
 	
-	private Image() {
+	public Image() {
 
 	}
 
+	
+
+	
+	
 	public int getId() {
 		return id;
 	}
+
+
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+
 
 	public String getImageUrl() {
 		return imageUrl;
 	}
 
-	
-	
+
+
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+
+
+
+
 	public static Builder newBuilder() {
 		return new Image().new Builder();
 	}
