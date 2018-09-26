@@ -2,10 +2,16 @@ package by.htp.onlinestore.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * Class describes Good entity
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class Good extends EntityBase {
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = 348329358459026590L;
 
@@ -14,13 +20,17 @@ public class Good extends EntityBase {
 	private int specificationGoodId;
 	private int measureId;
 
+	/**
+	 * constructor without parameter
+	 */
 	public Good() {
 		
 	}
-
 	
-	
-	
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
@@ -74,19 +84,31 @@ public class Good extends EntityBase {
 		this.measureId = measureId;
 	}
 
-
-
-
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Good().new Builder();
 	}
-	
+
+	/**
+	 * Inner class for build Good class object
+	 *
+	 */
 	public class Builder{
-		
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {	
 			
 		}
-		
+
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Good.this.id = id;
 			return this;
@@ -106,7 +128,9 @@ public class Good extends EntityBase {
 			Good.this.measureId = measureId;
 			return this;
 		}
-
+		/**
+		 * @return ready Good class object
+		 */
 		public Good build() {
 			return Good.this;
 		}
@@ -114,6 +138,9 @@ public class Good extends EntityBase {
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -125,6 +152,9 @@ public class Good extends EntityBase {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -148,6 +178,9 @@ public class Good extends EntityBase {
 		return true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Good {" + "id=" + id + ", price=" + price + 

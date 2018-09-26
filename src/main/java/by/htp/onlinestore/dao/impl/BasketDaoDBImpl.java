@@ -21,6 +21,12 @@ import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Baskets table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class BasketDaoDBImpl implements BasketDao {
 
 	private Connection connection;
@@ -46,7 +52,17 @@ public class BasketDaoDBImpl implements BasketDao {
 			+ "`SpecificationGoods`.`fk_images` = `Images`.`id`WHERE `fk_buyers`=? LIMIT ?, ?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BasketDaoDBImpl.class);
+	
+	/**
+	 * constructor without parameter
+	 */
+	public BasketDaoDBImpl() {
+		
+	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Basket basket) {
 
@@ -71,6 +87,9 @@ public class BasketDaoDBImpl implements BasketDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Basket basket) {
 		
@@ -95,6 +114,9 @@ public class BasketDaoDBImpl implements BasketDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Basket basket) {
 
@@ -112,6 +134,9 @@ public class BasketDaoDBImpl implements BasketDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Basket read(int id) {
 
@@ -133,6 +158,9 @@ public class BasketDaoDBImpl implements BasketDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Basket> readAll() {
 
@@ -155,6 +183,9 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#getAll(int)
+	 */
 	@Override
 	public List<Basket> getAll(int buyerId) {
 
@@ -180,6 +211,9 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#findAllBasketsWithPages(int, int, int)
+	 */
 	@Override
 	public List<Basket> findAllBasketsWithPages(int buyerId, int beginGood, int endGood) {
 
@@ -206,6 +240,9 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#findAllBasketsJoinTablesWithPages(int, int, int)
+	 */
 	@Override
 	public List<BasketListForJsp> findAllBasketsJoinTablesWithPages(int buyerId, int beginGood, int endGood) {
 
@@ -232,6 +269,11 @@ public class BasketDaoDBImpl implements BasketDao {
 		return basketList;
 	}
 
+	/**
+	 * get values from ResultSet and set them to Basket object
+	 * @param rs
+	 * @return entity baskets
+	 */
 	private Basket basketBuilder(ResultSet rs) {
 		Basket basket;
 		try {
@@ -250,6 +292,11 @@ public class BasketDaoDBImpl implements BasketDao {
 		return null;
 	}
 
+	/**
+	 * get values from ResultSet and set them to BasketListForJsp object
+	 * @param rs
+	 * @return entity BasketListForJsp
+	 */
 	private BasketListForJsp goodListBuilder(ResultSet rs) {
 
 		BasketListForJsp basketListForJsp;
@@ -275,6 +322,10 @@ public class BasketDaoDBImpl implements BasketDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

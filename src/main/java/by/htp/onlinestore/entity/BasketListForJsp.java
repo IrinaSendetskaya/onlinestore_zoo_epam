@@ -4,10 +4,16 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * Class describes BasketList only for forms
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class BasketListForJsp implements Serializable {
 
 	/**
-	* 
+	* An unique serial version identifier
 	*/
 	private static final long serialVersionUID = 726070217588791265L; // `Baskets`.`id`, `Images`.`imageUrl`,"
 			                                                     //" `SpecificationGoods`.`name`, `quantity`, `sum`, `dateOrder`, 
@@ -21,11 +27,16 @@ public class BasketListForJsp implements Serializable {
 	private String statusOrders;
 	private int buyerId;
 	private int goodId;
-
+	/**
+	 * constructor without parameter
+	 */
 	private BasketListForJsp() {
 
 	}
-
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
@@ -61,17 +72,30 @@ public class BasketListForJsp implements Serializable {
 	public int getGoodId() {
 		return goodId;
 	}
-
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new BasketListForJsp().new Builder();
 	}
-
+	/**
+	 * Inner class for build BasketListForJsp class object
+	 * @author irina
+	 *
+	 */
 	public class Builder {
-
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {
 
 		}
-
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			BasketListForJsp.this.id = id;
 			return this;
@@ -118,7 +142,9 @@ public class BasketListForJsp implements Serializable {
 			BasketListForJsp.this.goodId = goodId;
 			return this;
 		}
-
+		/**
+		 * @return ready BasketListForJsp class object
+		 */
 		public BasketListForJsp build() {
 			return BasketListForJsp.this;
 		}
@@ -126,6 +152,9 @@ public class BasketListForJsp implements Serializable {
 
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,6 +171,9 @@ public class BasketListForJsp implements Serializable {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -187,6 +219,9 @@ public class BasketListForJsp implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "GoodListForJsp {" + "id=" + id + "name=" + name +"imageUrl=" 

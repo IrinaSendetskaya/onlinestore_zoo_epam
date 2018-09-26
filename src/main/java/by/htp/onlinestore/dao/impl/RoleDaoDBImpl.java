@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.RoleDao;
 import by.htp.onlinestore.entity.Role;
 import by.htp.onlinestore.util.constants.RoleFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Roles table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class RoleDaoDBImpl implements RoleDao {
 
 	private Connection connection;
@@ -29,10 +35,16 @@ public class RoleDaoDBImpl implements RoleDao {
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 	
+	/**
+	 * constructor without parameter
+	 */
 	public RoleDaoDBImpl() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Role entity) {
 
@@ -50,6 +62,9 @@ public class RoleDaoDBImpl implements RoleDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Role entity) {
 
@@ -68,6 +83,9 @@ public class RoleDaoDBImpl implements RoleDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Role entity) {
 
@@ -85,6 +103,9 @@ public class RoleDaoDBImpl implements RoleDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Role read(int id) {
 		
@@ -106,6 +127,9 @@ public class RoleDaoDBImpl implements RoleDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Role> readAll() {
 		
@@ -129,6 +153,11 @@ public class RoleDaoDBImpl implements RoleDao {
 	}
 
 	
+	/**
+	 * get values from ResultSet and set them to Role object
+	 * @param rs
+	 * @return role
+	 */
 	private Role roleBuilder(ResultSet rs) {
 		Role role;
 		try {
@@ -145,6 +174,10 @@ public class RoleDaoDBImpl implements RoleDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

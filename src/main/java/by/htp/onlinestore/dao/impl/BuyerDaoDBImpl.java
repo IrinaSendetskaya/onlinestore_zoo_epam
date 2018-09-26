@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Buyers table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class BuyerDaoDBImpl implements BuyerDao {
 
 	private Connection connection;
@@ -35,10 +41,11 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Buyer buyer) {
-//		ResultSet keys;
-//		buyer.newBuilder().setId(0);
 
 		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -52,13 +59,6 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			
 			ps.executeUpdate();
 
-//			if (1 == ps.executeUpdate()) {
-//				keys = ps.getGeneratedKeys();
-//				if (keys.next()) {
-//					buyer.newBuilder().setId(keys.getInt(1));
-//				}
-//			}
-
 		} catch (SQLException e) {
 			logger.error("SQLException in create method of BuyerDaoDBImpl class", e);
 		} finally {
@@ -67,6 +67,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Buyer buyer) {
 
@@ -91,6 +94,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Buyer buyer) {
 
@@ -108,6 +114,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Buyer read(int id) {
 
@@ -129,6 +138,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Buyer> readAll() {
 
@@ -151,6 +163,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		return buyerList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BuyerDao#read(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Buyer read(final String login, final String password) {
 		
@@ -173,6 +188,11 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		return null;
 	}
 
+	/**
+	 * get values from ResultSet and set them to Buyer object
+	 * @param rs
+	 * @return entity Buyer
+	 */
 	private Buyer buyerBuilder(ResultSet rs) {
 		Buyer buyer;
 		try {
@@ -192,6 +212,10 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

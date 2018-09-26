@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.ImageDao;
 import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
 
+/**
+ *Class provides operations for performing with Images table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class ImageDaoDBImpl implements ImageDao {
 
 	private Connection connection;
@@ -30,10 +36,16 @@ public class ImageDaoDBImpl implements ImageDao {
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 	
 	
+	/**
+	 * constructor without parameter
+	 */
 	public ImageDaoDBImpl() {
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Image entity) {
 
@@ -51,6 +63,9 @@ public class ImageDaoDBImpl implements ImageDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Image entity) {
 
@@ -69,6 +84,9 @@ public class ImageDaoDBImpl implements ImageDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Image entity) {
 
@@ -86,6 +104,9 @@ public class ImageDaoDBImpl implements ImageDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Image read(int id) {
 		
@@ -109,6 +130,9 @@ public class ImageDaoDBImpl implements ImageDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Image> readAll() {
 		
@@ -134,6 +158,11 @@ public class ImageDaoDBImpl implements ImageDao {
 	}
 
 	
+	/**
+	 * get values from ResultSet and set them to Image object
+	 * @param rs
+	 * @return image
+	 */
 	private Image imageBuilder(ResultSet rs) {
 		
 		Image image;
@@ -151,6 +180,10 @@ public class ImageDaoDBImpl implements ImageDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

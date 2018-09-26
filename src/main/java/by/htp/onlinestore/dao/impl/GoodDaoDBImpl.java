@@ -23,6 +23,12 @@ import by.htp.onlinestore.util.constants.ImageFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.MeasureFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Good table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class GoodDaoDBImpl implements GoodDao {
 
 	private Connection connection;
@@ -55,10 +61,16 @@ public class GoodDaoDBImpl implements GoodDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
+	/**
+	 * constructor without parameter
+	 */
 	public GoodDaoDBImpl() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Good entity) {
 
@@ -77,6 +89,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.GoodDao#createNewGood(by.htp.onlinestore.entity.Good, by.htp.onlinestore.entity.SpecificationGood, by.htp.onlinestore.entity.Image, int, int)
+	 */
 	@Override
 	public void createNewGood(Good good, SpecificationGood specificationGood, Image image, int measureId,int sectionId) {
 
@@ -147,6 +162,9 @@ public class GoodDaoDBImpl implements GoodDao {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Good entity) {
 
@@ -166,6 +184,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Good entity) {
 
@@ -182,6 +203,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Good read(int id) {
 
@@ -204,6 +228,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Good> readAll() {
 
@@ -227,6 +254,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		return goodList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.GoodDao#searchGoods(java.lang.String)
+	 */
 	@Override
 	public List<Good> searchGoods(String searchInput) {
 
@@ -250,6 +280,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		}
 		return goodList;
 	}
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.GoodDao#searchGoodsWithPages(java.lang.String, int, int)
+	 */
 	@Override
 	public List<GoodListForJsp> searchGoodsWithPages(String searchInput,int beginGood,int endGood) {
 
@@ -276,6 +309,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		return goodListForJsp;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.GoodDao#findAllGoodsJoinTables()
+	 */
 	@Override
 	public List<GoodListForJsp> findAllGoodsJoinTables() {
 		
@@ -299,6 +335,9 @@ public class GoodDaoDBImpl implements GoodDao {
 		return goodList;
 	}
 	
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.GoodDao#findAllGoodsJoinTablesWithPages(int, int)
+	 */
 	@Override
 	public List <GoodListForJsp> findAllGoodsJoinTablesWithPages(int beginGood,int endGood) {
 		
@@ -324,6 +363,10 @@ public class GoodDaoDBImpl implements GoodDao {
 		return goodListForJsp;
 	}
 
+	/**
+	 * @param rs
+	 * @return entity Good
+	 */
 	private Good goodBuilder(ResultSet rs) {
 
 		Good good;
@@ -341,6 +384,10 @@ public class GoodDaoDBImpl implements GoodDao {
 		}
 		return null;
 	}
+	/**
+	 * @param rs
+	 * @return entity GoodListForJsp
+	 */
 	private GoodListForJsp goodListBuilder(ResultSet rs) {
 		
 		GoodListForJsp goodListForJsp;
@@ -363,6 +410,10 @@ public class GoodDaoDBImpl implements GoodDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

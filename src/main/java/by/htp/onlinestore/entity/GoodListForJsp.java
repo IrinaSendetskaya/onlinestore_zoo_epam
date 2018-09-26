@@ -3,10 +3,16 @@ package by.htp.onlinestore.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+/**
+ * Class describes GoodListForJsp only for forms
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class GoodListForJsp implements Serializable {
 
 	/**
-	* 
+	* An unique serial version identifier
 	*/
 	private static final long serialVersionUID = 726070217588791265L; // `Goods`.`id`, `name`, `Images`.`imageUrl`,
 																		// `price`, `size`,`fk_measures`,
@@ -20,10 +26,17 @@ public class GoodListForJsp implements Serializable {
 	private int specificationGoodId;
 	private int measureId;
 
+	/**
+	 * constructor without parameter
+	 */
 	private GoodListForJsp() {
 
 	}
 
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
@@ -57,17 +70,31 @@ public class GoodListForJsp implements Serializable {
 		return measureId;
 	}
 
-
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new GoodListForJsp().new Builder();
 	}
-
+	/**
+	 * Inner class for build GoodListForJsp class object
+	 * @author irina
+	 *
+	 */
 	public class Builder {
-
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {
 
 		}
 
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			GoodListForJsp.this.id = id;
 			return this;
@@ -109,7 +136,9 @@ public class GoodListForJsp implements Serializable {
 			return this;
 		}
 
-
+		/**
+		 * @return ready GoodListForJsp class object
+		 */
 		public GoodListForJsp build() {
 			return GoodListForJsp.this;
 		}
@@ -117,6 +146,9 @@ public class GoodListForJsp implements Serializable {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,6 +163,9 @@ public class GoodListForJsp implements Serializable {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -169,6 +204,9 @@ public class GoodListForJsp implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "GoodListForJsp {" + "id=" + id + "name=" + name +"imageUrl=" + imageUrl +", price=" + price + "measure=" + size +", specificationGoodId=" + specificationGoodId + ", "

@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.SectionDao;
 import by.htp.onlinestore.entity.Section;
 import by.htp.onlinestore.util.constants.SectionFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Section table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class SectionDaoDBImpl implements SectionDao {
 	
 	private Connection connection;
@@ -29,10 +35,16 @@ public class SectionDaoDBImpl implements SectionDao {
 	
 	private static final Logger logger=LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
+	/**
+	 * constructor without parameter
+	 */
 	public SectionDaoDBImpl() {
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Section entity) {
 
@@ -50,6 +62,9 @@ public class SectionDaoDBImpl implements SectionDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Section entity) {
 
@@ -68,6 +83,9 @@ public class SectionDaoDBImpl implements SectionDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Section entity) {
 
@@ -85,6 +103,9 @@ public class SectionDaoDBImpl implements SectionDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Section read(int id) {
 		
@@ -106,6 +127,9 @@ public class SectionDaoDBImpl implements SectionDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Section> readAll() {
 		
@@ -129,6 +153,11 @@ public class SectionDaoDBImpl implements SectionDao {
 	}
 
 	
+	/**
+	 * get values from ResultSet and set them to Section object
+	 * @param rs
+	 * @return section
+	 */
 	private Section sectionBuilder(ResultSet rs) {
 		Section section;
 		try {
@@ -145,6 +174,10 @@ public class SectionDaoDBImpl implements SectionDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.SpecificationGoodDao;
 import by.htp.onlinestore.entity.SpecificationGood;
 import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with SpecificationGoods table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 
 	private Connection connection;
@@ -30,10 +36,16 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
+	/**
+	 * constructor without parameter
+	 */
 	public SpecificationGoodDaoDBImpl() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(SpecificationGood entity) {
 
@@ -53,6 +65,9 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(SpecificationGood entity) {
 
@@ -73,6 +88,9 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(SpecificationGood entity) {
 
@@ -88,7 +106,9 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 			DAOFactory.getDao().getConnectionPool().disconnect(connection);
 		}
 	}
-
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public SpecificationGood read(int id) {
 
@@ -110,7 +130,9 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		}
 		return null;
 	}
-
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public List<SpecificationGood> readAll() {
 
@@ -133,6 +155,9 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		return specificationGoodList;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#searchGoods(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public List<SpecificationGood> searchGoods(String searchInput) {
 		
@@ -158,6 +183,11 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		return specificationGoodList;
 	}
 
+	/**
+	 * get values from ResultSet and set them to SpecificationGood object
+	 * @param rs
+	 * @return specificationGood
+	 */
 	private SpecificationGood specificationGoodBuilder(ResultSet rs) {
 
 		SpecificationGood specificationGood;
@@ -177,6 +207,10 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

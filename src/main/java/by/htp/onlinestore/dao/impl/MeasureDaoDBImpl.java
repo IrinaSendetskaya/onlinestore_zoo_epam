@@ -16,6 +16,12 @@ import by.htp.onlinestore.dao.MeasureDao;
 import by.htp.onlinestore.entity.Measure;
 import by.htp.onlinestore.util.constants.MeasureFieldConstantDeclaration;
 
+/**
+ * Class provides operations for performing with Measures table in database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class MeasureDaoDBImpl implements MeasureDao {
 	
 	private Connection connection;
@@ -31,10 +37,16 @@ public class MeasureDaoDBImpl implements MeasureDao {
 	
 	
 
+	/**
+	 * constructor without parameter
+	 */
 	public MeasureDaoDBImpl() {
 	
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#create(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void create(Measure entity) {
 
@@ -52,6 +64,9 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#update(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void update(Measure entity) {
 
@@ -70,6 +85,9 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#delete(by.htp.onlinestore.entity.EntityBase)
+	 */
 	@Override
 	public void delete(Measure entity) {
 
@@ -87,6 +105,9 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#read(int)
+	 */
 	@Override
 	public Measure read(int id) {
 		
@@ -110,6 +131,9 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BaseDao#readAll()
+	 */
 	@Override
 	public List<Measure> readAll() {
 		
@@ -135,6 +159,11 @@ public class MeasureDaoDBImpl implements MeasureDao {
 	}
 
 	
+	/**
+	 * get values from ResultSet and set them to Measure object
+	 * @param rs
+	 * @return measure
+	 */
 	private Measure measureBuilder(ResultSet rs) {
 		
 		Measure measure;
@@ -152,6 +181,10 @@ public class MeasureDaoDBImpl implements MeasureDao {
 		return null;
 	}
 
+	/**
+	 * it closes resources ResultSet
+	 * @param rs
+	 */
 	private void close(ResultSet rs) {
 		if (rs != null) {
 			try {

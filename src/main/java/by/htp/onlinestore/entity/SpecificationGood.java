@@ -1,9 +1,15 @@
 package by.htp.onlinestore.entity;
 
+/**
+ * Class describes SpecificationGood entity
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class SpecificationGood extends EntityBase{
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = -7176852371436669229L;
 	
@@ -12,12 +18,17 @@ public class SpecificationGood extends EntityBase{
 	private String description;
 	private int sectionId;
 	private int imageId;
-
+	/**
+	 * constructor without parameter
+	 */
 	public SpecificationGood() {
 
 	}
 
-	
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	
 	public int getId() {
 		return id;
@@ -78,16 +89,30 @@ public class SpecificationGood extends EntityBase{
 	}
 
 
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 
 	public static Builder newBuilder() {
 		return new SpecificationGood().new Builder();
 	}
-	
+	/**
+	 * Inner class for build SpecificationGood class object
+	 * @author irina
+	 *
+	 */
 	public class Builder{
-		
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {
 		}
-		
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			SpecificationGood.this.id = id;
 			return this;
@@ -112,7 +137,9 @@ public class SpecificationGood extends EntityBase{
 			SpecificationGood.this.imageId = imageId;
 			return this;
 		}
-		
+		/**
+		 * @return ready SpecificationGood class object
+		 */
 		public SpecificationGood build() {
 			return SpecificationGood.this;
 		}
@@ -120,6 +147,9 @@ public class SpecificationGood extends EntityBase{
 	}
 		
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -132,6 +162,9 @@ public class SpecificationGood extends EntityBase{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -160,6 +193,9 @@ public class SpecificationGood extends EntityBase{
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "SpecificationGood {" + "id=" + id + ", name=" + name + ", description=" + description + ", "

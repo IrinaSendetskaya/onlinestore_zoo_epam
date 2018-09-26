@@ -1,9 +1,15 @@
 package by.htp.onlinestore.entity;
 
+/**
+ * Class describes Buyer entity
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class Buyer extends EntityBase {
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = 1864618509160110298L;
 
@@ -15,10 +21,17 @@ public class Buyer extends EntityBase {
 	private String address;
 	private int roleId;
 
+	/**
+	 * constructor without parameter
+	 */
 	private Buyer() {
 
 	}
 
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
@@ -48,16 +61,29 @@ public class Buyer extends EntityBase {
 	}
 
 
-	
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
         return new Buyer().new Builder();
     }
-
+	/**
+	 * Inner class for build Buyer class object
+	 * @author irina
+	 *
+	 */
     public class Builder {
-    	
+    	/**
+		 * constructor without parameter
+		 */
         private Builder() {
         }
-        
+        /**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
         public Builder setId(int id) {
 			Buyer.this.id = id;	
 			return this;
@@ -92,12 +118,17 @@ public class Buyer extends EntityBase {
 			Buyer.this.roleId = roleId;
 			return this;
 		}
-		
+		/**
+		 * @return ready Buyer class object
+		 */
 		public Buyer build() {
 			return Buyer.this;
 		}
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +143,9 @@ public class Buyer extends EntityBase {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -153,6 +187,9 @@ public class Buyer extends EntityBase {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Buyer {" + "id=" + id + ", email=" + email + ", nickname=" + nickname + ", " + "password=" + password

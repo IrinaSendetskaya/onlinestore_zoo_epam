@@ -3,10 +3,16 @@ package by.htp.onlinestore.entity;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+/**
+ * Class describes Basket entity
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class Basket extends EntityBase {
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = -8162664389157484912L;
 	
@@ -18,11 +24,17 @@ public class Basket extends EntityBase {
 	private int buyerId;
 	private int goodId;
 
-
+	/**
+	 * constructor without parameter
+	 */
 	private Basket() {
 
 	}
 	
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
@@ -93,16 +105,33 @@ public class Basket extends EntityBase {
 	}
 
 
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Basket().new Builder();
 	}
 	
+	/**
+	 * Inner class for build Basket class object
+	 * @author irina
+	 *
+	 */
 	public class Builder {
 		
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {
 			
 		}
 		
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Basket.this.id = id;
 			return this;
@@ -138,6 +167,9 @@ public class Basket extends EntityBase {
 			return this;
 		}
 		
+		/**
+		 * @return ready Basket class object
+		 */
 		public Basket build() {
 			return Basket.this;
 		}
@@ -146,6 +178,9 @@ public class Basket extends EntityBase {
 	
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -163,6 +198,9 @@ public class Basket extends EntityBase {
 
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -201,6 +239,9 @@ public class Basket extends EntityBase {
 
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Basket {" + "id=" + id + ", quantity=" + quantity + ", summa=" + sum + ", "
@@ -209,6 +250,10 @@ public class Basket extends EntityBase {
 	}
 	
 	
+	/**
+	 * inner ENUM 
+	 *
+	 */
 	public enum StatusOrder {
 		IN_PROGRESS("в корзине"), COMPLETE("выполнен");
 		

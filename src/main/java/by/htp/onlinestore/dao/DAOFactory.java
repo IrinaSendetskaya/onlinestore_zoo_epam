@@ -11,8 +11,16 @@ import by.htp.onlinestore.dao.impl.RoleDaoDBImpl;
 import by.htp.onlinestore.dao.impl.SectionDaoDBImpl;
 import by.htp.onlinestore.dao.impl.SpecificationGoodDaoDBImpl;
 
+/**
+ * Class factory provides DAO instance
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class DAOFactory {
 
+	/**
+	 * DAO factory initialize once
+	 */
 	private static final DAOFactory dao=new DAOFactory(); 
 
 	private final IConnectionPool connectionPool;
@@ -27,6 +35,10 @@ public class DAOFactory {
 
 	
 	
+	/**
+	 * getters
+	 * @return instaces
+	 */
 	public static DAOFactory getDao() {
 		return dao;
 	}
@@ -77,6 +89,9 @@ public class DAOFactory {
 	}
 
 
+	/**
+	 * Constructor for initialize all customs instances
+	 */
 	private DAOFactory() {
 		this.connectionPool=ConnectionPool.getInstance();
 		this.buyerDAO = new BuyerDaoDBImpl();

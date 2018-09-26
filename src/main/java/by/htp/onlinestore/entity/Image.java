@@ -1,38 +1,40 @@
 package by.htp.onlinestore.entity;
 
+/**
+ * Class describes Image entity
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class Image extends EntityBase {
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = 3583899817792581954L;
 
 	private int id;
 	private String imageUrl;
 	
+	/**
+	 * constructor without parameter
+	 */
 	public Image() {
 
 	}
 
-	
-
-	
-	
+	/**
+	 * getters and setters
+	 * @return fields
+	 */
 	public int getId() {
 		return id;
 	}
 
 
-
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
-
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -40,25 +42,33 @@ public class Image extends EntityBase {
 
 
 
-
-
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
-
-
-
-
+	/**
+	 * Static method for create inner Builder class object
+	 * @return inner Builder class object
+	 */
 	public static Builder newBuilder() {
 		return new Image().new Builder();
 	}
-	
+	/**
+	 * Inner class for build Image class object
+	 * @author irina
+	 *
+	 */
 	public class Builder{
-		
+		/**
+		 * constructor without parameter
+		 */
 		private Builder() {
 		}
-		
+		/**
+		 * it sets fields
+		 * @param fields
+		 * @return Builder class object
+		 */
 		public Builder setId(int id) {
 			Image.this.id = id;
 			return this;
@@ -69,11 +79,17 @@ public class Image extends EntityBase {
 			return this;
 		}
 		
+		/**
+		 *  @return ready Image class object
+		 */
 		public Image build() {
 			return Image.this;
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +99,9 @@ public class Image extends EntityBase {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -102,6 +121,9 @@ public class Image extends EntityBase {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Image {" + "id=" + id + ", linkImage=" + imageUrl

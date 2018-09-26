@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class ValidateParamException extends RuntimeException {
 
 	/**
-	 * 
+	 * An unique serial version identifier
 	 */
 	private static final long serialVersionUID = 446175648349264409L;
 
