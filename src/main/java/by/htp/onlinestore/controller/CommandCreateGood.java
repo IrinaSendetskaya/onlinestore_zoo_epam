@@ -22,8 +22,17 @@ import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 import by.htp.onlinestore.util.constants.SectionFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.SpecificationGoodFieldConstantDeclaration;
 
+/**
+ * Class CommandCreateGood implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 public class CommandCreateGood extends Command {
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 

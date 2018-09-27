@@ -14,8 +14,17 @@ import by.htp.onlinestore.util.ValidationRegex;
 
 import java.util.List;
 
+/**
+ * Class CommandEditBuyer implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 class CommandEditBuyer extends Command {
 	
+    /* (non-Javadoc)
+     * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
     	

@@ -37,7 +37,7 @@ public class DAOFactory {
 	
 	/**
 	 * getters
-	 * @return instaces
+	 * @return instances
 	 */
 	public static DAOFactory getDao() {
 		return dao;

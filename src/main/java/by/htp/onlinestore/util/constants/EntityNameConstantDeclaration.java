@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a EntityName constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class EntityNameConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private EntityNameConstantDeclaration() {
 
 	}

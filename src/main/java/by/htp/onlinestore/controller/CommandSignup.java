@@ -14,8 +14,17 @@ import by.htp.onlinestore.util.ValidationRegex;
 
 import java.text.ParseException;
 
+/**
+ * Class CommandSignup implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 public class CommandSignup extends Command {
 
+    /* (non-Javadoc)
+     * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public Command execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException {
 

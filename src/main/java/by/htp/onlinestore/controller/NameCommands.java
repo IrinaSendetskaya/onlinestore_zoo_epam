@@ -1,7 +1,13 @@
 package by.htp.onlinestore.controller;
 
+/**
+ * ENUM class contains instances of commands classes
+ * and exists in a single copy
+ * @author Iryna Siandzetskaya
+ *
+ */
 public enum NameCommands {
-	// в одном экземпляре сущ enum
+	
 	HOME {
 		{
 			this.command = new CommandHome();
@@ -62,5 +68,8 @@ public enum NameCommands {
 		}
 	};
 
+	/**
+	 * declares a command
+	 */
 	public Command command;
 }

@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a List constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class ListConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private ListConstantDeclaration() {
 
 	}

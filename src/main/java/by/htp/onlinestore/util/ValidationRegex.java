@@ -1,12 +1,23 @@
 package by.htp.onlinestore.util;
 
+/**
+ * Util class provides a validation method
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class ValidationRegex {
 
 	
+	/**
+	 * constructor without parameter
+	 */
 	private ValidationRegex() {
 
 	}
 	
+	/**
+	 * constants
+	 */
 	public static final String REGEX_LOGIN = "[\\wА-Яа-я]{3,15}";
 	public static final String REGEX_EMAIL = "[\\w]+[@]{1}[a-z]{3,6}\\.[a-z]{2,3}";
 	public static final String REGEX_PASS = "[\\w]{4,12}";

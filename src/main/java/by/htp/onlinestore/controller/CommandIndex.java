@@ -23,8 +23,17 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *Class CommandIndex implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 class CommandIndex extends Command {
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -37,11 +46,15 @@ class CommandIndex extends Command {
 		List<Good> goods = new ArrayList<>();
 		List<GoodListForJsp> goodsListForJsp = new ArrayList<>();
 
-		// если нажата кнопка "Поиск"
+		/**
+		 * if pressed button "Search"
+		 */
 		if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_SEARCH_GOOD) != null) {
 
 			String nameSearch = FormUtil.getString(req, "searchInput", ValidationRegex.REGEX_ALL_SYMBOL);
-			// выводит список товаро только по части слова Поиска
+			/**
+			 * select the goods in search
+			 */
 			goods = DAOFactory.getDao().getGoodDAO().searchGoods("%" + nameSearch + "%");
 			int startGood = PaginationUtilClass.makePagination(req, goods);
 			goodsListForJsp = DAOFactory.getDao().getGoodDAO().searchGoodsWithPages("%" + nameSearch + "%", startGood,
@@ -57,7 +70,9 @@ class CommandIndex extends Command {
 			}
 			return null;
 		} else {
-			// выводит весь список товаров
+			/**
+			 * select all goods
+			 */
 			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTables();
 			int startGood = PaginationUtilClass.makePagination(req, goodsListForJsp);
 			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTablesWithPages(startGood, 10);
@@ -66,9 +81,13 @@ class CommandIndex extends Command {
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST_FOR_JSP, goodsListForJsp);
 		}
 
-		// добавление в корзину
+		/**
+		 * adds to cart
+		 */
 		if (FormUtil.isPost(req)) {
-			// если нажата кнопка "В корзину"
+			/**
+			 * if pressed button "Add to cart"
+			 */
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_IN_BASKET) != null
 					&& buyer.getRoleId() != 3) {
 				int id = 0;

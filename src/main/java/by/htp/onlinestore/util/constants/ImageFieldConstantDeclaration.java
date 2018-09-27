@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a Image constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class ImageFieldConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private ImageFieldConstantDeclaration() {
 
 	}

@@ -11,6 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 
+/**
+ * Class provides connections to a database
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class ConnectionPool implements IConnectionPool{
 
 	private static final String DB_CONNECT_PROPERTY = "db_config";
@@ -22,17 +28,32 @@ public class ConnectionPool implements IConnectionPool{
 
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
+	/**
+	 * queue for containing free connections
+	 */
 	private static BlockingQueue<Connection> availableConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);
+	/**
+	 * queue for containing occupied connections
+	 */
 	private static BlockingQueue<Connection> usedConnections=new ArrayBlockingQueue<>(DB_CONNECT_POOL_SIZE);
 	
+	/**
+	 * Singleton instance
+	 */
 	private static ConnectionPool instance;
 	
+	/**
+	 * for interaction with file properties and selection the desired object
+	 */
 	private static final ResourceBundle rb = ResourceBundle.getBundle(DB_CONNECT_PROPERTY);
 	private static final String url = rb.getString(DB_CONNECT_URL);
 	private static final String login = rb.getString(DB_CONNECT_LOGIN);
 	private static final String pass = rb.getString(DB_CONNECT_PASS);
 	private static final String driver = rb.getString(DB_CONNECT_DRIVER);
 	
+	/**
+	 * Constructor for initialize ConnectionPool
+	 */
 	private ConnectionPool() {
 
 		try {
@@ -45,6 +66,10 @@ public class ConnectionPool implements IConnectionPool{
 		addConnection();
 	}
 	
+	/**
+	 * static method for getting instance from connection pool
+	 * @return instance
+	 */
 	public static IConnectionPool getInstance() {
 		if (instance == null) {
 			synchronized (ConnectionPool.class) {
@@ -57,6 +82,9 @@ public class ConnectionPool implements IConnectionPool{
 	}
 	
 	
+	/**
+	 * fill connection pool
+	 */
 	private void addConnection() {
 
 		for (int count = 0; count < DB_CONNECT_POOL_SIZE; count++) {
@@ -65,6 +93,10 @@ public class ConnectionPool implements IConnectionPool{
 	}
 
 
+	/**
+	 * gets connection
+	 * @return connection
+	 */
 	private Connection createConnection() {
 
 		Connection connection = null;
@@ -78,6 +110,9 @@ public class ConnectionPool implements IConnectionPool{
 		return connection;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.connection.IConnectionPool#getConnect()
+	 */
 	@Override
 	public Connection getConnect() {
 
@@ -97,6 +132,9 @@ public class ConnectionPool implements IConnectionPool{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.connection.IConnectionPool#disconnect(java.sql.Connection)
+	 */
 	@Override
 	public boolean disconnect(Connection connection) {
 

@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a Role constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class RoleFieldConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private RoleFieldConstantDeclaration() {
 
 	}

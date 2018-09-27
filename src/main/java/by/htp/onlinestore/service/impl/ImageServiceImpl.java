@@ -6,16 +6,31 @@ import by.htp.onlinestore.dao.ImageDao;
 import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.service.ImageService;
 
+/**
+ *  Class provides methods for working with Images table.
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class ImageServiceImpl implements ImageService {
 	
+	/**
+	 * Declares a object
+	 */
 	private ImageDao imageDao;
 
+	/**
+	 * constructor without parameter
+	 */
 	public ImageServiceImpl() {
 
 	}
 	
 	
 
+	/**
+	 * getters and setters
+	 * @return instance
+	 */
 	public ImageDao getImageDao() {
 		return imageDao;
 	}
@@ -28,6 +43,9 @@ public class ImageServiceImpl implements ImageService {
 
 
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.ImageService#getImageList()
+	 */
 	@Override
 	public List<Image> getImageList() {
 

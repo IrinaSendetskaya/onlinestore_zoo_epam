@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a Buyer constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class BuyerFieldConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private BuyerFieldConstantDeclaration() {
 
 	}

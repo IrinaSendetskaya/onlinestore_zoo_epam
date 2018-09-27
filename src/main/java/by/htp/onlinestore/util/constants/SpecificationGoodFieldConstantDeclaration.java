@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a SpecificationGood constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class SpecificationGoodFieldConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private SpecificationGoodFieldConstantDeclaration() {
 
 	}

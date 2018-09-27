@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a ButtonName constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class ButtonNameConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private ButtonNameConstantDeclaration() {
 
 	}

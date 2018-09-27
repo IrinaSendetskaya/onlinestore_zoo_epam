@@ -6,15 +6,30 @@ import by.htp.onlinestore.dao.RoleDao;
 import by.htp.onlinestore.entity.Role;
 import by.htp.onlinestore.service.RoleService;
 
+/**
+ * Class provides methods for working with Roles table.
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class RoleServiceImpl implements RoleService {
 	
+	/**
+	 * Declares a object
+	 */
 	private RoleDao roleDao;
 
+	/**
+	 * constructor without parameter
+	 */
 	public RoleServiceImpl() {
 
 	}
 	
 
+	/**
+	 * getters and setters
+	 * @return instance
+	 */
 	public RoleDao getRoleDao() {
 		return roleDao;
 	}
@@ -27,6 +42,9 @@ public class RoleServiceImpl implements RoleService {
 
 
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.RoleService#getRoleList()
+	 */
 	@Override
 	public List<Role> getRoleList() {
 		

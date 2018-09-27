@@ -23,8 +23,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Class CommandCreateBasket implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 class CommandCreateBasket extends Command {
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -39,8 +48,6 @@ class CommandCreateBasket extends Command {
 			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Вам необходимо войти либо зарегистрироваться!");
 			return NameCommands.LOGIN.command;
 		}
-		
-		
 		if (FormUtil.isPost(req)) {
 			int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
 			int quantity = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY);

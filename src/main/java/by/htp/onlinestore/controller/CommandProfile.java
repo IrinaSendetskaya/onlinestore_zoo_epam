@@ -17,8 +17,17 @@ import by.htp.onlinestore.util.ValidationRegex;
 
 import java.util.List;
 
+/**
+ * Class CommandProfile implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 class CommandProfile extends Command {
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		HttpSession session = req.getSession();
@@ -29,7 +38,9 @@ class CommandProfile extends Command {
 		} else
 			return NameCommands.LOGIN.command;
 
-		// обновление данных пользователя
+		/**
+		 * updates user data
+		 */
 		if (FormUtil.isPost(req)) {
 			String nickname = FormUtil.getString(req, BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN,
 					ValidationRegex.REGEX_LOGIN);

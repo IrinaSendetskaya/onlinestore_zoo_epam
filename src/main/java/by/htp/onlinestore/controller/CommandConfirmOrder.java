@@ -16,8 +16,17 @@ import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 
+/**
+ * Class CommandConfirmOrder implementing Command interface
+ * 
+ * @author Sendetskaya Iryna
+ *
+ */
 public class CommandConfirmOrder extends Command {
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.controller.Command#execute(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	Command execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
@@ -29,7 +38,9 @@ public class CommandConfirmOrder extends Command {
 		}
 
 		BigDecimal sumReady = BigDecimal.ZERO;
-
+		/**
+		 * updates status data
+		 */
 		if (FormUtil.isPost(req)) {
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
 				String status = "завершен";

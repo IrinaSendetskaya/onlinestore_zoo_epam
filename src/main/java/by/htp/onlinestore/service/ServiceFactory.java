@@ -9,8 +9,15 @@ import by.htp.onlinestore.service.impl.RoleServiceImpl;
 import by.htp.onlinestore.service.impl.SectionServiceImpl;
 import by.htp.onlinestore.service.impl.SpecificationGoodServiceImpl;
 
+/**
+ *  Class factory provides Service instance
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class ServiceFactory {
-
+	/**
+	 * Service factory initialize once
+	 */
     private static final ServiceFactory service=new ServiceFactory();        
     
     private final BuyerService buyerDAO;
@@ -22,7 +29,10 @@ public class ServiceFactory {
     private final SectionService sectionDAO;
     private final SpecificationGoodService specificationGoodDAO;
 
-    
+    /**
+	 * getters
+	 * @return instances
+	 */
     public static ServiceFactory getService() {
 		return service;
 	}
@@ -67,7 +77,9 @@ public class ServiceFactory {
 		return specificationGoodDAO;
 	}
 
-
+	/**
+	 * Constructor for initialize all customs instances
+	 */
 	private ServiceFactory() {
         this.buyerDAO = new BuyerServiceImpl();
         this.roleDAO = new RoleServiceImpl();

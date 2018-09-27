@@ -32,14 +32,12 @@ public class CommandChangeLocale extends Command {
 			String[] localArr = locale.split("_");
 			ResourceBundle.getBundle(LOCALE_MESSAGES, new Locale(localArr[0], localArr[1]));
 			request.getSession().setAttribute(WebConstantDeclaration.SESSION_PARAM_CURRENT_LOCALES, locale);
-			return NameCommands.INDEX.command;
 		} catch (ValidateParamException e) {
 			request.setAttribute(MessageConstantDeclaration.MSG_ERROR,
 					"Undefined locale!");
 			return NameCommands.ERROR.command;
 		}
-		
-		//return NameCommands.INDEX.command;
+		return NameCommands.INDEX.command;
 	}
 
 }

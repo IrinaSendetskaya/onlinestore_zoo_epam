@@ -10,55 +10,109 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Util class provides methods for parsing data
+ * 
+ * @author Iryna Siandzetskaya
+ *
+ */
 public class FormUtil {
-	
-	//private static final Logger logger = LoggerFactory.getLogger(FormUtil.class);
 
-   public static String getString(HttpServletRequest req, String field, String regxp) throws ParseException {
-        String value=req.getParameter(field);
-        if(value.matches(regxp))
-            return value;
-        else
-        {
-            throw new ParseException("Неверные данные. Вводите только корректные символы!",1);
-            //logger.error("IllegalArgumentException in ParseException method of FormUtil class");
-        }
-    }
-   
-   public static List<String> getStringToArray(HttpServletRequest req, String field, String regxp) throws ParseException {
-       List<String> valueList=new ArrayList<>();
-	   String [] value=req.getParameterValues(field);
-       for (String string : value) {
-    	   if(string.matches(regxp)) {
-    		   valueList.add(string);
-    	   }  
-           else
-           {
-               throw new ParseException("Неверные данные. Вводите только корректные символы!",1);
-           }
+	// private static final Logger logger = LoggerFactory.getLogger(FormUtil.class);
+
+	/**
+	 * parsing to validate the string
+	 * @param req
+	 * @param field
+	 * @param regxp
+	 * @return parsing data
+	 * @throws ParseException
+	 */
+	public static String getString(HttpServletRequest req, String field, String regxp) throws ParseException {
+		String value = req.getParameter(field);
+		if (value.matches(regxp))
+			return value;
+		else {
+			throw new ParseException("Неверные данные. Вводите только корректные символы!", 1);
+			// logger.error("IllegalArgumentException in ParseException method of FormUtil
+			// class");
+		}
 	}
-       return valueList;  
-   }
- 
-   public static int getInt(HttpServletRequest req, String field) throws ParseException {
-        String value=req.getParameter(field);
-        return Integer.parseInt(value);
-    }
-   public static double getDouble(HttpServletRequest req, String field) throws ParseException {
-        String value=req.getParameter(field);
-        return Double.parseDouble(value);
-    }
-   public static BigDecimal getBigDecimal(HttpServletRequest req, String field) throws ParseException {
-        String value=req.getParameter(field);
-        BigDecimal bigValue=new BigDecimal(value);
-        return bigValue;
-    }
 
-   public static boolean isPost(HttpServletRequest reg){
-        return reg.getMethod().equalsIgnoreCase("POST");
-    }
-   
-   public static String fixGoogleDriveUrl(String url) {
+	/**
+	 * parsing to validate array of string
+	 * @param req
+	 * @param field
+	 * @param regxp
+	 * @return parsing list
+	 * @throws ParseException
+	 */
+	public static List<String> getStringToArray(HttpServletRequest req, String field, String regxp)
+			throws ParseException {
+		List<String> valueList = new ArrayList<>();
+		String[] value = req.getParameterValues(field);
+		for (String string : value) {
+			if (string.matches(regxp)) {
+				valueList.add(string);
+			} else {
+				throw new ParseException("Неверные данные. Вводите только корректные символы!", 1);
+			}
+		}
+		return valueList;
+	}
+
+	/**
+	 * parsing to validate Integer
+	 * @param req
+	 * @param field
+	 * @return parsing data
+	 * @throws ParseException
+	 */
+	public static int getInt(HttpServletRequest req, String field) throws ParseException {
+		String value = req.getParameter(field);
+		return Integer.parseInt(value);
+	}
+
+	/**
+	 * parsing to validate Double
+	 * @param req
+	 * @param field
+	 * @return parsing data
+	 * @throws ParseException
+	 */
+	public static double getDouble(HttpServletRequest req, String field) throws ParseException {
+		String value = req.getParameter(field);
+		return Double.parseDouble(value);
+	}
+
+	/**
+	 * parsing to validate BigDecimal
+	 * @param req
+	 * @param field
+	 * @return parsing data
+	 * @throws ParseException
+	 */
+	public static BigDecimal getBigDecimal(HttpServletRequest req, String field) throws ParseException {
+		String value = req.getParameter(field);
+		BigDecimal bigValue = new BigDecimal(value);
+		return bigValue;
+	}
+
+	/**
+	 * gets if POST query
+	 * @param reg
+	 * @return true or false
+	 */
+	public static boolean isPost(HttpServletRequest reg) {
+		return reg.getMethod().equalsIgnoreCase("POST");
+	}
+
+	/**
+	 * Transforms url string of images 
+	 * @param url
+	 * @return a transforming url
+	 */
+	public static String fixGoogleDriveUrl(String url) {
 		if (url.contains("open?id="))
 			url = url.replace("open?id=", "uc?id=");
 		if (url.contains("file/d/"))
@@ -69,11 +123,14 @@ public class FormUtil {
 			url = url.replace("/view?usp=sharing", "");
 		return url;
 	}
-   
-   public static void validateRequestParamLocale(String locale) {
+
+	/**
+	 * validates a locale
+	 * @param locale
+	 */
+	public static void validateRequestParamLocale(String locale) {
 		if (locale == null || !Pattern.matches(ValidationRegex.REGEX_LOCALE_PARAM, locale))
 			throw new ValidateParamException("Undefined locale!");
 	}
 
-  
 }

@@ -1,7 +1,15 @@
 package by.htp.onlinestore.util.constants;
 
+/**
+ * Util class provides methods for declaration a Basket constants
+ * @author Iryna Siandzetskaya
+ *
+ */
 public final class BasketFieldConstantDeclaration {
 
+	/**
+	 * constructor without parameter
+	 */
 	private BasketFieldConstantDeclaration() {
 
 	}
