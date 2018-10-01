@@ -2,6 +2,7 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.RoleDao;
 import by.htp.onlinestore.entity.Role;
 import by.htp.onlinestore.service.RoleService;
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.RoleService;
 public class RoleServiceImpl implements RoleService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private RoleDao roleDao;
+	private RoleDao roleDao=DAOFactory.getDao().getRoleDAO();
 
 	/**
 	 * constructor without parameter

@@ -2,6 +2,7 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.SectionDao;
 import by.htp.onlinestore.entity.Section;
 import by.htp.onlinestore.service.SectionService;
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.SectionService;
 public class SectionServiceImpl implements SectionService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private SectionDao sectionDao;
+	private SectionDao sectionDao=DAOFactory.getDao().getSectionDAO();
 
 	/**
 	 * constructor without parameter

@@ -2,6 +2,7 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.ImageDao;
 import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.service.ImageService;
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.ImageService;
 public class ImageServiceImpl implements ImageService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private ImageDao imageDao;
+	private ImageDao imageDao=DAOFactory.getDao().getImageDAO();
 
 	/**
 	 * constructor without parameter

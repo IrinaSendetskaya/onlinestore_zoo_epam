@@ -18,8 +18,7 @@ public interface IConnectionPool {
 	/**
 	 * destroy connection pool and put the connection to the pool
 	 * @param connection
-	 * @return true or false
 	 */
-	boolean disconnect(Connection connection);
+	void disconnect(Connection connection);
 
 }

@@ -136,7 +136,7 @@ public class ConnectionPool implements IConnectionPool{
 	 * @see by.htp.onlinestore.connection.IConnectionPool#disconnect(java.sql.Connection)
 	 */
 	@Override
-	public boolean disconnect(Connection connection) {
+	public void disconnect(Connection connection) {
 
 		if (connection != null) {
 			
@@ -146,11 +146,8 @@ public class ConnectionPool implements IConnectionPool{
 				connection.close();
 			} catch (SQLException e) {
 				logger.error(e.getMessage() + " in disconnect method of ConnectionPool class", e);
-				return false;
 			}
-			return true;
 		}
-		return false;
 	}
 
 }

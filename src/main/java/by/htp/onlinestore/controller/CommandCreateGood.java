@@ -12,6 +12,7 @@ import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.entity.Measure;
 import by.htp.onlinestore.entity.Section;
 import by.htp.onlinestore.entity.SpecificationGood;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.FormUtil;
 import by.htp.onlinestore.util.ValidationRegex;
 import by.htp.onlinestore.util.constants.GoodFieldConstantDeclaration;
@@ -58,7 +59,8 @@ public class CommandCreateGood extends Command {
 			good.setMeasureId(measureId);
 			good.setSpecificationGoodId(specificationGood.getId());
 
-			DAOFactory.getDao().getGoodDAO().createNewGood(good, specificationGood, image, measureId, sectionId);
+			//DAOFactory.getDao().getGoodDAO().createNewGood(good, specificationGood, image, measureId, sectionId);
+			ServiceFactory.getService().getGoodDAO().createNewGood(good, specificationGood, image, measureId, sectionId);
 
 				if (good.getId() != 0) {
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Товар создан!");

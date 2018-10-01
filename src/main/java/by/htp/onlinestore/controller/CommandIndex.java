@@ -8,6 +8,7 @@ import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Good;
 import by.htp.onlinestore.entity.GoodListForJsp;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.CurrentDateUtilClass;
@@ -73,9 +74,9 @@ class CommandIndex extends Command {
 			/**
 			 * select all goods
 			 */
-			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTables();
+			goodsListForJsp =ServiceFactory.getService().getGoodDAO().findAllGoodsJoinTables();
 			int startGood = PaginationUtilClass.makePagination(req, goodsListForJsp);
-			goodsListForJsp = DAOFactory.getDao().getGoodDAO().findAllGoodsJoinTablesWithPages(startGood, 10);
+		    goodsListForJsp=ServiceFactory.getService().getGoodDAO().findAllGoodsJoinTablesWithPages(startGood, 10);
 
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST, goods);
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST_FOR_JSP, goodsListForJsp);

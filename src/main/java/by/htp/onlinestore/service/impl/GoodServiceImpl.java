@@ -2,8 +2,10 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.GoodDao;
 import by.htp.onlinestore.entity.Good;
+import by.htp.onlinestore.entity.GoodListForJsp;
 import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.entity.SpecificationGood;
 import by.htp.onlinestore.service.GoodService;
@@ -16,9 +18,9 @@ import by.htp.onlinestore.service.GoodService;
 public class GoodServiceImpl implements GoodService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private GoodDao goodDao;
+	private GoodDao goodDao=DAOFactory.getDao().getGoodDAO();
 
 	/**
 	 * constructor without parameter
@@ -60,6 +62,24 @@ public class GoodServiceImpl implements GoodService {
 			int sectionId) {
 		goodDao.createNewGood(good, specificationGood, image, measureId, sectionId);
 		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.GoodService#findAllGoodsJoinTables()
+	 */
+	@Override
+	public List<GoodListForJsp> findAllGoodsJoinTables() {		
+		return goodDao.findAllGoodsJoinTables();
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.GoodService#findAllGoodsJoinTablesWithPages(int, int)
+	 */
+	@Override
+	public List<GoodListForJsp> findAllGoodsJoinTablesWithPages(int startGood, int endGood) {
+		return goodDao.findAllGoodsJoinTablesWithPages(startGood, endGood);
 	}
 
 }

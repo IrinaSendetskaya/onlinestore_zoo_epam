@@ -3,6 +3,7 @@ package by.htp.onlinestore.service.impl;
 import java.util.List;
 
 import by.htp.onlinestore.dao.BasketDao;
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.service.BasketService;
 
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.BasketService;
 public class BasketServiceImpl implements BasketService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private BasketDao basketDao;
+	private BasketDao basketDao=DAOFactory.getDao().getBasketDAO();
 
 	/**
 	 * constructor without parameter

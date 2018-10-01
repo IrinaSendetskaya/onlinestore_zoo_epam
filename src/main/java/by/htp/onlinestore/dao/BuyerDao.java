@@ -15,5 +15,5 @@ public interface BuyerDao extends BaseDao <Buyer>{
 	 * @param password
 	 * @return entity buyer
 	 */
-	Buyer read(final String login, final String password);
+	Buyer read(String login, String password);
 }

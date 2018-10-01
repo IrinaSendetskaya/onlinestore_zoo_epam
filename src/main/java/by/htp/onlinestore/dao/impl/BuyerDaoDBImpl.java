@@ -167,7 +167,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	 * @see by.htp.onlinestore.dao.BuyerDao#read(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Buyer read(final String login, final String password) {
+	public Buyer read(String login, String password) {
 		
 		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
 				PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN_AND_PASSWORD)) {

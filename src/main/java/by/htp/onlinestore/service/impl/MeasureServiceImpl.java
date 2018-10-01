@@ -2,6 +2,7 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.MeasureDao;
 import by.htp.onlinestore.entity.Measure;
 import by.htp.onlinestore.service.MeasureService;
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.MeasureService;
 public class MeasureServiceImpl implements MeasureService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private MeasureDao measureDao;
+	private MeasureDao measureDao=DAOFactory.getDao().getMeasureDAO();
 
 	/**
 	 * constructor without parameter

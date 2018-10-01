@@ -3,6 +3,7 @@ package by.htp.onlinestore.service.impl;
 import java.util.List;
 
 import by.htp.onlinestore.dao.BuyerDao;
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.service.BuyerService;
 
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.BuyerService;
 public class BuyerServiceImpl implements BuyerService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private BuyerDao buyerDao;
+	private BuyerDao buyerDao=DAOFactory.getDao().getBuyerDAO();
 
 	/**
 	 * constructor without parameter
@@ -56,7 +57,7 @@ public class BuyerServiceImpl implements BuyerService {
 	 * @see by.htp.onlinestore.service.BuyerService#getBuyerByLoginAndPassword(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Buyer getBuyerByLoginAndPassword(final String login, final String password) {
+	public Buyer getBuyerByLoginAndPassword(String login, String password) {
 		return buyerDao.read(login, password);
 	}
 

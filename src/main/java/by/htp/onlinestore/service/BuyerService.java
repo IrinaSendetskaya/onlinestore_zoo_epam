@@ -22,5 +22,5 @@ public interface BuyerService {
 	 * @param password
 	 * @return a desired buyer
 	 */
-	Buyer getBuyerByLoginAndPassword(final String login, final String password);
+	Buyer getBuyerByLoginAndPassword(String login, String password);
 }

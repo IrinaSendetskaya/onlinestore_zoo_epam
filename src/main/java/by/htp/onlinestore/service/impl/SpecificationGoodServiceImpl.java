@@ -2,6 +2,7 @@ package by.htp.onlinestore.service.impl;
 
 import java.util.List;
 
+import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.dao.SpecificationGoodDao;
 import by.htp.onlinestore.entity.SpecificationGood;
 import by.htp.onlinestore.service.SpecificationGoodService;
@@ -14,9 +15,9 @@ import by.htp.onlinestore.service.SpecificationGoodService;
 public class SpecificationGoodServiceImpl implements SpecificationGoodService {
 	
 	/**
-	 * Declares a object
+	 * Declares a object and initialize
 	 */
-	private SpecificationGoodDao specificationGoodDao;
+	private SpecificationGoodDao specificationGoodDao=DAOFactory.getDao().getSpecificationGoodDAO();
 
 	/**
 	 * constructor without parameter
