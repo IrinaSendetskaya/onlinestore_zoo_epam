@@ -49,8 +49,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	@Override
 	public void create(SpecificationGood entity) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getDescription());
@@ -71,8 +71,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	@Override
 	public void update(SpecificationGood entity) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getDescription());
@@ -94,8 +94,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	@Override
 	public void delete(SpecificationGood entity) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, entity.getId());
 			ps.executeUpdate();
@@ -112,8 +112,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	@Override
 	public SpecificationGood read(int id) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -137,8 +137,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	public List<SpecificationGood> readAll() {
 
 		List<SpecificationGood> specificationGoodList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect(); Statement st = connection.createStatement()) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (Statement st = connection.createStatement()) {
 
 			resultSet = st.executeQuery(SQL_READ_ALL);
 
@@ -162,9 +162,8 @@ public class SpecificationGoodDaoDBImpl implements SpecificationGoodDao {
 	public List<SpecificationGood> searchGoods(String searchInput) {
 		
 		List<SpecificationGood> specificationGoodList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
 
 			ps.setString(1, searchInput);
 			

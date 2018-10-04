@@ -47,8 +47,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public void create(Buyer buyer) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
 			ps.setString(1, buyer.getNickname());
 			ps.setString(2, buyer.getPassword());
@@ -73,8 +73,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public void update(Buyer buyer) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, buyer.getNickname());
 			ps.setString(2, buyer.getPassword());
@@ -100,8 +100,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public void delete(Buyer buyer) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, buyer.getId());
 			ps.executeUpdate();
@@ -120,8 +120,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public Buyer read(int id) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -145,9 +145,9 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	public List<Buyer> readAll() {
 
 		List<Buyer> buyerList = new ArrayList<>();
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				Statement statement = connection.createStatement()) {
+		try (Statement statement = connection.createStatement()) {
 			resultSet = statement.executeQuery(SQL_READ_ALL);
 
 			while (resultSet.next()) {
@@ -169,8 +169,8 @@ public class BuyerDaoDBImpl implements BuyerDao {
 	@Override
 	public Buyer read(String login, String password) {
 		
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN_AND_PASSWORD)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN_AND_PASSWORD)) {
 
 			ps.setString(1, login);
 			ps.setString(2, password);

@@ -66,9 +66,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public void create(Basket basket) {
 
-		
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setInt(1, basket.getQuantity());
 			ps.setBigDecimal(2, basket.getSum());
@@ -93,8 +92,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public void update(Basket basket) {
 		
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setInt(1, basket.getQuantity());
 			ps.setBigDecimal(2, basket.getSum());
@@ -120,8 +119,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public void delete(Basket basket) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, basket.getId());
 			ps.executeUpdate();
@@ -140,8 +139,8 @@ public class BasketDaoDBImpl implements BasketDao {
 	@Override
 	public Basket read(int id) {
 
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -165,9 +164,9 @@ public class BasketDaoDBImpl implements BasketDao {
 	public List<Basket> readAll() {
 
 		List<Basket> basketList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				Statement statement = connection.createStatement()) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (Statement statement = connection.createStatement()) {
 			resultSet = statement.executeQuery(SQL_READ_ALL);
 
 			while (resultSet.next()) {
@@ -190,9 +189,9 @@ public class BasketDaoDBImpl implements BasketDao {
 	public List<Basket> getAll(int buyerId) {
 
 		List<Basket> basketList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER)) {
 
 			ps.setInt(1, buyerId);
 
@@ -218,9 +217,9 @@ public class BasketDaoDBImpl implements BasketDao {
 	public List<Basket> findAllBasketsWithPages(int buyerId, int beginGood, int endGood) {
 
 		List<Basket> basketList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES)) {
 
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);
@@ -247,9 +246,9 @@ public class BasketDaoDBImpl implements BasketDao {
 	public List<BasketListForJsp> findAllBasketsJoinTablesWithPages(int buyerId, int beginGood, int endGood) {
 
 		List<BasketListForJsp> basketList = new ArrayList<>();
-
-		try (Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES)) {
 
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);

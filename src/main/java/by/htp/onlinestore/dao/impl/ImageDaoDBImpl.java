@@ -49,8 +49,8 @@ public class ImageDaoDBImpl implements ImageDao {
 	@Override
 	public void create(Image entity) {
 
-		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps=connection.prepareStatement(SQL_INSERT)
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try(PreparedStatement ps=connection.prepareStatement(SQL_INSERT)
 						){
 			
 			ps.setString(1, entity.getImageUrl());		
@@ -69,8 +69,8 @@ public class ImageDaoDBImpl implements ImageDao {
 	@Override
 	public void update(Image entity) {
 
-		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps=connection.prepareStatement(SQL_UPDATE)
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try(PreparedStatement ps=connection.prepareStatement(SQL_UPDATE)
 						){
 			
 			ps.setString(1, entity.getImageUrl());
@@ -90,8 +90,8 @@ public class ImageDaoDBImpl implements ImageDao {
 	@Override
 	public void delete(Image entity) {
 
-		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps=connection.prepareStatement(SQL_DELETE)
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try(PreparedStatement ps=connection.prepareStatement(SQL_DELETE)
 						){
 			
 			ps.setInt(1, entity.getId());
@@ -110,8 +110,8 @@ public class ImageDaoDBImpl implements ImageDao {
 	@Override
 	public Image read(int id) {
 		
-		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps=connection.prepareStatement(SQL_READ_ID)
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try(PreparedStatement ps=connection.prepareStatement(SQL_READ_ID)
 						){
 			
 			ps.setInt(1, id);
@@ -137,9 +137,8 @@ public class ImageDaoDBImpl implements ImageDao {
 	public List<Image> readAll() {
 		
 		List<Image> imageList = new ArrayList<>();
-
-		try(Connection connection=DAOFactory.getDao().getConnectionPool().getConnect();
-				Statement st=connection.createStatement()
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try(Statement st=connection.createStatement()
 						){
 			
 			resultSet=st.executeQuery(SQL_READ_ALL);

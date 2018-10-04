@@ -74,8 +74,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	@Override
 	public void create(Good entity) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_INSERT)) {
 
 			ps.setBigDecimal(1, entity.getPrice());
 			ps.setInt(2, entity.getMeasureId());
@@ -168,8 +168,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	@Override
 	public void update(Good entity) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
 			ps.setBigDecimal(1, entity.getPrice());
 			ps.setInt(2, entity.getMeasureId());
@@ -190,8 +190,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	@Override
 	public void delete(Good entity) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_DELETE)) {
 
 			ps.setInt(1, entity.getId());
 			ps.executeUpdate();
@@ -209,8 +209,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	@Override
 	public Good read(int id) {
 
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ID)) {
 
 			ps.setInt(1, id);
 			resultSet = ps.executeQuery();
@@ -235,9 +235,9 @@ public class GoodDaoDBImpl implements GoodDao {
 	public List<Good> readAll() {
 
 		List<Good> goodList = new ArrayList<>();
-
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				Statement st = connection.createStatement()) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (Statement st = connection.createStatement()) {
 
 			resultSet = st.executeQuery(SQL_READ_ALL);
 
@@ -261,9 +261,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	public List<Good> searchGoods(String searchInput) {
 
 		List<Good> goodList = new ArrayList<>();
-
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH)) {
 
 			ps.setString(1, searchInput);
 			resultSet = ps.executeQuery();
@@ -287,9 +286,9 @@ public class GoodDaoDBImpl implements GoodDao {
 	public List<GoodListForJsp> searchGoodsWithPages(String searchInput,int beginGood,int endGood) {
 
 		List<GoodListForJsp> goodListForJsp = new ArrayList<>();
-
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH_PAGES)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_SEARCH_PAGES)) {
 
 			ps.setString(1, searchInput);
 			ps.setInt(2, beginGood);
@@ -316,9 +315,8 @@ public class GoodDaoDBImpl implements GoodDao {
 	public List<GoodListForJsp> findAllGoodsJoinTables() {
 		
 		List<GoodListForJsp> goodList = new ArrayList<>();
-
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX)) {
 
 			resultSet = ps.executeQuery();
 
@@ -342,9 +340,9 @@ public class GoodDaoDBImpl implements GoodDao {
 	public List <GoodListForJsp> findAllGoodsJoinTablesWithPages(int beginGood,int endGood) {
 		
 		List<GoodListForJsp> goodListForJsp = new ArrayList<>();
-
-		try (Connection connection = DAOFactory.getDao().getConnectionPool().getConnect();
-				PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX_PAGINATION)) {
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_ALL_FOR_INDEX_PAGINATION)) {
 
 			ps.setInt(1, beginGood);
 			ps.setInt(2, endGood);

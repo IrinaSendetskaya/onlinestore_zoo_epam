@@ -136,18 +136,16 @@ public class ConnectionPool implements IConnectionPool{
 	 * @see by.htp.onlinestore.connection.IConnectionPool#disconnect(java.sql.Connection)
 	 */
 	@Override
-	public void disconnect(Connection connection) {
+	public void disconnect(Connection connection){
 
-		if (connection != null) {
-			
-			try {
-				connection=usedConnections.remove();
-				availableConnections.add(connection);		
-				connection.close();
-			} catch (SQLException e) {
-				logger.error(e.getMessage() + " in disconnect method of ConnectionPool class", e);
+		if (!usedConnections.isEmpty()) {
+				if(usedConnections.remove(connection)) {
+				availableConnections.add(connection);
+				}	
+			} 
+			else {
+				throw new NullPointerException("Connection not in the usedConnections array");
 			}
-		}
 	}
 
 }
