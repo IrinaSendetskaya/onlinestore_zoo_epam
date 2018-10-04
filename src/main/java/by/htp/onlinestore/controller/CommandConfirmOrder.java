@@ -7,9 +7,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.FormUtil;
 import by.htp.onlinestore.util.SessionUtilClass;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
@@ -45,7 +45,7 @@ public class CommandConfirmOrder extends Command {
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_CONFIRM_ORDER) != null) {
 				String status = "завершен";
 
-				List<Basket> baskets = DAOFactory.getDao().getBasketDAO().getAll(buyer.getId());
+				List<Basket> baskets = ServiceFactory.getService().getBasketDAO().getAll(buyer.getId());
 
 				Iterator<Basket> iterator = baskets.iterator();
 				while (iterator.hasNext()) {
@@ -54,7 +54,7 @@ public class CommandConfirmOrder extends Command {
 					sumReady = sumReady.add(currentBasket.getSum());
 					}
 					currentBasket.setStatusOrders(status);
-					DAOFactory.getDao().getBasketDAO().update(currentBasket);			
+					ServiceFactory.getService().getBasketDAO().update(currentBasket);			
 				}
 				if (sumReady != BigDecimal.ZERO) {
 					String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей",

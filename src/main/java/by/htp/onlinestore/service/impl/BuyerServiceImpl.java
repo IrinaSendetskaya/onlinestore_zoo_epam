@@ -61,4 +61,34 @@ public class BuyerServiceImpl implements BuyerService {
 		return buyerDao.read(login, password);
 	}
 
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#update(by.htp.onlinestore.entity.Buyer)
+	 */
+	@Override
+	public void update(Buyer entity) {
+
+		buyerDao.update(entity);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#delete(by.htp.onlinestore.entity.Buyer)
+	 */
+	@Override
+	public void delete(Buyer entity) {
+
+		buyerDao.delete(entity);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#create(by.htp.onlinestore.entity.Buyer)
+	 */
+	@Override
+	public void create(Buyer entity) {
+
+		buyerDao.create(entity);
+	}
+
 }

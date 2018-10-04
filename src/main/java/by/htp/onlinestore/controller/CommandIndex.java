@@ -3,7 +3,6 @@ package by.htp.onlinestore.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Good;
@@ -56,9 +55,9 @@ class CommandIndex extends Command {
 			/**
 			 * select the goods in search
 			 */
-			goods = DAOFactory.getDao().getGoodDAO().searchGoods("%" + nameSearch + "%");
+			goods = ServiceFactory.getService().getGoodDAO().searchGoods("%" + nameSearch + "%");
 			int startGood = PaginationUtilClass.makePagination(req, goods);
-			goodsListForJsp = DAOFactory.getDao().getGoodDAO().searchGoodsWithPages("%" + nameSearch + "%", startGood,
+			goodsListForJsp = ServiceFactory.getService().getGoodDAO().searchGoodsWithPages("%" + nameSearch + "%", startGood,
 					startGood + 5);
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST, goods);
 			req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_GOODS_LIST_FOR_JSP, goodsListForJsp);
@@ -93,8 +92,8 @@ class CommandIndex extends Command {
 					&& buyer.getRoleId() != 3) {
 				int id = 0;
 				int idGood = FormUtil.getInt(req, GoodFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
-				BigDecimal price = DAOFactory.getDao().getGoodDAO().read(idGood).getPrice();
-				String name = DAOFactory.getDao().getSpecificationGoodDAO().read(DAOFactory.getDao().getGoodDAO().read(idGood).getSpecificationGoodId())
+				BigDecimal price = ServiceFactory.getService().getGoodDAO().read(idGood).getPrice();
+				String name = ServiceFactory.getService().getSpecificationGoodDAO().read(ServiceFactory.getService().getGoodDAO().read(idGood).getSpecificationGoodId())
 						.getName();
 				int quantity = 1;
 				BigDecimal sum = price.multiply(new BigDecimal(quantity));
@@ -105,7 +104,7 @@ class CommandIndex extends Command {
 						.setStatusOrders(status).setBuyerId(buyer.getId()).setGoodId(idGood).build();
 
 				if (basket != null) {
-					DAOFactory.getDao().getBasketDAO().create(basket);
+					ServiceFactory.getService().getBasketDAO().create(basket);
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "товар " + name + " добавлен в корзину");
 				} else {
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,

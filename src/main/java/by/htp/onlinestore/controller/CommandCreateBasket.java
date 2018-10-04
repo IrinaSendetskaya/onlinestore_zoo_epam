@@ -7,6 +7,7 @@ import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.BasketListForJsp;
 import by.htp.onlinestore.entity.Buyer;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.constants.BasketFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
@@ -61,14 +62,14 @@ class CommandCreateBasket extends Command {
 					.setStatusOrders(status).setBuyerId(buyer.getId()).setGoodId(idGood).build();
 
 			if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_GOOD_IN_BASKET) != null) {
-				DAOFactory.getDao().getBasketDAO().update(basket);
+				ServiceFactory.getService().getBasketDAO().update(basket);
 			} else if (req
 					.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_GOOD_IN_BASKET) != null) {
-				DAOFactory.getDao().getBasketDAO().delete(basket);
+				ServiceFactory.getService().getBasketDAO().delete(basket);
 			}	
 		}
 		
-		baskets = DAOFactory.getDao().getBasketDAO().getAll(buyer.getId());
+		baskets = ServiceFactory.getService().getBasketDAO().getAll(buyer.getId());
 		
 		Iterator<Basket> iteratorBasket = baskets.iterator();
 		while (iteratorBasket.hasNext()) {
@@ -86,7 +87,7 @@ class CommandCreateBasket extends Command {
 		
 		int startGood = PaginationUtilClass.makePagination(req, baskets);
 		basketListForJsp = DAOFactory.getDao().getBasketDAO().findAllBasketsJoinTablesWithPages(buyer.getId(), startGood,
-				10);
+				10); ///
 
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST_FOR_JSP, basketListForJsp);

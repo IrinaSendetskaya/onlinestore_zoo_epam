@@ -52,4 +52,14 @@ public class SpecificationGoodServiceImpl implements SpecificationGoodService {
 		return specificationGoodDao.readAll();
 	}
 
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.SpecificationGoodService#read(int)
+	 */
+	@Override
+	public SpecificationGood read(int id) {
+
+		return specificationGoodDao.read(id);
+	}
+
 }

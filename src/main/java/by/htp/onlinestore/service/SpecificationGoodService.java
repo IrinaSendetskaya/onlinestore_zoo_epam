@@ -15,4 +15,10 @@ public interface SpecificationGoodService {
 	 * @return list of specificationGoods
 	 */
 	List<SpecificationGood> getSpecificationGoodList();
+	/**
+	 * it gets a SpecificationGood from database
+	 * @param id
+	 * @return an entity
+	 */
+	SpecificationGood read(int id);
 }

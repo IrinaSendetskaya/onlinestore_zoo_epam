@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
@@ -46,7 +46,7 @@ public class CommandLogin extends Command{
         String nickname= FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN, ValidationRegex.REGEX_LOGIN);
         String password=FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_PASS,ValidationRegex.REGEX_PASS);
 
-        Buyer currentBuyer=DAOFactory.getDao().getBuyerDAO().read(nickname, password); 
+        Buyer currentBuyer=ServiceFactory.getService().getBuyerDAO().getBuyerByLoginAndPassword(nickname, password); 
 
         if (currentBuyer!=null) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "пользователь " + nickname + " найден");

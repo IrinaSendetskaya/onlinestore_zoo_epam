@@ -82,4 +82,34 @@ public class GoodServiceImpl implements GoodService {
 		return goodDao.findAllGoodsJoinTablesWithPages(startGood, endGood);
 	}
 
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.GoodService#searchGoods(java.lang.String)
+	 */
+	@Override
+	public List<Good> searchGoods(String searchInput) {
+
+		return goodDao.searchGoods(searchInput);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.GoodService#searchGoodsWithPages(java.lang.String, int, int)
+	 */
+	@Override
+	public List<GoodListForJsp> searchGoodsWithPages(String searchInput, int beginGood, int endGood) {
+
+		return goodDao.searchGoodsWithPages(searchInput, beginGood, endGood);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.GoodService#read(int)
+	 */
+	@Override
+	public Good read(int id) {
+
+		return goodDao.read(id);
+	}
+
 }

@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 import by.htp.onlinestore.util.constants.EntityNameConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
@@ -38,7 +38,7 @@ public class CommandSignup extends Command {
         String mobile = FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_MOBILE, ValidationRegex.REGEX_MOBILE);
         String address = FormUtil.getString(req,BuyerFieldConstantDeclaration.REQUEST_PARAM_ADDRESS, ValidationRegex.REGEX_ALL_SYMBOL);
         
-        Buyer newBuyer=DAOFactory.getDao().getBuyerDAO().read(nickname, password);
+        Buyer newBuyer=ServiceFactory.getService().getBuyerDAO().getBuyerByLoginAndPassword(nickname, password);
         
         if(newBuyer==null)
         {
@@ -51,7 +51,7 @@ public class CommandSignup extends Command {
         		.setRoleId(2)
         		.build();      		
 
-        DAOFactory.getDao().getBuyerDAO().create(newBuyer);
+       ServiceFactory.getService().getBuyerDAO().create(newBuyer);
 
         if (newBuyer.getNickname() !=null){
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Пользователь зарегестрирован");

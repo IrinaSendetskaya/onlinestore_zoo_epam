@@ -3,9 +3,9 @@ package by.htp.onlinestore.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.entity.Role;
+import by.htp.onlinestore.service.ServiceFactory;
 import by.htp.onlinestore.util.constants.ButtonNameConstantDeclaration;
 import by.htp.onlinestore.util.constants.BuyerFieldConstantDeclaration;
 import by.htp.onlinestore.util.FormUtil;
@@ -46,14 +46,14 @@ class CommandEditBuyer extends Command {
             		.setRoleId(roleId)
             		.build(); 
             if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_UPDATE_BUYER_FROM_ADMIN)!=null){
-                DAOFactory.getDao().getBuyerDAO().update(buyer);
+                ServiceFactory.getService().getBuyerDAO().update(buyer);
             }
             else if (req.getParameter(ButtonNameConstantDeclaration.REQUEST_PARAM_BTN_DELETE_BUYER_FROM_ADMIN)!=null){
-                DAOFactory.getDao().getBuyerDAO().delete(buyer);
+            	ServiceFactory.getService().getBuyerDAO().delete(buyer);
             }
         }
-        List<Buyer> buyers = DAOFactory.getDao().getBuyerDAO().readAll();
-        List<Role> roles = DAOFactory.getDao().getRoleDAO().readAll();
+        List<Buyer> buyers = ServiceFactory.getService().getBuyerDAO().getBuyerList();
+        List<Role> roles = ServiceFactory.getService().getRoleDAO().getRoleList();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_ROLES_LIST,roles);
         return null;

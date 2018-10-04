@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Good;
 import by.htp.onlinestore.entity.Image;
 import by.htp.onlinestore.entity.Measure;
@@ -59,7 +58,6 @@ public class CommandCreateGood extends Command {
 			good.setMeasureId(measureId);
 			good.setSpecificationGoodId(specificationGood.getId());
 
-			//DAOFactory.getDao().getGoodDAO().createNewGood(good, specificationGood, image, measureId, sectionId);
 			ServiceFactory.getService().getGoodDAO().createNewGood(good, specificationGood, image, measureId, sectionId);
 
 				if (good.getId() != 0) {
@@ -70,8 +68,8 @@ public class CommandCreateGood extends Command {
 				}
 		}
 		
-		List<Measure> measures = DAOFactory.getDao().getMeasureDAO().readAll();
-		List<Section> sections = DAOFactory.getDao().getSectionDAO().readAll();
+		List<Measure> measures = ServiceFactory.getService().getMeasureDAO().getMeasureList();
+		List<Section> sections =ServiceFactory.getService().getSectionDAO().getSectionList();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_MEASURES_LIST,measures);
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_SECTIONS_LIST,sections);
         return null;

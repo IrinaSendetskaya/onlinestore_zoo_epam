@@ -42,5 +42,25 @@ public interface GoodService {
 	 * @return list of goods
 	 */
 	List<GoodListForJsp> findAllGoodsJoinTablesWithPages(int startGood, int endGood);
+	/**
+	 * it gets list of searching goods by some criteria
+	 * @param searchInput
+	 * @return list of goods
+	 */
+	List<Good> searchGoods(String searchInput);
+	/**
+	 * it gets list of searching goods by some criteria with pagination
+	 * @param searchInput
+	 * @param beginGood
+	 * @param endGood
+	 * @return list of goods 
+	 */
+	List<GoodListForJsp> searchGoodsWithPages(String searchInput,int beginGood,int endGood);
+	/**
+	 * it gets a Good from database
+	 * @param id
+	 * @return an entity
+	 */
+	Good read(int id);
 
 }

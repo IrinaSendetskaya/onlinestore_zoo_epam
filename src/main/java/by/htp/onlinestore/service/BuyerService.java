@@ -23,4 +23,21 @@ public interface BuyerService {
 	 * @return a desired buyer
 	 */
 	Buyer getBuyerByLoginAndPassword(String login, String password);
+	/**
+	 * it creates a new Buyer in database
+	 *
+	 * @param entity
+	 */
+	void create(Buyer entity);
+	/**
+	 * it updates a Buyer in database
+	 * @param entity
+	 */
+	void update(Buyer entity);
+
+	/**
+	 * it deletes a Buyer from database
+	 * @param entity
+	 */
+	void delete(Buyer entity);
 }
