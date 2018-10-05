@@ -3,6 +3,7 @@ package by.htp.onlinestore.util;
 import javax.servlet.http.HttpServletRequest;
 
 import by.htp.onlinestore.exception.ValidateParamException;
+import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -18,8 +19,6 @@ import java.util.regex.Pattern;
  */
 public class FormUtil {
 
-	// private static final Logger logger = LoggerFactory.getLogger(FormUtil.class);
-
 	/**
 	 * parsing to validate the string
 	 * @param req
@@ -33,9 +32,8 @@ public class FormUtil {
 		if (value.matches(regxp))
 			return value;
 		else {
-			throw new ParseException("Неверные данные. Вводите только корректные символы!", 1);
-			// logger.error("IllegalArgumentException in ParseException method of FormUtil
-			// class");
+			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,"Неверные данные. Вводите только корректные символы!");
+			throw new ParseException("Неверные данные. Вводите только корректные символы!", 1);		
 		}
 	}
 
@@ -55,6 +53,7 @@ public class FormUtil {
 			if (string.matches(regxp)) {
 				valueList.add(string);
 			} else {
+				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,"Неверные данные. Вводите только корректные символы!");
 				throw new ParseException("Неверные данные. Вводите только корректные символы!", 1);
 			}
 		}
@@ -128,9 +127,13 @@ public class FormUtil {
 	 * validates a locale
 	 * @param locale
 	 */
-	public static void validateRequestParamLocale(String locale) {
+	public static void validateRequestParamLocale(HttpServletRequest req, String locale) {
 		if (locale == null || !Pattern.matches(ValidationRegex.REGEX_LOCALE_PARAM, locale))
+		{
+			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,"Неизвестный язык!");
 			throw new ValidateParamException("Undefined locale!");
+		}
+			
 	}
 
 }

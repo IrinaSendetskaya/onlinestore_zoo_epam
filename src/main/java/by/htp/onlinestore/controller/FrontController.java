@@ -61,6 +61,7 @@ public class FrontController extends HttpServlet {
             nextStep = command.execute(req,resp);
         } catch (Exception e) {
             req.setAttribute(MessageConstantDeclaration.MSG_ERROR,"Ошибка:"+e.getMessage());
+            req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,"Ошибка:"+e.getMessage());
             String errorJsp=NameCommands.ERROR.command.getJsp();
             dispatcher=servletContext.getRequestDispatcher(errorJsp);
             logger.error("Exception in process method of FrontController class", e);

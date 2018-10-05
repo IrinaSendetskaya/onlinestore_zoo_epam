@@ -72,12 +72,10 @@ class CommandProfile extends Command {
             }
 		}
 
-		List<Basket> baskets =ServiceFactory.getService().getBasketDAO().getAll(buyer.getId());
+		List<Basket> baskets =ServiceFactory.getService().getBasketDAO().getAllByStatus(buyer.getId(), "завершен");
 		int startGood = PaginationUtilClass.makePagination(req, baskets);
-		baskets=ServiceFactory.getService().getBasketDAO().findAllBasketsWithPages(buyer.getId(),startGood, startGood+5);
+		baskets=ServiceFactory.getService().getBasketDAO().findAllBasketsWithPagesByStatus(buyer.getId(),startGood, startGood+5, "завершен");
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
-//		List<Buyer> buyers = DAOFactory.getDao().getBuyerDAO().readAll();
-//        req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
 		
 		return null;
 	}

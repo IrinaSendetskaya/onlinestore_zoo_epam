@@ -28,7 +28,7 @@ public class CommandChangeLocale extends Command {
 		
 		String locale = request.getParameter(WebConstantDeclaration.REQUEST_PARAM_LOCALE);
 		try {
-			FormUtil.validateRequestParamLocale(locale);
+			FormUtil.validateRequestParamLocale(request,locale);
 			String[] localArr = locale.split("_");
 			ResourceBundle.getBundle(LOCALE_MESSAGES, new Locale(localArr[0], localArr[1]));
 			request.getSession().setAttribute(WebConstantDeclaration.SESSION_PARAM_CURRENT_LOCALES, locale);

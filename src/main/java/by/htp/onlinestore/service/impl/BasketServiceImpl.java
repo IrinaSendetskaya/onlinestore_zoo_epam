@@ -5,6 +5,7 @@ import java.util.List;
 import by.htp.onlinestore.dao.BasketDao;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
+import by.htp.onlinestore.entity.BasketListForJsp;
 import by.htp.onlinestore.service.BasketService;
 
 /**
@@ -90,6 +91,34 @@ public class BasketServiceImpl implements BasketService {
 	public List<Basket> findAllBasketsWithPages(int buyerId, int beginGood, int endGood) {
 
 		return basketDao.findAllBasketsWithPages(buyerId, beginGood, endGood);
+	}
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BasketService#getAllByStatus(int, java.lang.String)
+	 */
+	@Override
+	public List<Basket> getAllByStatus(int buyerId, String status) {
+
+		return basketDao.getAllByStatus(buyerId, status);
+	}
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BasketService#findAllBasketsWithPagesByStatus(int, int, int, java.lang.String)
+	 */
+	@Override
+	public List<Basket> findAllBasketsWithPagesByStatus(int buyerId, int beginGood, int endGood, String status) {
+
+		return basketDao.findAllBasketsWithPagesByStatus(buyerId, beginGood, endGood, status);
+	}
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BasketService#findAllBasketsJoinTablesWithPagesByStatus(int, int, int, java.lang.String)
+	 */
+	@Override
+	public List<BasketListForJsp> findAllBasketsJoinTablesWithPagesByStatus(int buyerId, int beginGood, int endGood,
+			String status) {
+
+		return basketDao.findAllBasketsJoinTablesWithPagesByStatus(buyerId, beginGood, endGood, status);
 	}
 
 }

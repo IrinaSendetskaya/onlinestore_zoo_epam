@@ -50,6 +50,15 @@ public class BasketDaoDBImpl implements BasketDao {
 			+ "FROM `Baskets` JOIN `Goods` ON `fk_goods` = `Goods`.`id` JOIN `SpecificationGoods` ON "
 			+ "`Goods`.`fk_specificationGoods` = `SpecificationGoods`.`id` JOIN `Images` ON "
 			+ "`SpecificationGoods`.`fk_images` = `Images`.`id`WHERE `fk_buyers`=? LIMIT ?, ?";
+	private static final String SQL_READ_IDBUYER_STATUS = "SELECT `id`, `quantity`, `sum`,"
+			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=? AND `status`=?";
+	private static final String SQL_READ_PAGES_STATUS = "SELECT `id`, `quantity`, `sum`,"
+			+ " `dateOrder`, `status`, `fk_buyers`, `fk_goods` FROM `Baskets` WHERE `fk_buyers`=? AND `status`=? LIMIT ?, ?";
+	private static final String SQL_READ_FOR_BASKET_JSP_PAGES_STATUS = "SELECT `Baskets`.`id`, `Images`.`imageUrl`,"
+			+ " `SpecificationGoods`.`name`, `quantity`, `sum`, `dateOrder`, `status`, `fk_buyers`, `fk_goods` "
+			+ "FROM `Baskets` JOIN `Goods` ON `fk_goods` = `Goods`.`id` JOIN `SpecificationGoods` ON "
+			+ "`Goods`.`fk_specificationGoods` = `SpecificationGoods`.`id` JOIN `Images` ON "
+			+ "`SpecificationGoods`.`fk_images` = `Images`.`id`WHERE `fk_buyers`=? AND `status`=? LIMIT ?, ?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BasketDaoDBImpl.class);
 	
@@ -253,6 +262,99 @@ public class BasketDaoDBImpl implements BasketDao {
 			ps.setInt(1, buyerId);
 			ps.setInt(2, beginGood);
 			ps.setInt(3, endGood);
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				basketList.add(goodListBuilder(resultSet));
+
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return basketList;
+	}
+	
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#getAllByStatus(int, java.lang.String)
+	 */
+	@Override
+	public List<Basket> getAllByStatus(int buyerId, String status) {
+		
+		List<Basket> basketList = new ArrayList<>();
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_IDBUYER_STATUS)) {
+
+			ps.setInt(1, buyerId);
+			ps.setString(2, status);
+
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				basketList.add(basketBuilder(resultSet));
+
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in getallWhere method of BasketDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return basketList;
+	}
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#findAllBasketsWithPagesByStatus(int, int, int, java.lang.String)
+	 */
+	@Override
+	public List<Basket> findAllBasketsWithPagesByStatus(int buyerId, int beginGood, int endGood, String status) {
+		
+		List<Basket> basketList = new ArrayList<>();
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_PAGES_STATUS)) {
+
+			ps.setInt(1, buyerId);
+			ps.setString(2, status);
+			ps.setInt(3, beginGood);
+			ps.setInt(4, endGood);
+		
+			resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				basketList.add(basketBuilder(resultSet));
+
+			}
+		} catch (SQLException e) {
+			logger.error("SQLException in getallWithPages method of BasketDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return basketList;
+	}
+
+	
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BasketDao#findAllBasketsJoinTablesWithPagesByStatus(int, int, int, java.lang.String)
+	 */
+	@Override
+	public List<BasketListForJsp> findAllBasketsJoinTablesWithPagesByStatus(int buyerId, int beginGood, int endGood,
+			String status) {
+		
+		List<BasketListForJsp> basketList = new ArrayList<>();
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_FOR_BASKET_JSP_PAGES_STATUS)) {
+
+			ps.setInt(1, buyerId);
+			ps.setString(2, status);
+			ps.setInt(3, beginGood);
+			ps.setInt(4, endGood);
 			resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {

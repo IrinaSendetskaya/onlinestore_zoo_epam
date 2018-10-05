@@ -57,8 +57,8 @@ public class CommandLogin extends Command{
             return NameCommands.INDEX.command;
         }
         else {
-            req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "пользователь " + nickname + " НЕ найден");
-            req.setAttribute(MessageConstantDeclaration.MSG_ERROR, "Неверный логин или пароль");
+            req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "пользователь " + nickname + " НЕ найден");
+            req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Неверный логин или пароль");
             return NameCommands.LOGIN.command;
         }
     }

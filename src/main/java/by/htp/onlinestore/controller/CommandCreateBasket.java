@@ -3,7 +3,6 @@ package by.htp.onlinestore.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Basket;
 import by.htp.onlinestore.entity.BasketListForJsp;
 import by.htp.onlinestore.entity.Buyer;
@@ -42,7 +41,6 @@ class CommandCreateBasket extends Command {
 		List<Basket> baskets = new ArrayList<>();
 		List<BasketListForJsp> basketListForJsp = new ArrayList<>();
 		BigDecimal sumNew = BigDecimal.ONE;
-		Boolean flag=false;
 
 		Buyer buyer=SessionUtilClass.findInSession(req, EntityNameConstantDeclaration.REQUEST_PARAM_BUYER);
 		if (buyer == null) {
@@ -53,7 +51,7 @@ class CommandCreateBasket extends Command {
 			int id = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_BASKET_ID);
 			int quantity = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_QUANTITY);
 			int idGood = FormUtil.getInt(req, BasketFieldConstantDeclaration.REQUEST_PARAM_GOOD_ID);
-			BigDecimal price = DAOFactory.getDao().getGoodDAO().read(idGood).getPrice();
+			BigDecimal price = ServiceFactory.getService().getGoodDAO().read(idGood).getPrice();
 			sumNew = price.multiply(new BigDecimal(quantity));
 			Date dateOrder = CurrentDateUtilClass.returnCurrentDate();
 			String status = "товар в корзине";
@@ -69,25 +67,17 @@ class CommandCreateBasket extends Command {
 			}	
 		}
 		
-		baskets = ServiceFactory.getService().getBasketDAO().getAll(buyer.getId());
-		
-		Iterator<Basket> iteratorBasket = baskets.iterator();
-		while (iteratorBasket.hasNext()) {
-			String status = iteratorBasket.next().getStatusOrders();
-			if("товар в корзине".equalsIgnoreCase(status)) {
-				flag=true;
-			}
-		}
-		
-		if (baskets.isEmpty()||!flag) {
+		baskets =ServiceFactory.getService().getBasketDAO().getAllByStatus(buyer.getId(), "товар в корзине");
+
+		if (baskets.isEmpty()) {  
 			req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ваша корзина пуста!");
 		}
 		else
 		{
 		
 		int startGood = PaginationUtilClass.makePagination(req, baskets);
-		basketListForJsp = DAOFactory.getDao().getBasketDAO().findAllBasketsJoinTablesWithPages(buyer.getId(), startGood,
-				10); ///
+		basketListForJsp = ServiceFactory.getService().getBasketDAO().findAllBasketsJoinTablesWithPagesByStatus(buyer.getId(), startGood,
+				10, "товар в корзине");
 
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST_FOR_JSP, basketListForJsp);
