@@ -38,6 +38,12 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			+ "`mobile`, `address`, `fk_roles` FROM `Buyers` ";
 	private static final String SQL_READ_BY_LOGIN_AND_PASSWORD = "SELECT `id`, `nickname`, `password`, `email`, "
 			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` WHERE `nickname`=? AND `password`=?";
+	private static final String SQL_READ_BY_LOGIN = "SELECT `id`, `nickname`, `password`, `email`, "
+			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` WHERE `nickname`=?";
+	private static final String SQL_READ_BY_EMAIL = "SELECT `id`, `nickname`, `password`, `email`, "
+			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` WHERE `email`=?";
+	private static final String SQL_READ_BY_PASS = "SELECT `id`, `nickname`, `password`, `email`, "
+			+ "`mobile`, `address`, `fk_roles`  FROM `Buyers` WHERE `password`=?";
 
 	private static final Logger logger = LoggerFactory.getLogger(BuyerDaoDBImpl.class);
 
@@ -188,6 +194,79 @@ public class BuyerDaoDBImpl implements BuyerDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BuyerDao#readByLogin(java.lang.String)
+	 */
+	@Override
+	public Buyer readByLogin(String login) {
+		
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_LOGIN)) {
+
+			ps.setString(1, login);
+			resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return buyerBuilder(resultSet);
+			}
+
+		} catch (SQLException e) {
+			logger.error("SQLException in readByLogin method of BuyerDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BuyerDao#readByEmail(java.lang.String)
+	 */
+	@Override
+	public Buyer readByEmail(String email) {
+		
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_EMAIL)) {
+
+			ps.setString(1, email);
+			resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return buyerBuilder(resultSet);
+			}
+
+		} catch (SQLException e) {
+			logger.error("SQLException in readByEmail method of BuyerDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.dao.BuyerDao#readByPassword(java.lang.String)
+	 */
+	@Override
+	public Buyer readByPassword(String password) {
+		
+		connection = DAOFactory.getDao().getConnectionPool().getConnect();
+		try (PreparedStatement ps = connection.prepareStatement(SQL_READ_BY_PASS)) {
+
+			ps.setString(1, password);
+			resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return buyerBuilder(resultSet);
+			}
+
+		} catch (SQLException e) {
+			logger.error("SQLException in readByPassword method of BuyerDaoDBImpl class", e);
+		} finally {
+			DAOFactory.getDao().getConnectionPool().disconnect(connection);
+			close(resultSet);
+		}
+		return null;
+	}
+
+
 	/**
 	 * get values from ResultSet and set them to Buyer object
 	 * @param rs
@@ -225,5 +304,7 @@ public class BuyerDaoDBImpl implements BuyerDao {
 			}
 		}
 	}
+
+	
 
 }

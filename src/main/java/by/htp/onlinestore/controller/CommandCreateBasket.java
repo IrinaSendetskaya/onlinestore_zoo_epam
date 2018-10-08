@@ -92,7 +92,7 @@ class CommandCreateBasket extends Command {
 		
 		
 		}
-		return null;
+		return NameCommands.CREATEBASKET.command;
 	}
 
 }

@@ -36,7 +36,7 @@ public class CommandLogin extends Command{
     public Command execute(HttpServletRequest req, HttpServletResponse resp) throws ParseException, SQLException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
 
         if (!FormUtil.isPost(req))
-            return null;
+        	return NameCommands.LOGIN.command;
 
         if (req.getParameter(BuyerFieldConstantDeclaration.REQUEST_PARAM_LOGIN).equals("")) {
             req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Введите имя пользователя и пароль");

@@ -6,6 +6,10 @@ import by.htp.onlinestore.dao.BuyerDao;
 import by.htp.onlinestore.dao.DAOFactory;
 import by.htp.onlinestore.entity.Buyer;
 import by.htp.onlinestore.service.BuyerService;
+import by.htp.onlinestore.util.CheckBuyerUtil;
+import by.htp.onlinestore.util.FormUtil;
+import by.htp.onlinestore.util.ValidationRegex;
+import by.htp.onlinestore.util.constants.MessageConstantDeclaration;
 
 /**
  * Class provides methods for working with Buyers table.
@@ -89,6 +93,83 @@ public class BuyerServiceImpl implements BuyerService {
 	public void create(Buyer entity) {
 
 		buyerDao.create(entity);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#checkBuyerByLogin(java.lang.String)
+	 */
+	@Override
+	public String checkBuyerByLogin(String login) {
+
+		if(login.length()==0)
+			return "";
+		else if (!FormUtil.validateString(login, ValidationRegex.REGEX_LOGIN)) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_LOGIN_VALIDE, false);
+		}
+		else if (buyerDao.readByLogin(login) != null) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_LOGIN_NOT_FREE, false);
+		}
+		else
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_LOGIN_FREE, true);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#checkBuyerByEmail(java.lang.String)
+	 */
+	@Override
+	public String checkBuyerByEmail(String email) {
+		
+		if(email.length()==0)
+			return "";
+		else if (!FormUtil.validateString(email, ValidationRegex.REGEX_EMAIL)) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_EMAIL_VALIDE, false);
+		}
+		else if (buyerDao.readByEmail(email) != null) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_EMAIL_NOT_FREE, false);
+		}
+		else
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_EMAIL_FREE, true);
+	
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#checkBuyerByLoginAndPassword(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String checkBuyerByLoginAndPassword(String login, String password) {
+		
+		if (!(FormUtil.validateString(login, ValidationRegex.REGEX_LOGIN)||FormUtil.validateString(password, ValidationRegex.REGEX_PASS))) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_SIGNUP_VALIDE, false);
+		}
+		else if (getBuyerByLoginAndPassword(login, password) != null) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_SIGNUP_LOGIN_NOT_FREE, false);
+		}
+		else
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_SIGNUP_OK, true);
+	
+	}
+
+
+	/* (non-Javadoc)
+	 * @see by.htp.onlinestore.service.BuyerService#checkBuyerByPassword(java.lang.String)
+	 */
+	@Override
+	public String checkBuyerByPassword(String password) {
+		
+		if(password.length()==0)
+			return "";
+		else if (!FormUtil.validateString(password, ValidationRegex.REGEX_PASS)) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_PASS_VALIDE, false);
+		}
+		else if (buyerDao.readByPassword(password) != null) {
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_PASS_NOT_FREE, false);
+		}
+		else
+			return CheckBuyerUtil.styleCheckUserDataResult(MessageConstantDeclaration.MSG_CHECK_IF_PASS_FREE, true);
+	
 	}
 
 }

@@ -6,7 +6,7 @@
 <%@ attribute name="urlprefix" required="true" rtexprvalue="true" type="java.lang.String" %>
 <%
     out.println("PAGE:");
-    for (int i = 0; i <= (count - 1) / step; i++) {
-        out.println(String.format("&nbsp<a href='%s%d'>%d</a>", urlprefix, i * step, i+1));
+    for (int i = 0; i <= count/step; i++) {
+        out.println(String.format("&nbsp<a href='%s%d'>%d</a>",urlprefix,i*step,i+1));
     }
 %>

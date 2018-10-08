@@ -64,7 +64,7 @@ public class CommandCreateGood extends Command {
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Товар создан!");
 				} else {
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ошибка добавления товара");
-					return null;
+					return NameCommands.CREATEGOOD.command;
 				}
 		}
 		
@@ -72,6 +72,6 @@ public class CommandCreateGood extends Command {
 		List<Section> sections =ServiceFactory.getService().getSectionDAO().getSectionList();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_MEASURES_LIST,measures);
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_SECTIONS_LIST,sections);
-        return null;
+        return NameCommands.CREATEGOOD.command;
 	}
 }

@@ -26,4 +26,5 @@ public final class ValidationRegex {
 	public static final String REGEX_SYMBOL_DIGITAL_AND_ = "[\\w]+";
 	public static final String REGEX_LOCALE_PARAM = "[a-zA-Z]{2}_[a-zA-Z]{2}";
 
+	
 }

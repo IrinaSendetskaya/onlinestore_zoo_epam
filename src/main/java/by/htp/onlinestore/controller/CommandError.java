@@ -15,6 +15,6 @@ public class CommandError extends Command{
      */
     @Override
     public Command execute(HttpServletRequest req, HttpServletResponse resp) {
-        return null;
+    	return NameCommands.ERROR.command;
     }
 }

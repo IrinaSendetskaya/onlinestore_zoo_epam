@@ -40,4 +40,31 @@ public interface BuyerService {
 	 * @param entity
 	 */
 	void delete(Buyer entity);
+	
+	/**
+	 * it check a login from database
+	 * @param login
+	 * @return msg
+	 */
+	String checkBuyerByLogin(String login);
+	/**
+	 * it check an email from database
+	 * @param login
+	 * @return msg
+	 */
+	String checkBuyerByEmail(String email);
+	/**
+	 * it check login and password from database
+	 * @param login
+	 * @param password
+	 * @return msg
+	 */
+	String checkBuyerByLoginAndPassword(String login, String password);
+	/**
+	 * it check password from database
+	 * @param login
+	 * @param password
+	 * @return msg
+	 */
+	String checkBuyerByPassword(String password);
 }

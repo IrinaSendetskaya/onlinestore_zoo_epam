@@ -33,7 +33,7 @@ public class CommandChangeLocale extends Command {
 			ResourceBundle.getBundle(LOCALE_MESSAGES, new Locale(localArr[0], localArr[1]));
 			request.getSession().setAttribute(WebConstantDeclaration.SESSION_PARAM_CURRENT_LOCALES, locale);
 		} catch (ValidateParamException e) {
-			request.setAttribute(MessageConstantDeclaration.MSG_ERROR,
+			request.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,
 					"Undefined locale!");
 			return NameCommands.ERROR.command;
 		}

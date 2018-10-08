@@ -56,6 +56,7 @@ class CommandEditBuyer extends Command {
         List<Role> roles = ServiceFactory.getService().getRoleDAO().getRoleList();
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BUYERS_LIST,buyers);
         req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_ROLES_LIST,roles);
-        return null;
+        
+        return NameCommands.EDITBUYER.command;
     }
 }

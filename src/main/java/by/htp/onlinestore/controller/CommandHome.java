@@ -16,7 +16,7 @@ public class CommandHome extends Command {
 	 */
 	@Override
 	Command execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return null;
+		return NameCommands.HOME.command;
 	}
 
 }

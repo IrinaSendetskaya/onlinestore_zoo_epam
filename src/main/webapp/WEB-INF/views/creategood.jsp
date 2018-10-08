@@ -29,6 +29,14 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+
 <title>${title}</title>
 </head>
 
@@ -96,101 +104,7 @@
 		</div>
 	</div>
 	<hr>
-	<%-- <div class="container">
-		<p>${searchMsgLoc}</p>
-		<form class="read-good" action="do?command=ReadGoods" method=POST>
-			<div class="row">
-				<div class=col-md-6>
-					<select id="filmId" class="form-control" name="filmId"
-						required="required">
-						<c:forEach items="${filmlist}" var="film">
-							<option value="${film.id}">${film.filmName}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<button id="read" value="read" name="crudCommand"
-					class="col-md-1 btn btn-success">${searchButtonLoc}</button>
-			</div>
-		</form>
-	</div>
-	<hr>
-	<c:if test="${foundFilm!=null}">
-		<br>
-		<div class="container">
-			<form class="update-user" action="cinema?action=crud_film"
-				method=POST>
-
-				<div class="row">
-					<div class=col-md-3>ID :</div>
-					<div class=col-md-9>
-						<input id="filmId" class="form-control input-md" name="filmId"
-							value="${foundFilm.id}" readonly="readonly" />
-					</div>
-				</div>
-				<div class="row">
-					<div class=col-md-3>${filmNameLoc}:</div>
-					<div class=col-md-9>
-						<input id="filmName" class="form-control input-md" name="filmName"
-							value="${foundFilm.filmName}" />
-					</div>
-				</div>
-				<div class="row">
-					<div class=col-md-3>${posterURLLoc}:</div>
-					<div class=col-md-9>
-						<input id="filmPosterUrl" class="form-control input-md"
-							name="filmPosterUrl" value="${foundFilm.posterUrl}" />
-					</div>
-				</div>
-				<div class="row">
-					<div class=col-md-3>${videoIdLoc}:</div>
-					<div class=col-md-9>
-						<input id="filmYouTubeVideoId" class="form-control input-md"
-							name="filmYouTubeVideoId" value="${foundFilm.youTubeVideoId}" />
-					</div>
-				</div>
-
-				<div class="row">
-					<div class=col-md-3>${description}:</div>
-					<div class=col-md-9>
-						<textarea id="filmDescription" name="filmDescription" cols="100"
-							rows="50">${foundFilm.description} </textarea>
-					</div>
-				</div>
-				<div class="row">
-					<div class=col-md-3>${sections}:</div>
-					<div class=col-md-5>
-						<select id="section" class="form-control" name="fk_sections"
-							multiple="multiple" size="5" required>
-							<option disabled>${msg_sections}</option>
-							<c:forEach items="${sections}" var="section">
-								<option value="${section.id}"
-									${foundFilm.genres.contains(section)?"selected":""}>
-									${section.section}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-				
-				<select id="genre" class="form-control" name="filmGenresId"
-								multiple="multiple" size="5" required>
-								<option disabled>${chooseGenresMsgLoc}</option>
-								<c:forEach items="${genrelist}" var="genre">
-									<option value="${genre.id}">${genre.genreName}</option>
-								</c:forEach>
-							</select>
-							
-							
-							
-							
-				<button id="btnUpdateGood" value="btnUpdateGood"
-					name="btnUpdateGood" class="btn btn-success">${btn_update}</button>
-
-				<button id="btnDeleteGood" value="btnDeleteGood"
-					name="btnDeleteGood" class="btn btn-danger">${btn_delete}</button>
-			</form>
-
-		</div>
-	</c:if> --%>
+	
 	
 	<%@ include file="include/end-html.jspf"%>
 

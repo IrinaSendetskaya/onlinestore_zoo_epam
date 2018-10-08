@@ -68,7 +68,7 @@ class CommandIndex extends Command {
 				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,
 						"товар по Вашему поиску найдено: " + goodsListForJsp.size() + "товаров!");
 			}
-			return null;
+			return NameCommands.INDEX.command;
 		} else {
 			/**
 			 * select all goods
@@ -110,10 +110,10 @@ class CommandIndex extends Command {
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE,
 							"товар " + name + " не добавлен в корзину");
 				}
-				return null;
+				return NameCommands.INDEX.command;
 			}		
 		}
-		return null;
+		return NameCommands.INDEX.command;
 	}
 
 }

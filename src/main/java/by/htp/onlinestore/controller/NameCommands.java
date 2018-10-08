@@ -66,6 +66,11 @@ public enum NameCommands {
 		{
 			this.command = new CommandChangeLocale();
 		}
+	},
+	CHECKSIGNUP {
+		{
+			this.command = new CommandCheckSignup();
+		}
 	};
 
 	/**

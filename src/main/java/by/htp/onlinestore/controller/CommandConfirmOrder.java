@@ -60,13 +60,11 @@ public class CommandConfirmOrder extends Command {
 					String sumReadyAll = String.format("Ваш заказ принят, сумма к оплате: %5.2f рублей",
 							sumReady);
 					req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, sumReadyAll);
-					
-					return null;
 				}
 			} else {
 				req.setAttribute(MessageConstantDeclaration.MSG_MESSAGE, "Ваша корзина пуста, добавьте товары!");
 			}
 		}
-		return null;
+		return NameCommands.CONFIRMORDER.command;
 	}
 }

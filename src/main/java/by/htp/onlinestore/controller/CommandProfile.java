@@ -77,6 +77,6 @@ class CommandProfile extends Command {
 		baskets=ServiceFactory.getService().getBasketDAO().findAllBasketsWithPagesByStatus(buyer.getId(),startGood, startGood+5, "завершен");
 		req.setAttribute(ListConstantDeclaration.REQUEST_PARAM_BASKETS_LIST, baskets);
 		
-		return null;
+		return NameCommands.PROFILE.command;
 	}
 }

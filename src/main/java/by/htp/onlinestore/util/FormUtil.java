@@ -135,5 +135,21 @@ public class FormUtil {
 		}
 			
 	}
+	/**
+	 * validates a String
+	 * @param req
+	 * @param field
+	 * @param regxp
+	 * @return true or false
+
+	 */
+	public static boolean validateString(String field, String regxp) {
+		if (field.matches(regxp))
+			return true;
+		else {
+			return false;		
+		}
+			
+	}
 
 }

@@ -17,7 +17,7 @@ abstract class Command {
      * @return a command
      * @throws Exception
      */
-    abstract  Command execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+  abstract  Command execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     /**
      * @return a transforming string jsp
